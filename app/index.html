@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data:">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Weekly Goal Dashboard</title>
+<style>
+:root{--bg:#f6f5f1;--card:#fff;--tx:#1d1d1b;--mu:#6b6a65;--ac:#b4472b;--ln:#e3e1da;--ok:#2f7d4f;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#171716;--card:#222220;--tx:#efeee9;--mu:#9d9b93;--ac:#e0704f;--ln:#38362f;--ok:#5cc184;color-scheme:dark}}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.45 Georgia,'Times New Roman',serif}
+main{max-width:860px;margin:0 auto;padding:16px}
+h1{font-size:1.6rem;margin:.2em 0}h2{font-size:1.05rem;margin:0 0 10px;letter-spacing:.04em;text-transform:uppercase;color:var(--mu);font-family:system-ui,sans-serif}
+.card{background:var(--card);border:1px solid var(--ln);border-radius:12px;padding:16px;margin:14px 0}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.sp{justify-content:space-between}
+button,input,select,textarea{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--ln);border-radius:8px;padding:7px 10px}
+button{cursor:pointer}button.p{background:var(--ac);color:#fff;border-color:var(--ac)}
+textarea{width:100%;min-height:60px;resize:vertical}
+input[type=text],input[type=date]{min-width:0}
+.bar{height:10px;background:var(--ln);border-radius:6px;overflow:hidden}.bar>i{display:block;height:100%;background:var(--ac)}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.goal{border:1px solid var(--ln);border-radius:10px;padding:12px}
+.goal b{font-size:1.05rem}.mu{color:var(--mu);font-size:.85rem;font-family:system-ui,sans-serif}
+.task{display:flex;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid var(--ln)}
+.task.d span{text-decoration:line-through;color:var(--mu)}.task span{flex:1}
+.hist{display:flex;gap:8px;align-items:flex-end;height:90px}.hist div{flex:1;text-align:center}
+.hist i{display:block;background:var(--ac);border-radius:4px 4px 0 0;min-height:2px}
+.hist small{font:.7rem system-ui,sans-serif;color:var(--mu)}
+.rt button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.big{font-size:2rem;font-weight:700}
+</style></head><body>
+<section id="first" hidden style="max-width:520px;margin:12vh auto;padding:16px"><h1>Welcome</h1><p>Choose a folder where Weekly Goals will save your data. A folder in Documents or OneDrive works well.</p><button class="p" onclick="pick()">Choose folder</button></section>
+<main id="main" hidden>
+<div class="row sp"><h1>Weekly Goal Dashboard</h1>
+<div class="row"><button onclick="shift(-1)" aria-label="Previous week">◀</button><b id="wk"></b><button onclick="shift(1)" aria-label="Next week">▶</button><button onclick="cur=mon(new Date());draw()">Today</button></div></div>
+
+<div class="card"><h2>This week</h2>
+<div class="row sp"><div><span class="big" id="wp">0%</span> <span class="mu" id="wc"></span></div><div class="mu" id="streak"></div></div>
+<div class="bar" style="margin:8px 0 12px"><i id="wb" style="width:0"></i></div>
+<div id="tasks"></div>
+<div class="row" style="margin-top:10px"><input type="text" id="nt" placeholder="Add a task for this week…" style="flex:1" onkeydown="if(event.key==='Enter')addT()"><select id="ng"></select><button class="p" onclick="addT()">Add</button></div></div>
+
+<div class="card"><h2>Goals</h2><div class="g" id="goals"></div>
+<button style="margin-top:12px" onclick="addG()">+ Add goal</button></div>
+
+<div class="card"><h2>Weekly review</h2>
+<div class="mu">Wins</div><textarea id="wins" oninput="rv('wins',this.value)"></textarea>
+<div class="mu" style="margin-top:8px">Blockers</div><textarea id="block" oninput="rv('block',this.value)"></textarea>
+<div class="mu" style="margin-top:8px">Focus for next week</div><textarea id="next" oninput="rv('next',this.value)"></textarea>
+<div class="mu" style="margin-top:8px">How did the week feel? (1–5)</div><div class="row rt" id="rate"></div></div>
+
+<div class="card"><h2>Last 8 weeks (tasks completed)</h2><div class="hist" id="hist"></div></div>
+
+<div class="row"><button onclick="exp()">Export backup</button><label class="mu"><input type="file" accept=".json" onchange="imp(this)" style="display:none"><button onclick="this.previousElementSibling.click()">Import backup</button></label></div>
+<p class="mu">Your data is saved automatically in <b id="where"></b> <button onclick="pick()">Change save folder</button><span id="warn" style="color:#c0392b"></span></p>
+</main>
+<script>
+const seed={goals:[{id:'g1',name:'Goal 1',pct:0,ms:'',target:''}],weeks:{}};
+let S=null;
+const $=id=>document.getElementById(id);
+const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let tm;function save(){clearTimeout(tm);tm=setTimeout(async()=>{let ok=false;try{ok=await api.save(JSON.stringify(S))}catch(e){}$('warn').textContent=ok?'':' Could not save. Check that the folder still exists.'},300)}
+function mon(d){d=new Date(d);d.setHours(0,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7));return d}
+const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+let cur=mon(new Date());
+const W=(k=iso(cur))=>S.weeks[k]||(S.weeks[k]={tasks:[],wins:'',block:'',next:'',rating:0});
+const pct=w=>w&&w.tasks.length?Math.round(100*w.tasks.filter(t=>t.done).length/w.tasks.length):0;
+function shift(n){cur.setDate(cur.getDate()+7*n);draw()}
+function addT(){const t=$('nt').value.trim();if(!t)return;W().tasks.push({id:Date.now(),t,g:$('ng').value,done:false});$('nt').value='';save();draw()}
+function tog(i){const t=W().tasks[i];t.done=!t.done;save();draw()}
+function del(i){W().tasks.splice(i,1);save();draw()}
+function rv(f,v){W()[f]=v;save()}
+function rate(n){W().rating=n;save();draw()}
+function gset(i,f,v){S.goals[i][f]=f==='pct'?Math.max(0,Math.min(100,+v||0)):v;save();if(f==='pct'||f==='name')draw()}
+function addG(){const n=prompt('Goal name?');if(!n)return;S.goals.push({id:'g'+Date.now(),name:n,pri:S.goals.length+1,pct:0,ms:'',target:''});save();draw()}
+function delG(i){if(confirm('Delete this goal?')){S.goals.splice(i,1);save();draw()}}
+function exp(){const a=document.createElement('a');a.href='data:application/json,'+encodeURIComponent(JSON.stringify(S));a.download='goal-dashboard-backup.json';a.click()}
+function imp(el){const f=el.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{S=JSON.parse(r.result);save();draw()}catch(e){alert('That file could not be read.')}};r.readAsText(f)}
+function draw(){
+ const k=iso(cur),w=W(k),e=new Date(cur);e.setDate(e.getDate()+6);
+ const f=d=>d.toLocaleDateString(undefined,{month:'short',day:'numeric'});
+ $('wk').textContent=f(cur)+' – '+f(e);
+ const p=pct(w),dn=w.tasks.filter(t=>t.done).length;
+ $('wp').textContent=p+'%';$('wc').textContent=dn+' of '+w.tasks.length+' done';$('wb').style.width=p+'%';
+ let s=0,d=mon(new Date());for(;;){const x=S.weeks[iso(d)];if(x&&x.tasks.length&&pct(x)>=70)s++;else if(iso(d)!==iso(mon(new Date())))break;d.setDate(d.getDate()-7);if(s>200)break}
+ $('streak').textContent=s?s+'-week streak (70%+ done)':'';
+ $('ng').innerHTML='<option value="">No goal</option>'+S.goals.map(g=>`<option value="${g.id}">${esc(g.name)}</option>`).join('');
+ $('tasks').innerHTML=w.tasks.length?w.tasks.map((t,i)=>{const g=S.goals.find(g=>g.id===t.g);return `<div class="task ${t.done?'d':''}"><input type="checkbox" ${t.done?'checked':''} onchange="tog(${i})" aria-label="Done"><span>${esc(t.t)}</span><small class="mu">${g?esc(g.name):''}</small><button onclick="del(${i})" aria-label="Delete task">✕</button></div>`}).join(''):'<div class="mu">No tasks yet. Add the 3–5 things that would move your goals most this week.</div>';
+ $('goals').innerHTML=S.goals.map((g,i)=>{const wt=w.tasks.filter(t=>t.g===g.id);return `<div class="goal"><div class="row sp"><b>${i+1}. ${esc(g.name)}</b><button onclick="delG(${i})" aria-label="Delete goal">✕</button></div>
+ <div class="bar" style="margin:8px 0"><i style="width:${g.pct}%"></i></div>
+ <div class="row"><input type="number" min="0" max="100" value="${g.pct}" style="width:70px" onchange="gset(${i},'pct',this.value)"><span class="mu">% overall</span></div>
+ <div class="mu" style="margin-top:8px">Next milestone</div><input type="text" value="${esc(g.ms)}" style="width:100%" onchange="gset(${i},'ms',this.value)">
+ <div class="mu" style="margin-top:8px">Target date</div><input type="date" value="${esc(g.target)}" onchange="gset(${i},'target',this.value)">
+ <div class="mu" style="margin-top:8px">${wt.filter(t=>t.done).length} of ${wt.length} tasks done this week</div></div>`}).join('');
+ $('wins').value=w.wins;$('block').value=w.block;$('next').value=w.next;
+ $('rate').innerHTML=[1,2,3,4,5].map(n=>`<button class="${w.rating===n?'on':''}" onclick="rate(${n})">${n}</button>`).join('');
+ let h='';for(let i=7;i>=0;i--){const x=new Date(cur);x.setDate(x.getDate()-7*i);const ww=S.weeks[iso(x)],v=pct(ww);h+=`<div><i style="height:${v*0.7}px" title="${v}%"></i><small>${f(x)}</small></div>`}
+ $('hist').innerHTML=h;
+}
+async function openFolder(f){
+ let t=null;try{t=await api.load()}catch(e){alert('Your data file could not be read. Close other programs using it and restart the app.');return}
+ if(t){try{S=JSON.parse(t)}catch(e){alert('Your data file is damaged. A backup copy (weekly-goals-data.bak.json) is in the same folder.');return}}
+ else{S=S||seed;save()}
+ $('first').hidden=true;$('main').hidden=false;$('where').textContent=f;draw();
+}
+async function pick(){const f=await api.choose();if(f)openFolder(f)}
+(async()=>{const f=await api.folder();if(f)openFolder(f);else $('first').hidden=false})();
+</script></body></html>

@@ -1,0 +1,24 @@
+{
+  "name": "weekly-goals",
+  "version": "1.0.0",
+  "description": "Weekly goal dashboard",
+  "main": "main.js",
+  "author": "Riley Stout",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win --publish never"
+  },
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.rileystout.weeklygoals",
+    "productName": "Weekly Goals",
+    "directories": { "output": "dist" },
+    "files": ["main.js", "preload.js", "app/**/*", "build/icon.png"],
+    "win": { "target": "nsis", "icon": "build/icon.png" },
+    "nsis": { "oneClick": false, "perMachine": false, "allowToChangeInstallationDirectory": true, "createDesktopShortcut": true, "createStartMenuShortcut": true }
+  }
+}
