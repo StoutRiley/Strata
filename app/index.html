@@ -2,34 +2,45 @@
 <html lang="en"><head><meta charset="utf-8">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data:">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Weekly Goals</title>
+<title>Strata</title>
 <style>
 :root{--bg:#eef2f4;--card:#fbfcfc;--tx:#14202b;--mu:#5d6b78;--ac:#1b6ca8;--ln:#d5dde3;--bad:#c0392b;color-scheme:light}
 @media (prefers-color-scheme:dark){:root{--bg:#0f171e;--card:#17222b;--tx:#e8eef2;--mu:#93a3b0;--ac:#5aa9e6;--ln:#2a3946;--bad:#ef6b5b;color-scheme:dark}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.45 system-ui,'Segoe UI',sans-serif}
 [hidden]{display:none!important}
-main{max-width:900px;margin:0 auto;padding:16px}
-h1{font-size:1.5rem;margin:.2em 0}h2{font-size:1.1rem;margin:0 0 8px}h3{font-size:1rem;margin:14px 0 4px}
-.card{background:var(--card);border:1px solid var(--ln);border-radius:10px;padding:16px;margin:14px 0}
+main{max-width:960px;margin:0 auto;padding:12px 16px}
+h1{font-size:1.5rem;margin:0}h2{font-size:1.1rem;margin:0 0 8px}
+.card{background:var(--card);border:1px solid var(--ln);border-radius:10px;padding:12px;margin:10px 0}
 .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.sp{justify-content:space-between}
-button,input,select,textarea{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--ln);border-radius:6px;padding:7px 10px}
-button{cursor:pointer}button:disabled{opacity:.4;cursor:default}
+button,input,select,textarea{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--ln);border-radius:6px;padding:6px 9px}
+button{cursor:pointer}button:disabled{opacity:.35;cursor:default}
 button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--ac);outline-offset:1px}
 button.p,nav button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
 textarea{width:100%;min-height:54px;resize:vertical}
 input[type=text]{min-width:0}
-.mu{color:var(--mu);font-size:.88rem}.bad{color:var(--bad)}
+.mu{color:var(--mu);font-size:.85rem}.bad{color:var(--bad)}
 .bar{height:10px;background:var(--ln);border-radius:6px;overflow:hidden}.bar>i{display:block;height:100%;background:var(--ac)}
-.gt{width:100%;font-size:1.15rem;font-weight:600;margin:8px 0}
-.step{display:flex;gap:8px;align-items:flex-start;padding:10px;border:1px solid var(--ln);border-radius:8px;margin:8px 0;background:var(--bg)}
+.bar.thin{height:6px;margin-top:8px}
+.brand{display:flex;align-items:center;gap:10px}
+.gh{display:flex;gap:8px;align-items:center}
+.lab{font-weight:700;min-width:26px;color:var(--ac)}
+.gt{flex:1;font-size:1.1rem;font-weight:600;border-color:transparent;background:transparent}
+.gt:hover,.gt:focus{border-color:var(--ln);background:var(--bg)}
+.pn{white-space:nowrap}.pc{min-width:44px;text-align:right}
+.tg{width:32px;padding:5px 0;flex:none}.tg.has{color:var(--ac);font-weight:700}
+.ib{width:32px;padding:5px 0;flex:none;display:inline-flex;justify-content:center;align-items:center}
+.ib svg{display:block}
+.step{border:1px solid var(--ln);border-radius:8px;margin:6px 0;padding:6px 8px;background:var(--bg)}
 .step.d .ti{text-decoration:line-through;color:var(--mu)}
 .step.over{outline:2px dashed var(--ac)}
-.h{width:26px;text-align:center;color:var(--mu);user-select:none;padding-top:6px;flex:none}
-.h.g{cursor:grab}
-.sb{flex:1;min-width:0}.sb .ti{flex:1;min-width:140px}
-.tag{font-size:.8rem;color:var(--mu);min-width:44px}
-.acts{display:flex;flex-direction:column;gap:6px;flex:none}
+.sr{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.h{width:20px;text-align:center;color:var(--mu);user-select:none;flex:none}.h.g{cursor:grab}
+.sl{width:68px;flex:none;font-weight:600;font-size:.9rem}
+.ti{flex:1;min-width:150px;background:var(--card)}
+.pw{display:flex;align-items:center;gap:3px;flex:none}.pw input{width:62px}
+.dt{width:142px;flex:none;font-size:.9rem;padding:6px 6px;background:var(--card)}
+.ad{width:62px;flex:none}
 .task{display:flex;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid var(--ln)}
 .task.d span{text-decoration:line-through;color:var(--mu)}.task span{flex:1}
 .hist{display:flex;gap:8px;align-items:flex-end;height:90px}.hist div{flex:1;text-align:center}
@@ -37,17 +48,22 @@ input[type=text]{min-width:0}
 .rt button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
 .pr{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--ln)}
 .pr .n{font-weight:700;min-width:28px;color:var(--ac)}
+.pt{font-size:1.5rem;margin:8px 0 0}
+.tip{display:flex;gap:24px;align-items:center;flex-wrap:wrap}.tt{flex:1;min-width:270px}.tip svg{flex:none}
+.tip ul{padding-left:20px;margin:8px 0}.tip li{margin:4px 0}
+.ex{margin:10px 0;padding:8px 12px;border-left:3px solid var(--ac);background:var(--bg)}
+.fa{fill:var(--ac)}.fl{fill:var(--ln)}.ft{fill:var(--tx)}.sm{stroke:var(--mu)}.sc{stroke:var(--card)}
 </style></head><body>
 
-<section id="first" hidden style="max-width:520px;margin:12vh auto;padding:16px"><h1>Welcome</h1><p>Choose a folder where Weekly Goals will save your data. A folder in Documents or OneDrive works well.</p><button class="p" onclick="pick()">Choose folder</button></section>
+<section id="first" hidden style="max-width:520px;margin:12vh auto;padding:16px"><h1>Welcome</h1><p>Choose a folder where Strata will save your data. A folder in Documents or OneDrive works well.</p><button class="p" onclick="pick()">Choose folder</button></section>
 
 <main id="main" hidden>
-<div class="row sp"><h1>Weekly Goals</h1>
+<div class="row sp"><div class="brand"><svg width="34" height="34" viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="96" fill="#1b6ca8"/><rect x="96" y="288" width="72" height="128" rx="8" fill="#fff" opacity=".55"/><rect x="220" y="208" width="72" height="208" rx="8" fill="#fff" opacity=".8"/><rect x="344" y="112" width="72" height="304" rx="8" fill="#fff"/></svg><h1>Strata</h1></div>
 <nav class="row" id="nav"><button data-p="goals" onclick="show('goals')">Goals</button><button data-p="pri" onclick="show('pri')">Priorities</button><button data-p="week" onclick="show('week')">This week</button><button data-p="tips" onclick="show('tips')">Tips</button></nav></div>
 
 <section id="p-goals">
+<div class="row" style="margin:10px 0"><button class="p" onclick="addG()">Add goal</button><button onclick="allG(true)">Expand all</button><button onclick="allG(false)">Collapse all</button></div>
 <div id="goals"></div>
-<button class="p" onclick="addG()">Add goal</button>
 </section>
 
 <section id="p-pri" hidden>
@@ -57,7 +73,7 @@ input[type=text]{min-width:0}
 </section>
 
 <section id="p-week" hidden>
-<div class="row sp"><h2>This week</h2>
+<div class="row sp" style="margin-top:10px"><h2 style="margin:0">This week</h2>
 <div class="row"><button onclick="shift(-1)" aria-label="Previous week">◀</button><b id="wk"></b><button onclick="shift(1)" aria-label="Next week">▶</button><button onclick="thisWeek()">This week</button></div></div>
 <div class="card">
 <div class="row sp"><b id="wc"></b><span class="mu" id="streak"></span></div>
@@ -73,28 +89,48 @@ input[type=text]{min-width:0}
 </section>
 
 <section id="p-tips" hidden>
-<div class="card"><h2>SMART goals</h2>
-<p>A checklist for writing goals and steps clearly. It was introduced by George T. Doran in 1981. A goal or step is SMART when it is:</p>
-<p><b>Specific:</b> it says exactly what you will do. "Book 3 paid vocal gigs" beats "get more gigs."<br>
-<b>Measurable:</b> you can tell when it is done, with a number or a clear yes or no.<br>
-<b>Achievable:</b> it stretches you but is realistic given your time, skills, and resources.<br>
-<b>Relevant:</b> it clearly moves you toward a goal that matters to you.<br>
-<b>Time-bound:</b> it has a target date. Every step here has a date field for this.</p>
-<p class="mu">In this app: write each step's title and description so another person could tell whether it is finished.</p></div>
-<div class="card"><h2>OKRs (Objectives and Key Results)</h2>
-<p>A way to set ambitious goals and track progress. It was developed at Intel by Andy Grove and popularized at Google by John Doerr.</p>
-<p><b>Objective:</b> what you want to achieve, stated in a short, motivating sentence. Example: "Become a go-to local vocalist."<br>
-<b>Key results:</b> usually 2 to 5 measurable outcomes that show the objective is met. Example: "Perform 12 paid shows" and "Grow my mailing list to 500." They measure results, not tasks.<br>
-<b>Scoring:</b> teams often score each key result from 0 to 1 (or 0 to 100%) at the end of a cycle, often quarterly. Many treat about 0.7 as a strong result for a stretch target.</p>
-<p class="mu">In this app: use the goal title as the objective, write the key results in the goal description, and use steps for the work that gets you there.</p></div>
-<div class="card"><h2>Signal-to-noise ratio</h2>
-<p>The idea comes from engineering and communications. The signal is the useful information. The noise is everything that hides it. For goals, the signal is the few actions and measurements that really move you forward, and the noise is busywork, distractions, and vanity numbers.</p>
-<p>Example: the number of paid bookings each week is signal. The number of likes on a post is noise unless it leads to bookings.</p>
-<p>A higher ratio means more of your time goes to what matters. To raise it, cut steps that do not serve the goal, track only a few measures, and put the most important work first.</p>
-<p class="mu">In this app: the Priorities page shows only the next few steps from each goal. Delete steps and tasks that do not earn their place.</p></div>
+<h2 class="pt">Goal Completion Tips</h2>
+
+<div class="card tip"><div class="tt"><h2>SMART goals</h2>
+<p>SMART is a checklist for writing clear goals. A goal that meets all five criteria is easier to plan, track, and finish.</p>
+<ul><li><b>Specific:</b> The goal states exactly what will be achieved.</li>
+<li><b>Measurable:</b> Progress and completion can be judged by a number or a clear yes or no.</li>
+<li><b>Achievable:</b> The goal is challenging but realistic given the time, skills, and resources available.</li>
+<li><b>Relevant:</b> The goal supports a larger purpose that matters.</li>
+<li><b>Time-bound:</b> A target date is set, and each smaller step is finished early enough to meet it.</li></ul>
+<div class="ex"><b>Example:</b> "Get fit" becomes "Walk 30 minutes, four days a week, for eight weeks."</div>
+<p class="mu">Introduced by George T. Doran in 1981.</p></div>
+<svg width="160" height="160" viewBox="0 0 160 160" role="img" aria-label="A pie chart with five equal slices labeled S, M, A, R, and T">
+<g class="fa sc" stroke-width="2"><path d="M80 80L80 12A68 68 0 0 1 144.68 58.99Z" fill-opacity=".18"/><path d="M80 80L144.68 58.99A68 68 0 0 1 119.97 135.01Z" fill-opacity=".3"/><path d="M80 80L119.97 135.01A68 68 0 0 1 40.03 135.01Z" fill-opacity=".42"/><path d="M80 80L40.03 135.01A68 68 0 0 1 15.32 58.99Z" fill-opacity=".54"/><path d="M80 80L15.32 58.99A68 68 0 0 1 80 12Z" fill-opacity=".66"/></g>
+<g class="ft" font-size="20" font-weight="700" text-anchor="middle"><text x="103.5" y="47.6" dy=".35em">S</text><text x="118" y="92.4" dy=".35em">M</text><text x="80" y="120" dy=".35em">A</text><text x="42" y="92.4" dy=".35em">R</text><text x="56.5" y="47.6" dy=".35em">T</text></g></svg></div>
+
+<div class="card tip"><div class="tt"><h2>OKRs (Objectives and Key Results)</h2>
+<p>OKRs are a framework for setting ambitious goals and measuring progress toward them. A goal is written as an objective and supported by a small set of key results.</p>
+<ul><li><b>Objective:</b> A short, motivating statement of what will be achieved.</li>
+<li><b>Key results:</b> Two to five measurable outcomes that show the objective has been met. They measure results, not tasks.</li>
+<li><b>Scoring:</b> Key results are scored at the end of a cycle, often a quarter, on a scale of 0 to 1 or 0 to 100%. A score near 0.7 is often considered strong for an ambitious target.</li></ul>
+<div class="ex"><b>Example:</b> Objective: "Open a popular neighborhood bakery." Key results: "Serve 200 customers per week" and "Reach a 4.5-star average review."</div>
+<p class="mu">Developed at Intel by Andy Grove and popularized at Google by John Doerr.</p></div>
+<svg width="160" height="160" viewBox="0 0 160 160" role="img" aria-label="Three numbered steps rising toward a finish line flag">
+<g class="fa"><rect x="8" y="118" width="34" height="32" fill-opacity=".3"/><rect x="42" y="92" width="34" height="58" fill-opacity=".5"/><rect x="76" y="66" width="34" height="84" fill-opacity=".7"/></g>
+<g class="ft" font-size="16" font-weight="700" text-anchor="middle"><text x="25" y="140">1</text><text x="59" y="140">2</text><text x="93" y="140">3</text></g>
+<line class="sm" x1="4" y1="150" x2="156" y2="150" stroke-width="2"/><line class="sm" x1="126" y1="28" x2="126" y2="150" stroke-width="3"/>
+<rect class="fl" x="126" y="28" width="28" height="14"/><g class="ft"><rect x="126" y="28" width="7" height="7"/><rect x="140" y="28" width="7" height="7"/><rect x="133" y="35" width="7" height="7"/><rect x="147" y="35" width="7" height="7"/></g></svg></div>
+
+<div class="card tip"><div class="tt"><h2>Signal-to-noise ratio</h2>
+<p>The term comes from engineering and communications. The signal is the useful information, and the noise is everything that hides it. In goal setting, the signal is the small set of actions and measurements that move a goal forward. The noise is busywork, distractions, and numbers that look impressive but change nothing.</p>
+<p>A higher ratio means more effort goes to what matters. The ratio improves by removing low-value work, tracking only a few meaningful measures, and doing the most important work first.</p>
+<div class="ex"><b>Example:</b> A runner preparing for a race tracks weekly distance and finishing times. These are signal. The color of the shoes and the number of likes on a training photo are noise.</div>
+<p class="mu">Borrowed from signal processing and communications engineering.</p></div>
+<svg id="snr" width="160" height="160" viewBox="0 0 160 160" role="img" aria-label="A star hidden among a grid of ordinary squares"></svg></div>
+
+<div class="card"><h2>Putting the principles to use</h2>
+<ul><li><b>SMART:</b> Write each step so that someone else could tell whether it is finished.</li>
+<li><b>OKRs:</b> Keep objectives short and inspiring, and measure key results by outcomes rather than activity.</li>
+<li><b>Signal to noise:</b> Regularly remove tasks and measurements that do not move the goal forward.</li></ul></div>
 </section>
 
-<p class="mu" style="margin-top:18px">Your data is saved automatically in <b id="where"></b> <button onclick="pick()">Change save folder</button><span id="warn" class="bad"></span></p>
+<p class="mu" style="margin-top:16px">Your data is saved automatically in <b id="where"></b> <button onclick="pick()">Change save folder</button><span id="warn" class="bad"></span></p>
 <div class="row"><button onclick="exp()">Export backup</button><button onclick="document.getElementById('imf').click()">Import backup</button><input type="file" id="imf" accept=".json" onchange="imp(this)" hidden></div>
 </main>
 
@@ -102,43 +138,61 @@ input[type=text]{min-width:0}
 const $=id=>document.getElementById(id);
 const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
-const mkStep=(t,d)=>({id:uid(),title:t||'',desc:'',date:d||'',done:false});
-function norm(d){d.weeks=d.weeks||{};d.goals=d.goals||[];d.goals.forEach(g=>{g.id=g.id||uid();g.name=g.name||'';g.desc=g.desc||'';
- if(!Array.isArray(g.steps)||g.steps.length<2)g.steps=[mkStep('Start'),mkStep(g.ms||'Goal reached',g.target||'')];});return d}
-const seed=()=>norm({goals:[{id:'g1',name:'My first goal'}],weeks:{}});
+const TR='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg>';
+const mkStep=(t,d)=>({id:uid(),title:t||'',desc:'',date:d||'',pct:0,done:false,open:false});
+function norm(d){d.weeks=d.weeks||{};d.goals=d.goals||[];d.goals.forEach(g=>{g.id=g.id||uid();g.name=g.name||'';g.desc=g.desc||'';g.open=!!g.open;
+ if(!Array.isArray(g.steps)||g.steps.length<2)g.steps=[mkStep(''),mkStep(g.ms||'',g.target||'')];
+ const a=g.steps;if(a[0].title==='Start')a[0].title='';if(a[a.length-1].title==='Goal reached')a[a.length-1].title='';
+ a.forEach(s=>{s.id=s.id||uid();s.title=s.title||'';s.desc=s.desc||'';s.date=s.date||'';if(typeof s.pct!=='number')s.pct=s.done?100:0;s.done=s.pct>=100;s.open=!!s.open})});return d}
+const seed=()=>norm({goals:[{id:'g1',name:'My first goal',open:true}],weeks:{}});
 let S=null,page='goals',cur=mon(new Date()),drag=null;
 
 let tm;function save(){clearTimeout(tm);tm=setTimeout(async()=>{let ok=false;try{ok=await api.save(JSON.stringify(S))}catch(e){}$('warn').textContent=ok?'':' Could not save. Check that the folder still exists.'},300)}
-function exp(){const a=document.createElement('a');a.href='data:application/json,'+encodeURIComponent(JSON.stringify(S));a.download='goals-backup.json';a.click()}
+function exp(){const a=document.createElement('a');a.href='data:application/json,'+encodeURIComponent(JSON.stringify(S));a.download='strata-backup.json';a.click()}
 function imp(el){const f=el.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const n=norm(JSON.parse(r.result));if(confirm('Replace your current data with this file?')){S=n;save();render()}}catch(e){alert('That file could not be read.')}};r.readAsText(f);el.value=''}
 
 function show(p){page=p;document.querySelectorAll('main>section').forEach(s=>s.hidden=s.id!=='p-'+p);document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.p===p));render()}
 function render(){if(!S)return;renderGoals();renderPri();renderWeek()}
 
 /* ---------- Goals and steps ---------- */
-function gset(g,f,v){S.goals[g][f]=v;save();if(f==='name')render()}
+const gp=g=>Math.round(g.steps.reduce((a,s)=>a+s.pct,0)/g.steps.length);
+function gset(g,f,v){S.goals[g][f]=v;save();if(f==='name'){renderPri();renderWeek()}}
 function sset(g,s,f,v){S.goals[g].steps[s][f]=v;save();if(f==='date'||f==='title')renderPri()}
-function stog(g,s){const st=S.goals[g].steps[s];st.done=!st.done;save();render()}
-function addG(){S.goals.push(norm({goals:[{name:'New goal'}]}).goals[0]);save();render()}
+function setPct(g,s,v){v=Math.max(0,Math.min(100,Math.round(+v||0)));const st=S.goals[g].steps[s];st.pct=v;st.done=v>=100;save();refresh(g,s)}
+function stog(g,s){setPct(g,s,S.goals[g].steps[s].done?0:100)}
+function refresh(g,s){const G=S.goals[g],p=gp(G),st=G.steps[s],set=(id,fn)=>{const e=$(id);if(e)fn(e)};
+ set('gp'+g,e=>e.textContent=p+'%');set('gb'+g,e=>e.style.width=p+'%');
+ set(`cb${g}_${s}`,e=>e.checked=st.done);set(`pc${g}_${s}`,e=>e.value=st.pct);set(`st${g}_${s}`,e=>e.classList.toggle('d',st.done));renderPri()}
+function togG(g){S.goals[g].open=!S.goals[g].open;save();renderGoals()}
+function togS(g,s){const st=S.goals[g].steps[s];st.open=!st.open;save();renderGoals()}
+function allG(v){S.goals.forEach(g=>g.open=v);save();renderGoals()}
+function addG(){const g=norm({goals:[{name:'New goal',open:true}]}).goals[0];S.goals.push(g);save();render()}
 function delG(g){if(confirm('Delete this goal and all of its steps?')){S.goals.splice(g,1);save();render()}}
 function mvG(g,d){const a=S.goals;[a[g],a[g+d]]=[a[g+d],a[g]];save();render()}
 function addS(g,s){S.goals[g].steps.splice(s+1,0,mkStep(''));save();render()}
 function delS(g,s){if(confirm('Delete this step?')){S.goals[g].steps.splice(s,1);save();render()}}
-function stepHtml(g,gi,s,si,last){
- const mid=si>0&&si<last,tag=si===0?'Start':si===last?'End':'Step '+(si+1);
- return `<div class="step ${s.done?'d':''}" ondragstart="dstart(event,${gi},${si})" ondragover="dover(event,${gi},${si})" ondragleave="this.classList.remove('over')" ondrop="ddrop(event,${gi},${si})" ondragend="dend()">
- <span class="h ${mid?'g':''}" ${mid?`title="Click and hold to drag" onmousedown="this.parentNode.draggable=true" onmouseup="this.parentNode.draggable=false"`:''}>${mid?'⋮⋮':''}</span>
- <input type="checkbox" ${s.done?'checked':''} onchange="stog(${gi},${si})" aria-label="Step complete" style="margin-top:9px">
- <div class="sb"><div class="row"><span class="tag">${tag}</span><input class="ti" type="text" value="${esc(s.title)}" placeholder="Step title" onchange="sset(${gi},${si},'title',this.value)" aria-label="Step title"><input type="date" value="${esc(s.date)}" onchange="sset(${gi},${si},'date',this.value)" aria-label="Target completion date"></div>
- <textarea placeholder="Describe this step" style="margin-top:6px" onchange="sset(${gi},${si},'desc',this.value)" aria-label="Step description">${esc(s.desc)}</textarea></div>
- <div class="acts">${si<last?`<button onclick="addS(${gi},${si})">Add step below</button>`:''}${mid?`<button onclick="delS(${gi},${si})">Delete step</button>`:''}</div></div>`}
+function stepHtml(gi,s,si,last){
+ const mid=si>0&&si<last,id=gi+'_'+si,lab=si===last?'Complete':String(si+1);
+ return `<div class="step ${s.done?'d':''}" id="st${id}" ondragstart="dstart(event,${gi},${si})" ondragover="dover(event,${gi},${si})" ondragleave="this.classList.remove('over')" ondrop="ddrop(event,${gi},${si})" ondragend="dend()"><div class="sr">
+ <span class="h ${mid?'g':''}" ${mid?`title="Click and hold to drag" onmousedown="this.closest('.step').draggable=true" onmouseup="this.closest('.step').draggable=false"`:''}>${mid?'⋮⋮':''}</span>
+ <input type="checkbox" id="cb${id}" ${s.done?'checked':''} onchange="stog(${gi},${si})" aria-label="Step complete">
+ <span class="sl">${lab}</span>
+ <input class="ti" type="text" value="${esc(s.title)}" placeholder="Step title" onchange="sset(${gi},${si},'title',this.value)" aria-label="Step title">
+ <button class="tg ${s.desc?'has':''}" onclick="togS(${gi},${si})" aria-expanded="${s.open}" title="Show or hide description" aria-label="Show or hide description">${s.open?'▾':'▸'}</button>
+ <span class="pw"><input type="number" id="pc${id}" min="0" max="100" value="${s.pct}" onchange="setPct(${gi},${si},this.value)" aria-label="Percent complete">%</span>
+ <input class="dt" type="date" value="${esc(s.date)}" onchange="sset(${gi},${si},'date',this.value)" aria-label="Target completion date">
+ ${si<last?`<button class="ad" onclick="addS(${gi},${si})" title="Add step below">+ Step</button>`:'<span class="ad"></span>'}
+ ${mid?`<button class="ib" onclick="delS(${gi},${si})" title="Delete step" aria-label="Delete step">${TR}</button>`:'<span class="ib"></span>'}</div>
+ ${s.open?`<textarea style="margin-top:6px" placeholder="Describe this step" onchange="sset(${gi},${si},'desc',this.value)" aria-label="Step description">${esc(s.desc)}</textarea>`:''}</div>`}
 function renderGoals(){
- $('goals').innerHTML=S.goals.map((g,gi)=>{const n=g.steps.length,dn=g.steps.filter(s=>s.done).length;
- return `<div class="card"><div class="row sp"><b>Priority ${gi+1}</b><span class="row"><button onclick="mvG(${gi},-1)" ${gi?'':'disabled'}>Move up</button><button onclick="mvG(${gi},1)" ${gi<S.goals.length-1?'':'disabled'}>Move down</button><button onclick="delG(${gi})">Delete goal</button></span></div>
- <input class="gt" type="text" value="${esc(g.name)}" placeholder="Goal title" onchange="gset(${gi},'name',this.value)" aria-label="Goal title">
- <textarea placeholder="Describe this goal" onchange="gset(${gi},'desc',this.value)" aria-label="Goal description">${esc(g.desc)}</textarea>
- <div class="row" style="margin:10px 0"><div class="bar" style="flex:1"><i style="width:${Math.round(100*dn/n)}%"></i></div><span class="mu">${dn} of ${n} steps done</span></div>
- ${g.steps.map((s,si)=>stepHtml(g,gi,s,si,n-1)).join('')}</div>`}).join('')||'<p class="mu">No goals yet. Add one to get started.</p>'}
+ $('goals').innerHTML=S.goals.map((g,gi)=>{const p=gp(g),n=S.goals.length;
+ return `<div class="card"><div class="gh"><span class="lab">${gi+1})</span>
+ <input class="gt" type="text" value="${esc(g.name)}" placeholder="Goal title" onchange="gset(${gi},'name',this.value)" aria-label="Goal title"><span class="mu pn">Priority ${gi+1}</span>
+ <button class="tg ${g.desc?'has':''}" onclick="togG(${gi})" aria-expanded="${g.open}" title="Show or hide description and steps" aria-label="Show or hide description and steps">${g.open?'▾':'▸'}</button>
+ <b class="pc" id="gp${gi}">${p}%</b>
+ <button class="ib" onclick="mvG(${gi},-1)" ${gi?'':'disabled'} title="Move up" aria-label="Move up">▲</button><button class="ib" onclick="mvG(${gi},1)" ${gi<n-1?'':'disabled'} title="Move down" aria-label="Move down">▼</button><button class="ib" onclick="delG(${gi})" title="Delete goal" aria-label="Delete goal">${TR}</button></div>
+ <div class="bar thin"><i id="gb${gi}" style="width:${p}%"></i></div>
+ ${g.open?`<textarea style="margin-top:8px" placeholder="Describe this goal" onchange="gset(${gi},'desc',this.value)" aria-label="Goal description">${esc(g.desc)}</textarea><div style="margin-top:6px">${g.steps.map((s,si)=>stepHtml(gi,s,si,g.steps.length-1)).join('')}</div>`:''}</div>`}).join('')||'<p class="mu">No goals yet. Add one to get started.</p>'}
 function dstart(e,g,s){drag={g,s};e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain','step')}
 function okDrop(g,s){return drag&&drag.g===g&&s>0&&s<S.goals[g].steps.length-1}
 function dover(e,g,s){if(okDrop(g,s)){e.preventDefault();e.currentTarget.classList.add('over')}}
@@ -150,7 +204,7 @@ function renderPri(){
  const k=+$('topn').value,today=iso(new Date()),rows=[];
  S.goals.forEach((g,gi)=>g.steps.forEach((s,si)=>{if(!s.done)rows.push({g,gi,s,si,r:g.steps.filter((x,i)=>!x.done&&i<=si).length})}));
  const list=rows.filter(x=>x.r<=k).sort((a,b)=>a.gi-b.gi||(a.s.date||'9999').localeCompare(b.s.date||'9999')||a.si-b.si);
- $('pri').innerHTML=list.length?list.map((x,i)=>`<div class="pr"><span class="n">${i+1}</span><div style="flex:1"><div><b>${esc(x.s.title)||'Untitled step'}</b></div><div class="mu">${esc(x.g.name)||'Untitled goal'} · priority ${x.gi+1}${x.s.date?` · due ${esc(x.s.date)}${x.s.date<today?' <span class="bad">(overdue)</span>':''}`:' · no date'}</div>${x.s.desc?`<div class="mu">${esc(x.s.desc)}</div>`:''}</div><label class="mu"><input type="checkbox" onchange="stog(${x.gi},${x.si})"> Done</label></div>`).join(''):'<p class="mu">Nothing left to do. Every step is complete, or you have no goals yet.</p>'}
+ $('pri').innerHTML=list.length?list.map((x,i)=>`<div class="pr"><span class="n">${i+1}</span><div style="flex:1"><div><b>${esc(x.s.title)||'Untitled step'}</b></div><div class="mu">${esc(x.g.name)||'Untitled goal'} · priority ${x.gi+1} · ${x.si===x.g.steps.length-1?'Complete':'step '+(x.si+1)}${x.s.date?` · due ${esc(x.s.date)}${x.s.date<today?' <span class="bad">(overdue)</span>':''}`:' · no date'} · ${x.s.pct}%</div>${x.s.desc?`<div class="mu">${esc(x.s.desc)}</div>`:''}</div><label class="mu"><input type="checkbox" onchange="stog(${x.gi},${x.si})"> Done</label></div>`).join(''):'<p class="mu">Nothing left to do. Every step is complete, or there are no goals yet.</p>'}
 
 /* ---------- This week ---------- */
 function mon(d){d=new Date(d);d.setHours(0,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7));return d}
@@ -174,12 +228,16 @@ function renderWeek(){
  let s=0,d=mon(new Date());for(let n=0;n<200;n++){const x=S.weeks[iso(d)];if(x&&x.tasks.length&&pct(x)>=70)s++;else if(n>0)break;d.setDate(d.getDate()-7)}
  $('streak').textContent=s?s+'-week streak (70% or more done)':'';
  const sel=$('ng').value;$('ng').innerHTML='<option value="">No goal</option>'+S.goals.map(g=>`<option value="${g.id}">${esc(g.name)||'Untitled goal'}</option>`).join('');$('ng').value=sel;
- $('tasks').innerHTML=w.tasks.length?w.tasks.map((t,i)=>{const g=S.goals.find(g=>g.id===t.g);return `<div class="task ${t.done?'d':''}"><input type="checkbox" ${t.done?'checked':''} onchange="tog(${i})" aria-label="Mark done"><span>${esc(t.t)}</span><small class="mu">${g?esc(g.name):''}</small><button onclick="del(${i})" aria-label="Delete task">✕</button></div>`}).join(''):'<div class="mu">Add the 3 to 5 tasks that move your goals most this week.</div>';
+ $('tasks').innerHTML=w.tasks.length?w.tasks.map((t,i)=>{const g=S.goals.find(g=>g.id===t.g);return `<div class="task ${t.done?'d':''}"><input type="checkbox" ${t.done?'checked':''} onchange="tog(${i})" aria-label="Mark done"><span>${esc(t.t)}</span><small class="mu">${g?esc(g.name):''}</small><button class="ib" onclick="del(${i})" title="Delete task" aria-label="Delete task">${TR}</button></div>`}).join(''):'<div class="mu">Add the 3 to 5 tasks that move your goals most this week.</div>';
  setv('wins',w.wins);setv('block',w.block);setv('next',w.next);
  $('rate').innerHTML=[1,2,3,4,5].map(n=>`<button class="${w.rating===n?'on':''}" onclick="rate(${n})">${n}</button>`).join('');
  let h='';for(let i=7;i>=0;i--){const x=new Date(cur);x.setDate(x.getDate()-7*i);const v=pct(S.weeks[iso(x)]);h+=`<div><i style="height:${v*0.7}px" title="${v}%"></i><small>${f(x)}</small></div>`}
  $('hist').innerHTML=h;
 }
+
+/* ---------- Tips picture: a star among ordinary squares ---------- */
+(function(){let h='';for(let r=0;r<5;r++)for(let c=0;c<5;c++)if(!(r===2&&c===3))h+=`<rect class="fl" x="${10+28*c}" y="${10+28*r}" width="22" height="22" rx="3"/>`;
+ h+='<polygon class="fa" points="105,64 108.2,72.6 117.4,73 110.2,78.7 112.6,87.5 105,82.5 97.4,87.5 99.8,78.7 92.6,73 101.8,72.6"/>';$('snr').innerHTML=h})();
 
 /* ---------- Storage (data file in the folder you choose) ---------- */
 async function openFolder(f){
