@@ -11,36 +11,41 @@ body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.45 system-ui,'Seg
 [hidden]{display:none!important}
 main{max-width:960px;margin:0 auto;padding:12px 16px}
 h1{font-size:1.5rem;margin:0}h2{font-size:1.1rem;margin:0 0 8px}
-.card{background:var(--card);border:1px solid var(--ln);border-radius:10px;padding:12px;margin:10px 0}
+.card{background:var(--card);border:1px solid var(--ln);border-radius:10px;padding:10px 12px;margin:10px 0}
 .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.sp{justify-content:space-between}
 button,input,select,textarea{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--ln);border-radius:6px;padding:6px 9px}
 button{cursor:pointer}button:disabled{opacity:.35;cursor:default}
 button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--ac);outline-offset:1px}
 button.p,nav button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
-textarea{width:100%;min-height:54px;resize:vertical}
+textarea{width:100%;min-height:48px;resize:vertical}
 input[type=text]{min-width:0}
 .mu{color:var(--mu);font-size:.85rem}.bad{color:var(--bad)}
 .bar{height:10px;background:var(--ln);border-radius:6px;overflow:hidden}.bar>i{display:block;height:100%;background:var(--ac)}
-.bar.thin{height:6px;margin-top:8px}
+.bar.thin{height:6px;margin-top:6px}
 .brand{display:flex;align-items:center;gap:10px}
-.gh{display:flex;gap:8px;align-items:center}
-.lab{font-weight:700;min-width:26px;color:var(--ac)}
-.gt{flex:1;font-size:1.1rem;font-weight:600;border-color:transparent;background:transparent}
-.gt:hover,.gt:focus{border-color:var(--ln);background:var(--bg)}
-.pn{white-space:nowrap}.pc{min-width:44px;text-align:right}
-.tg{width:32px;padding:5px 0;flex:none}.tg.has{color:var(--ac);font-weight:700}
-.ib{width:32px;padding:5px 0;flex:none;display:inline-flex;justify-content:center;align-items:center}
+.bd{background:var(--bad);color:#fff;border-radius:9px;padding:0 6px;margin-left:6px;font-size:.75rem}
+.gh{display:flex;gap:4px;align-items:center}
+.lab{font-weight:700;color:var(--ac);margin-left:2px}
+.gt{flex:1;font-size:1.1rem;font-weight:600;padding:3px 4px 3px 2px}
+.gt,.ti{border-color:transparent;background:transparent}
+.gt:hover,.gt:focus,.ti:hover,.ti:focus{border-color:var(--ln);background:var(--bg)}
+.pn{white-space:nowrap;margin:0 4px}.pc{min-width:44px;text-align:right;margin-right:4px}
+.tg{width:26px;padding:3px 0;flex:none}.tg.has{color:var(--ac);font-weight:700}
+.ib{width:28px;padding:3px 0;flex:none;display:inline-flex;justify-content:center;align-items:center}
 .ib svg{display:block}
-.step{border:1px solid var(--ln);border-radius:8px;margin:6px 0;padding:6px 8px;background:var(--bg)}
+.stl{margin-top:6px}
+.step{border:1px solid var(--ln);border-radius:6px;margin:3px 0;padding:2px 6px;background:var(--bg)}
 .step.d .ti{text-decoration:line-through;color:var(--mu)}
 .step.over{outline:2px dashed var(--ac)}
-.sr{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.h{width:20px;text-align:center;color:var(--mu);user-select:none;flex:none}.h.g{cursor:grab}
-.sl{width:68px;flex:none;font-weight:600;font-size:.9rem}
-.ti{flex:1;min-width:150px;background:var(--card)}
-.pw{display:flex;align-items:center;gap:3px;flex:none}.pw input{width:62px}
-.dt{width:142px;flex:none;font-size:.9rem;padding:6px 6px;background:var(--card)}
-.ad{width:62px;flex:none}
+.sr{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.h{width:20px;margin-right:10px;text-align:center;color:var(--mu);user-select:none;flex:none}.h.g{cursor:grab}
+.sr input[type=checkbox]{width:16px;height:16px;margin:0;flex:none}
+.sl{width:58px;flex:none;font-weight:600;font-size:.85rem}
+.ti{flex:1;min-width:140px;font-weight:600;padding:2px 4px}
+.ti::placeholder{font-weight:400;font-style:italic}
+.pw{display:flex;align-items:center;gap:3px;flex:none;font-size:.9rem}.pw input{width:52px;padding:2px 4px;font-size:.9rem}
+.dt{width:128px;flex:none;font-size:.85rem;padding:2px 4px}
+.sd{margin:2px 0 4px 58px}.sd textarea{min-height:40px}
 .task{display:flex;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid var(--ln)}
 .task.d span{text-decoration:line-through;color:var(--mu)}.task span{flex:1}
 .hist{display:flex;gap:8px;align-items:flex-end;height:90px}.hist div{flex:1;text-align:center}
@@ -52,14 +57,16 @@ input[type=text]{min-width:0}
 .tip{display:flex;gap:24px;align-items:center;flex-wrap:wrap}.tt{flex:1;min-width:270px}.tip svg{flex:none}
 .tip ul{padding-left:20px;margin:8px 0}.tip li{margin:4px 0}
 .ex{margin:10px 0;padding:8px 12px;border-left:3px solid var(--ac);background:var(--bg)}
-.fa{fill:var(--ac)}.fl{fill:var(--ln)}.ft{fill:var(--tx)}.sm{stroke:var(--mu)}.sc{stroke:var(--card)}
+.fa{fill:var(--ac)}.fl{fill:var(--ln)}.ft{fill:var(--tx)}.fc{fill:var(--card)}.sm{stroke:var(--mu)}.sc{stroke:var(--card)}.sa{stroke:var(--ac)}
+.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:8px 12px;border-radius:8px;display:flex;gap:10px;align-items:center;box-shadow:0 2px 10px #0005}
+.toast button{background:var(--bg);color:var(--tx)}
 </style></head><body>
 
 <section id="first" hidden style="max-width:520px;margin:12vh auto;padding:16px"><h1>Welcome</h1><p>Choose a folder where Strata will save your data. A folder in Documents or OneDrive works well.</p><button class="p" onclick="pick()">Choose folder</button></section>
 
 <main id="main" hidden>
 <div class="row sp"><div class="brand"><svg width="34" height="34" viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="96" fill="#1b6ca8"/><rect x="96" y="288" width="72" height="128" rx="8" fill="#fff" opacity=".55"/><rect x="220" y="208" width="72" height="208" rx="8" fill="#fff" opacity=".8"/><rect x="344" y="112" width="72" height="304" rx="8" fill="#fff"/></svg><h1>Strata</h1></div>
-<nav class="row" id="nav"><button data-p="goals" onclick="show('goals')">Goals</button><button data-p="pri" onclick="show('pri')">Priorities</button><button data-p="week" onclick="show('week')">This week</button><button data-p="tips" onclick="show('tips')">Tips</button></nav></div>
+<nav class="row" id="nav"><button data-p="goals" onclick="show('goals')">Goals</button><button data-p="pri" onclick="show('pri')">Priorities<span class="bd" id="bd" hidden></span></button><button data-p="week" onclick="show('week')">This week</button><button data-p="tips" onclick="show('tips')">Tips</button><button data-p="set" onclick="show('set')">Settings</button></nav></div>
 
 <section id="p-goals">
 <div class="row" style="margin:10px 0"><button class="p" onclick="addG()">Add goal</button><button onclick="allG(true)">Expand all</button><button onclick="allG(false)">Collapse all</button></div>
@@ -67,7 +74,7 @@ input[type=text]{min-width:0}
 </section>
 
 <section id="p-pri" hidden>
-<div class="card"><div class="row sp"><h2>Priorities</h2><label class="mu">Steps per goal <select id="topn" onchange="renderPri()"><option>1</option><option>2</option><option selected>3</option><option>5</option></select></label></div>
+<div class="card"><div class="row sp"><h2>Priorities</h2><label class="mu">Steps per goal <select id="topn" onchange="renderPri()"><option selected>1</option><option>2</option><option>3</option><option>5</option></select></label></div>
 <p class="mu">The next incomplete steps from each goal. Goals are ranked by their priority (their order on the Goals page), then steps by target date.</p>
 <div id="pri"></div></div>
 </section>
@@ -105,17 +112,59 @@ input[type=text]{min-width:0}
 <g class="ft" font-size="20" font-weight="700" text-anchor="middle"><text x="103.5" y="47.6" dy=".35em">S</text><text x="118" y="92.4" dy=".35em">M</text><text x="80" y="120" dy=".35em">A</text><text x="42" y="92.4" dy=".35em">R</text><text x="56.5" y="47.6" dy=".35em">T</text></g></svg></div>
 
 <div class="card tip"><div class="tt"><h2>OKRs (Objectives and Key Results)</h2>
-<p>OKRs are a framework for setting ambitious goals and measuring progress toward them. A goal is written as an objective and supported by a small set of key results.</p>
-<ul><li><b>Objective:</b> A short, motivating statement of what will be achieved.</li>
-<li><b>Key results:</b> Two to five measurable outcomes that show the objective has been met. They measure results, not tasks.</li>
-<li><b>Scoring:</b> Key results are scored at the end of a cycle, often a quarter, on a scale of 0 to 1 or 0 to 100%. A score near 0.7 is often considered strong for an ambitious target.</li></ul>
+<p>OKRs are a goal-setting framework that pairs an inspiring objective with a few measurable key results. Together they show where a person or team is headed and how to tell whether they arrived.</p>
+<ul><li><b>Objective:</b> A qualitative, motivating statement of what will be achieved. It answers the question "Where do we want to go?"</li>
+<li><b>Key results:</b> Typically three to five quantifiable outcomes that show whether the objective was achieved. They measure results, not tasks or activity.</li>
+<li><b>Cycle and scoring:</b> OKRs usually run in short cycles, often a quarter. Each key result is scored at the end, commonly from 0.0 to 1.0, and a score near 0.7 is often seen as strong for an ambitious target.</li></ul>
 <div class="ex"><b>Example:</b> Objective: "Open a popular neighborhood bakery." Key results: "Serve 200 customers per week" and "Reach a 4.5-star average review."</div>
-<p class="mu">Developed at Intel by Andy Grove and popularized at Google by John Doerr.</p></div>
+<p class="mu">Developed at Intel by Andy Grove and popularized at Google by John Doerr, who described the method in Measure What Matters (2018).</p></div>
+<svg width="160" height="160" viewBox="0 0 160 160" role="img" aria-label="An objective at the top supported by three key results shown as progress bars">
+<rect class="fa" x="30" y="8" width="100" height="34" rx="8" fill-opacity=".25"/><text class="ft" x="80" y="30" font-size="13" font-weight="700" text-anchor="middle">Objective</text>
+<line class="sm" x1="80" y1="42" x2="80" y2="58" stroke-width="2"/>
+<g class="fl"><rect x="34" y="62" width="120" height="18" rx="4"/><rect x="34" y="92" width="120" height="18" rx="4"/><rect x="34" y="122" width="120" height="18" rx="4"/></g>
+<g class="fa"><rect x="34" y="62" width="84" height="18" rx="4"/><rect x="34" y="92" width="54" height="18" rx="4"/><rect x="34" y="122" width="108" height="18" rx="4"/></g>
+<g class="ft" font-size="11" font-weight="700"><text x="3" y="75">KR1</text><text x="3" y="105">KR2</text><text x="3" y="135">KR3</text></g></svg></div>
+
+<div class="card tip"><div class="tt"><h2>Planning the steps</h2>
+<p>A large goal feels distant when the path to it is unclear. Planning the steps replaces that uncertainty with a clear sequence of actions between the starting point and the goal.</p>
+<ul><li><b>Work backward:</b> Begin with the finished goal and ask what must be true just before it, then before that, until the chain reaches today.</li>
+<li><b>Keep steps small and checkable:</b> Each step is small enough to finish and clear enough to know when it is finished.</li>
+<li><b>Detail the next several steps:</b> Plan the next three to five steps carefully and leave later steps rough until they come closer. Knowing what comes next removes hesitation.</li>
+<li><b>Revisit the plan:</b> Add, reorder, or remove steps as new information appears.</li></ul>
+<div class="ex"><b>Example:</b> A writer with a book in mind lists the steps: outline the chapters, draft chapter one, finish the first draft, revise, and submit. The detailed plan covers only the first three.</div>
+<p class="mu">Draws on work breakdown structures from project management and the "next action" habit from David Allen's Getting Things Done.</p></div>
 <svg width="160" height="160" viewBox="0 0 160 160" role="img" aria-label="Three numbered steps rising toward a finish line flag">
 <g class="fa"><rect x="8" y="118" width="34" height="32" fill-opacity=".3"/><rect x="42" y="92" width="34" height="58" fill-opacity=".5"/><rect x="76" y="66" width="34" height="84" fill-opacity=".7"/></g>
 <g class="ft" font-size="16" font-weight="700" text-anchor="middle"><text x="25" y="140">1</text><text x="59" y="140">2</text><text x="93" y="140">3</text></g>
 <line class="sm" x1="4" y1="150" x2="156" y2="150" stroke-width="2"/><line class="sm" x1="126" y1="28" x2="126" y2="150" stroke-width="3"/>
 <rect class="fl" x="126" y="28" width="28" height="14"/><g class="ft"><rect x="126" y="28" width="7" height="7"/><rect x="140" y="28" width="7" height="7"/><rect x="133" y="35" width="7" height="7"/><rect x="147" y="35" width="7" height="7"/></g></svg></div>
+
+<div class="card tip"><div class="tt"><h2>Owning the gap</h2>
+<p>Owning the gap means seeing clearly where things stand today, deciding clearly where they should be, and accepting responsibility for the distance between the two.</p>
+<ul><li><b>Current position:</b> Describe the starting point honestly, using facts rather than excuses.</li>
+<li><b>Desired position:</b> Define the target clearly enough to recognize it when it is reached.</li>
+<li><b>Ownership:</b> Accept that closing the gap is up to you. Focus on what is within your control and act on it.</li></ul>
+<div class="ex"><b>Example:</b> A student aims for an A in a course but currently averages a C+. Owning the gap means naming the C+ plainly, naming the A as the target, and choosing the study habits that will close the distance.</div>
+<p class="mu">Related to the idea of creative tension described by Peter Senge in The Fifth Discipline (1990).</p></div>
+<svg width="160" height="160" viewBox="0 0 160 160" role="img" aria-label="Two platforms at different heights with a gap between them and a dashed arrow crossing it">
+<rect class="fl" x="6" y="104" width="50" height="46"/><rect class="fa" x="104" y="64" width="50" height="86" fill-opacity=".35"/>
+<g class="ft" font-size="13" font-weight="700" text-anchor="middle"><text x="31" y="132">Now</text><text x="129" y="112">Goal</text></g>
+<circle class="fa" cx="31" cy="94" r="7"/>
+<path class="sm" d="M40 88Q80 18 120 52" fill="none" stroke-width="2.5" stroke-dasharray="5 4"/><path class="sm" d="M112 46L121 53L110 58" fill="none" stroke-width="2.5"/></svg></div>
+
+<div class="card tip"><div class="tt"><h2>Growth mindset</h2>
+<p>A growth mindset is the belief that abilities and results can improve through effort, good strategies, and feedback. It contrasts with a fixed mindset, which treats talent as unchangeable.</p>
+<ul><li><b>Setbacks are information:</b> A failure shows what to change. It is not a verdict on ability.</li>
+<li><b>Effort builds skill:</b> Abilities grow through practice, so progress comes from steady work.</li>
+<li><b>Feedback is useful:</b> Seek it out and apply it instead of avoiding it.</li>
+<li><b>Change is always possible:</b> A new approach can be tried at any point on the way to a higher goal.</li></ul>
+<div class="ex"><b>Example:</b> A first-time baker's bread comes out dense. Rather than deciding they cannot bake, they check the recipe, adjust the rising time, and try again.</div>
+<p class="mu">Popularized by psychologist Carol Dweck in her 2006 book Mindset.</p></div>
+<svg width="160" height="160" viewBox="0 0 160 160" role="img" aria-label="A line that dips and recovers but climbs higher overall">
+<line class="sm" x1="6" y1="150" x2="156" y2="150" stroke-width="2"/>
+<polyline class="sa" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" points="12,136 40,96 58,114 88,66 104,84 146,26"/>
+<path class="sa" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" d="M133.2 31.7L146 26L144.6 39.9"/>
+<g class="fc sa" stroke-width="2.5"><circle cx="12" cy="136" r="5"/><circle cx="40" cy="96" r="5"/><circle cx="58" cy="114" r="5"/><circle cx="88" cy="66" r="5"/><circle cx="104" cy="84" r="5"/></g></svg></div>
 
 <div class="card tip"><div class="tt"><h2>Signal-to-noise ratio</h2>
 <p>The term comes from engineering and communications. The signal is the useful information, and the noise is everything that hides it. In goal setting, the signal is the small set of actions and measurements that move a goal forward. The noise is busywork, distractions, and numbers that look impressive but change nothing.</p>
@@ -126,36 +175,55 @@ input[type=text]{min-width:0}
 
 <div class="card"><h2>Putting the principles to use</h2>
 <ul><li><b>SMART:</b> Write each step so that someone else could tell whether it is finished.</li>
-<li><b>OKRs:</b> Keep objectives short and inspiring, and measure key results by outcomes rather than activity.</li>
+<li><b>OKRs:</b> Pair a motivating objective with a few measurable results, and judge progress by outcomes rather than activity.</li>
+<li><b>Planning the steps:</b> Name the next several steps so there is never a question about what to do next.</li>
+<li><b>Owning the gap:</b> Describe the starting point honestly and the target clearly, then act on what is within your control.</li>
+<li><b>Growth mindset:</b> After a setback, ask what it taught and adjust the next step.</li>
 <li><b>Signal to noise:</b> Regularly remove tasks and measurements that do not move the goal forward.</li></ul></div>
+</section>
+
+<section id="p-set" hidden>
+<h2 class="pt">Settings</h2>
+<div class="card"><h2>Step numbering</h2>
+<label class="row"><input type="checkbox" id="s-hier" onchange="setOpt('hier',this.checked)"> Include the goal number in step numbers (1.1, 1.2, 2.1 and so on)</label>
+<p class="mu">When this is off, steps are numbered 1, 2, 3 within each goal. The last step of every goal is always labeled Complete.</p></div>
 </section>
 
 <p class="mu" style="margin-top:16px">Your data is saved automatically in <b id="where"></b> <button onclick="pick()">Change save folder</button><span id="warn" class="bad"></span></p>
 <div class="row"><button onclick="exp()">Export backup</button><button onclick="document.getElementById('imf').click()">Import backup</button><input type="file" id="imf" accept=".json" onchange="imp(this)" hidden></div>
 </main>
+<div class="toast" id="toast" hidden role="status"><span id="tmsg"></span><button onclick="undo()">Undo</button></div>
 
 <script>
 const $=id=>document.getElementById(id);
 const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
-const TR='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg>';
+const TR='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg>';
+const PL='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>';
 const mkStep=(t,d)=>({id:uid(),title:t||'',desc:'',date:d||'',pct:0,done:false,open:false});
-function norm(d){d.weeks=d.weeks||{};d.goals=d.goals||[];d.goals.forEach(g=>{g.id=g.id||uid();g.name=g.name||'';g.desc=g.desc||'';g.open=!!g.open;
+function norm(d){d.weeks=d.weeks||{};d.goals=d.goals||[];d.settings=Object.assign({hier:true},d.settings||{});
+ d.goals.forEach(g=>{g.id=g.id||uid();g.name=g.name||'';g.desc=g.desc||'';g.open=!!g.open;if(typeof g.stepsOpen!=='boolean')g.stepsOpen=g.open;
  if(!Array.isArray(g.steps)||g.steps.length<2)g.steps=[mkStep(''),mkStep(g.ms||'',g.target||'')];
  const a=g.steps;if(a[0].title==='Start')a[0].title='';if(a[a.length-1].title==='Goal reached')a[a.length-1].title='';
  a.forEach(s=>{s.id=s.id||uid();s.title=s.title||'';s.desc=s.desc||'';s.date=s.date||'';if(typeof s.pct!=='number')s.pct=s.done?100:0;s.done=s.pct>=100;s.open=!!s.open})});return d}
-const seed=()=>norm({goals:[{id:'g1',name:'My first goal',open:true}],weeks:{}});
-let S=null,page='goals',cur=mon(new Date()),drag=null;
+const seed=()=>norm({goals:[{id:'g1',name:'My first goal',open:true,stepsOpen:true}],weeks:{}});
+let S=null,page='goals',cur=mon(new Date()),drag=null,snap=null,tt;
 
 let tm;function save(){clearTimeout(tm);tm=setTimeout(async()=>{let ok=false;try{ok=await api.save(JSON.stringify(S))}catch(e){}$('warn').textContent=ok?'':' Could not save. Check that the folder still exists.'},300)}
 function exp(){const a=document.createElement('a');a.href='data:application/json,'+encodeURIComponent(JSON.stringify(S));a.download='strata-backup.json';a.click()}
 function imp(el){const f=el.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const n=norm(JSON.parse(r.result));if(confirm('Replace your current data with this file?')){S=n;save();render()}}catch(e){alert('That file could not be read.')}};r.readAsText(f);el.value=''}
 
 function show(p){page=p;document.querySelectorAll('main>section').forEach(s=>s.hidden=s.id!=='p-'+p);document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.p===p));render()}
-function render(){if(!S)return;renderGoals();renderPri();renderWeek()}
+function render(){if(!S)return;renderGoals();renderPri();renderWeek();$('s-hier').checked=S.settings.hier}
+function setOpt(k,v){S.settings[k]=v;save();render()}
+
+/* ---------- Undo ---------- */
+function remember(msg){snap=JSON.stringify(S.goals);$('tmsg').textContent=msg;$('toast').hidden=false;clearTimeout(tt);tt=setTimeout(()=>{$('toast').hidden=true;snap=null},8000)}
+function undo(){if(!snap)return;S.goals=JSON.parse(snap);snap=null;$('toast').hidden=true;save();render()}
 
 /* ---------- Goals and steps ---------- */
 const gp=g=>Math.round(g.steps.reduce((a,s)=>a+s.pct,0)/g.steps.length);
+const stepLab=(gi,si)=>si===S.goals[gi].steps.length-1?'Complete':S.settings.hier?`${gi+1}.${si+1}`:String(si+1);
 function gset(g,f,v){S.goals[g][f]=v;save();if(f==='name'){renderPri();renderWeek()}}
 function sset(g,s,f,v){S.goals[g].steps[s][f]=v;save();if(f==='date'||f==='title')renderPri()}
 function setPct(g,s,v){v=Math.max(0,Math.min(100,Math.round(+v||0)));const st=S.goals[g].steps[s];st.pct=v;st.done=v>=100;save();refresh(g,s)}
@@ -164,35 +232,45 @@ function refresh(g,s){const G=S.goals[g],p=gp(G),st=G.steps[s],set=(id,fn)=>{con
  set('gp'+g,e=>e.textContent=p+'%');set('gb'+g,e=>e.style.width=p+'%');
  set(`cb${g}_${s}`,e=>e.checked=st.done);set(`pc${g}_${s}`,e=>e.value=st.pct);set(`st${g}_${s}`,e=>e.classList.toggle('d',st.done));renderPri()}
 function togG(g){S.goals[g].open=!S.goals[g].open;save();renderGoals()}
+function togSteps(g){S.goals[g].stepsOpen=!S.goals[g].stepsOpen;save();renderGoals()}
 function togS(g,s){const st=S.goals[g].steps[s];st.open=!st.open;save();renderGoals()}
-function allG(v){S.goals.forEach(g=>g.open=v);save();renderGoals()}
-function addG(){const g=norm({goals:[{name:'New goal',open:true}]}).goals[0];S.goals.push(g);save();render()}
-function delG(g){if(confirm('Delete this goal and all of its steps?')){S.goals.splice(g,1);save();render()}}
+function allG(v){S.goals.forEach(g=>{g.open=v;g.stepsOpen=v});save();renderGoals()}
+function addG(){const g=norm({goals:[{name:'New goal',open:true,stepsOpen:true}]}).goals[0];S.goals.push(g);save();render()}
+function delG(g){remember('Goal deleted.');S.goals.splice(g,1);save();render()}
 function mvG(g,d){const a=S.goals;[a[g],a[g+d]]=[a[g+d],a[g]];save();render()}
-function addS(g,s){S.goals[g].steps.splice(s+1,0,mkStep(''));save();render()}
-function delS(g,s){if(confirm('Delete this step?')){S.goals[g].steps.splice(s,1);save();render()}}
+function addS(g,s){S.goals[g].steps.splice(s+1,0,mkStep(''));save();render();const n=$(`ti${g}_${s+1}`);if(n)n.focus()}
+function delS(g,s){remember('Step deleted.');S.goals[g].steps.splice(s,1);save();render()}
+function tkey(e,g,s){
+ const k=e.key;if(k!=='Enter'&&!(k==='Tab'&&!e.shiftKey))return;
+ const a=S.goals[g].steps,st=a[s],v=e.target.value;e.preventDefault();st.title=v;
+ if(k==='Enter'){
+  if(s<a.length-1&&v.trim()){a.splice(s+1,0,mkStep(''));save();render();const n=$(`ti${g}_${s+1}`);if(n)n.focus()}
+  else{save();e.target.blur();renderPri()}
+ }else{st.open=true;save();render();const d=$(`sd${g}_${s}`);if(d){d.focus();d.setSelectionRange(d.value.length,d.value.length)}}}
 function stepHtml(gi,s,si,last){
- const mid=si>0&&si<last,id=gi+'_'+si,lab=si===last?'Complete':String(si+1);
+ const mid=si>0&&si<last,id=gi+'_'+si;
  return `<div class="step ${s.done?'d':''}" id="st${id}" ondragstart="dstart(event,${gi},${si})" ondragover="dover(event,${gi},${si})" ondragleave="this.classList.remove('over')" ondrop="ddrop(event,${gi},${si})" ondragend="dend()"><div class="sr">
  <span class="h ${mid?'g':''}" ${mid?`title="Click and hold to drag" onmousedown="this.closest('.step').draggable=true" onmouseup="this.closest('.step').draggable=false"`:''}>${mid?'⋮⋮':''}</span>
  <input type="checkbox" id="cb${id}" ${s.done?'checked':''} onchange="stog(${gi},${si})" aria-label="Step complete">
- <span class="sl">${lab}</span>
- <input class="ti" type="text" value="${esc(s.title)}" placeholder="Step title" onchange="sset(${gi},${si},'title',this.value)" aria-label="Step title">
+ <span class="sl">${stepLab(gi,si)}</span>
+ <input class="ti" id="ti${id}" type="text" value="${esc(s.title)}" placeholder="Add a step title" onchange="sset(${gi},${si},'title',this.value)" onkeydown="tkey(event,${gi},${si})" aria-label="Step title">
  <button class="tg ${s.desc?'has':''}" onclick="togS(${gi},${si})" aria-expanded="${s.open}" title="Show or hide description" aria-label="Show or hide description">${s.open?'▾':'▸'}</button>
  <span class="pw"><input type="number" id="pc${id}" min="0" max="100" value="${s.pct}" onchange="setPct(${gi},${si},this.value)" aria-label="Percent complete">%</span>
  <input class="dt" type="date" value="${esc(s.date)}" onchange="sset(${gi},${si},'date',this.value)" aria-label="Target completion date">
- ${si<last?`<button class="ad" onclick="addS(${gi},${si})" title="Add step below">+ Step</button>`:'<span class="ad"></span>'}
+ ${si<last?`<button class="ib" onclick="addS(${gi},${si})" title="Add step below" aria-label="Add step below">${PL}</button>`:'<span class="ib"></span>'}
  ${mid?`<button class="ib" onclick="delS(${gi},${si})" title="Delete step" aria-label="Delete step">${TR}</button>`:'<span class="ib"></span>'}</div>
- ${s.open?`<textarea style="margin-top:6px" placeholder="Describe this step" onchange="sset(${gi},${si},'desc',this.value)" aria-label="Step description">${esc(s.desc)}</textarea>`:''}</div>`}
+ ${s.open?`<div class="sd"><textarea id="sd${id}" placeholder="Add details" onchange="sset(${gi},${si},'desc',this.value)" aria-label="Step description">${esc(s.desc)}</textarea></div>`:''}</div>`}
 function renderGoals(){
  $('goals').innerHTML=S.goals.map((g,gi)=>{const p=gp(g),n=S.goals.length;
- return `<div class="card"><div class="gh"><span class="lab">${gi+1})</span>
+ return `<div class="card"><div class="gh">
+ <button class="tg" onclick="togSteps(${gi})" aria-expanded="${g.stepsOpen}" title="Show or hide steps" aria-label="Show or hide steps">${g.stepsOpen?'▾':'▸'}</button><span class="lab">${gi+1})</span>
  <input class="gt" type="text" value="${esc(g.name)}" placeholder="Goal title" onchange="gset(${gi},'name',this.value)" aria-label="Goal title"><span class="mu pn">Priority ${gi+1}</span>
- <button class="tg ${g.desc?'has':''}" onclick="togG(${gi})" aria-expanded="${g.open}" title="Show or hide description and steps" aria-label="Show or hide description and steps">${g.open?'▾':'▸'}</button>
+ <button class="tg ${g.desc?'has':''}" onclick="togG(${gi})" aria-expanded="${g.open}" title="Show or hide description" aria-label="Show or hide description">${g.open?'▾':'▸'}</button>
  <b class="pc" id="gp${gi}">${p}%</b>
  <button class="ib" onclick="mvG(${gi},-1)" ${gi?'':'disabled'} title="Move up" aria-label="Move up">▲</button><button class="ib" onclick="mvG(${gi},1)" ${gi<n-1?'':'disabled'} title="Move down" aria-label="Move down">▼</button><button class="ib" onclick="delG(${gi})" title="Delete goal" aria-label="Delete goal">${TR}</button></div>
  <div class="bar thin"><i id="gb${gi}" style="width:${p}%"></i></div>
- ${g.open?`<textarea style="margin-top:8px" placeholder="Describe this goal" onchange="gset(${gi},'desc',this.value)" aria-label="Goal description">${esc(g.desc)}</textarea><div style="margin-top:6px">${g.steps.map((s,si)=>stepHtml(gi,s,si,g.steps.length-1)).join('')}</div>`:''}</div>`}).join('')||'<p class="mu">No goals yet. Add one to get started.</p>'}
+ ${g.open?`<textarea style="margin-top:8px" placeholder="Describe this goal" onchange="gset(${gi},'desc',this.value)" aria-label="Goal description">${esc(g.desc)}</textarea>`:''}
+ ${g.stepsOpen?`<div class="stl">${g.steps.map((s,si)=>stepHtml(gi,s,si,g.steps.length-1)).join('')}</div>`:''}</div>`}).join('')||'<p class="mu">No goals yet. Add one to get started.</p>'}
 function dstart(e,g,s){drag={g,s};e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain','step')}
 function okDrop(g,s){return drag&&drag.g===g&&s>0&&s<S.goals[g].steps.length-1}
 function dover(e,g,s){if(okDrop(g,s)){e.preventDefault();e.currentTarget.classList.add('over')}}
@@ -201,10 +279,11 @@ function dend(){drag=null;render()}
 
 /* ---------- Priorities ---------- */
 function renderPri(){
- const k=+$('topn').value,today=iso(new Date()),rows=[];
- S.goals.forEach((g,gi)=>g.steps.forEach((s,si)=>{if(!s.done)rows.push({g,gi,s,si,r:g.steps.filter((x,i)=>!x.done&&i<=si).length})}));
+ const k=+$('topn').value,today=iso(new Date()),rows=[];let late=0;
+ S.goals.forEach((g,gi)=>g.steps.forEach((s,si)=>{if(!s.done){if(s.date&&s.date<today)late++;rows.push({g,gi,s,si,r:g.steps.filter((x,i)=>!x.done&&i<=si).length})}}));
+ $('bd').textContent=late;$('bd').hidden=!late;$('bd').title=late+' overdue';
  const list=rows.filter(x=>x.r<=k).sort((a,b)=>a.gi-b.gi||(a.s.date||'9999').localeCompare(b.s.date||'9999')||a.si-b.si);
- $('pri').innerHTML=list.length?list.map((x,i)=>`<div class="pr"><span class="n">${i+1}</span><div style="flex:1"><div><b>${esc(x.s.title)||'Untitled step'}</b></div><div class="mu">${esc(x.g.name)||'Untitled goal'} · priority ${x.gi+1} · ${x.si===x.g.steps.length-1?'Complete':'step '+(x.si+1)}${x.s.date?` · due ${esc(x.s.date)}${x.s.date<today?' <span class="bad">(overdue)</span>':''}`:' · no date'} · ${x.s.pct}%</div>${x.s.desc?`<div class="mu">${esc(x.s.desc)}</div>`:''}</div><label class="mu"><input type="checkbox" onchange="stog(${x.gi},${x.si})"> Done</label></div>`).join(''):'<p class="mu">Nothing left to do. Every step is complete, or there are no goals yet.</p>'}
+ $('pri').innerHTML=list.length?list.map((x,i)=>`<div class="pr"><span class="n">${i+1}</span><div style="flex:1"><div><b>${esc(x.s.title)||'Untitled step'}</b></div><div class="mu">${esc(x.g.name)||'Untitled goal'} · priority ${x.gi+1} · ${x.si===x.g.steps.length-1?'Complete':'step '+stepLab(x.gi,x.si)}${x.s.date?` · due ${esc(x.s.date)}${x.s.date<today?' <span class="bad">(overdue)</span>':''}`:' · no date'} · ${x.s.pct}%</div>${x.s.desc?`<div class="mu">${esc(x.s.desc)}</div>`:''}</div><label class="mu"><input type="checkbox" onchange="stog(${x.gi},${x.si})"> Done</label></div>`).join(''):'<p class="mu">Nothing left to do. Every step is complete, or there are no goals yet.</p>'}
 
 /* ---------- This week ---------- */
 function mon(d){d=new Date(d);d.setHours(0,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7));return d}
