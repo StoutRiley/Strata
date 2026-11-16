@@ -1,5 +1,5 @@
 const { app, BrowserWindow, ipcMain, dialog, Menu } = require('electron');
-const path = require('path'), fs = require('fs');
+const path = require('path'), fs = require('fs'), os = require('os');
 
 const cfgPath = () => path.join(app.getPath('userData'), 'config.json');
 function cfg() { try { return JSON.parse(fs.readFileSync(cfgPath(), 'utf8')); } catch (e) { return {}; } }
@@ -25,6 +25,7 @@ if (!app.requestSingleInstanceLock()) {
 } else {
   app.on('second-instance', () => { if (win) { if (win.isMinimized()) win.restore(); win.focus(); } });
   app.whenReady().then(() => {
+    ipcMain.handle('device:get', () => ({ name: os.hostname(), platform: os.platform() }));
     ipcMain.handle('folder:get', () => { const f = cfg().folder; return f && fs.existsSync(f) ? f : null; });
     ipcMain.handle('folder:choose', async () => {
       const r = await dialog.showOpenDialog(win, { title: 'Choose a folder for your data', properties: ['openDirectory', 'createDirectory'] });
