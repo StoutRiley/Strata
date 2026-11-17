@@ -109,6 +109,33 @@ main>section:not([hidden]){animation:fin .3s ease}
 @keyframes fin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .rc{width:74px;flex:none;text-align:right;font-size:.78rem;font-weight:600;color:var(--ac);white-space:nowrap;cursor:help}
 .hist div{height:150px}
+
+/* ---------- v7 tuning ---------- */
+.hd{padding:12px 24px 22px}
+.hrow2{margin-top:8px}
+.hd .wv,.ft .wv{height:24px}
+.hdi{max-width:1120px}
+.shell>main{max-width:1120px;padding:6px 24px 6px}
+.card{margin:8px 0}
+.ft{margin-top:10px}.fti{padding:8px 24px 10px}
+.tbar{margin:4px 0 6px}
+.bigb{padding:9px 22px;font-size:1.05rem;font-weight:600}
+.sr{gap:4px}
+.sl{width:34px}.sl.c{width:68px}
+.ti{min-width:100px}
+.tg{width:24px}.ib{width:26px}
+.pw{gap:2px}.pw input{width:42px;text-align:right;-moz-appearance:textfield}
+.pw input::-webkit-outer-spin-button,.pw input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.dt{width:64px;text-align:center;padding:2px 3px;font-size:.85rem}
+.dt.err{border-color:var(--bad);color:var(--bad)}
+.dt[readonly]{background:transparent;border-color:transparent;color:var(--mu)}
+.lw{position:relative;display:inline-flex;flex:none}
+.lp,.pop{display:none;position:absolute;z-index:30;background:var(--card);color:var(--tx);border:1px solid var(--ln);border-radius:10px;box-shadow:var(--sh);padding:8px 12px;font-size:.82rem;line-height:1.4}
+.lp{right:0;bottom:calc(100% + 6px);white-space:nowrap}
+.lp b{color:var(--ac);font-size:.95rem}
+.lw:hover .lp,.lw:focus-within .lp,.wy:hover .pop,.wy:focus-within .pop{display:block}
+.wy{position:relative}.pop{right:0;top:calc(100% + 6px);width:340px;white-space:normal}
+#dpick{position:fixed;width:1px;height:1px;opacity:0;pointer-events:none;border:0;padding:0}
 </style></head><body>
 
 <section id="first" hidden style="max-width:520px;margin:12vh auto;padding:16px"><h1>Welcome</h1><p>Choose a folder where Strata will save your data. A folder in Documents or OneDrive works well.</p><button class="p" onclick="pick()">Choose folder</button></section>
@@ -122,7 +149,7 @@ main>section:not([hidden]){animation:fin .3s ease}
 <main>
 
 <section id="p-goals">
-<div class="row" style="margin:10px 0"><button class="p" onclick="addG()">Add goal</button><button onclick="allG(true)">Expand all</button><button onclick="allG(false)">Collapse all</button></div>
+<div class="row tbar"><button class="p bigb" onclick="addG()">Add goal</button><button onclick="allG(true)">Expand all</button><button onclick="allG(false)">Collapse all</button></div>
 <div id="goals"></div>
 </section>
 
@@ -130,9 +157,9 @@ main>section:not([hidden]){animation:fin .3s ease}
 <div class="card"><div class="row sp"><h2 style="margin:0">Priorities</h2>
 <div class="row">
 <label class="mu">Steps per goal <select id="topn" onchange="renderPri()"><option selected>1</option><option>2</option><option>3</option><option>5</option></select></label>
-<label class="mu">View <select id="pmode" onchange="renderPri()"><option value="all" selected>Show all</option><option value="top">Highlight top X</option></select></label>
-<label class="mu" id="pkw" hidden>X = <input type="number" id="pk" value="5" min="1" max="99" style="width:64px" onchange="renderPri()"></label></div></div>
-<p class="mu" style="margin:8px 0">The next incomplete steps from each goal. Goals are ranked by their priority (their order on the Goals page), then steps by target date. With "Highlight top X," the steps below the top X are greyed out.</p>
+<label class="mu">Emphasize <select id="pmode" onchange="renderPri()"><option value="all" selected>all steps</option><option value="top">only the top</option></select></label>
+<label class="mu" id="pkw" hidden><input type="number" id="pk" value="5" min="1" max="99" style="width:64px" onchange="renderPri()"> steps</label>
+<span class="wy"><button type="button" class="why">Why priorities?</button><div class="pop"><b>Why priorities?</b><br>This page shows what to work on next. Goals are ranked by their order on the Goals page, and each goal's steps are listed by target date.<br><br><b>Steps per goal</b> sets how many upcoming steps each goal contributes.<br><b>Emphasize</b> lets you spotlight only the first few steps in the list. Everything after them is greyed out so you can focus.</div></span></div></div>
 <div id="pri"></div></div>
 </section>
 
@@ -275,6 +302,7 @@ main>section:not([hidden]){animation:fin .3s ease}
 </main>
 <footer class="ft"><svg class="wv" viewBox="0 0 1200 40" preserveAspectRatio="none" aria-hidden="true"><path class="f1" d="M0 18C200 36 400 4 600 20S1000 34 1200 12V40H0Z"/><path class="f2" d="M0 26C180 10 380 36 580 24S980 10 1200 28V40H0Z"/><path class="f3" d="M0 32C220 24 440 40 660 32S1020 26 1200 34V40H0Z"/></svg>
 <div class="fti"><span>STRATA · ONE STEP AT A TIME</span><span id="warn" class="bad"></span></div></footer></div>
+<input type="date" id="dpick" tabindex="-1" aria-hidden="true">
 <div class="toast" id="toast" hidden role="status"><span id="tmsg"></span><button onclick="undo()">Undo</button></div>
 
 <script>
@@ -319,6 +347,11 @@ function undo(){if(!snap)return;S.goals=JSON.parse(snap);snap=null;$('toast').hi
 const pd=s=>{const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)};
 const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
 const addD=(s,n)=>{const d=pd(s);d.setDate(d.getDate()+n);return iso(d)};
+const md=d=>String(d.getMonth()+1).padStart(2,'0')+'/'+String(d.getDate()).padStart(2,'0');
+function parseD(t){t=(t||'').trim();if(!t)return'';let m=t.match(/^(\d{1,2})[\/\-.](\d{1,2})(?:[\/\-.](\d{2}|\d{4}))?$/)||t.match(/^(\d{2})(\d{2})(\d{2}|\d{4})?$/);if(!m)return null;
+ const mo=+m[1],d=+m[2];let y=m[3]?+m[3]:new Date().getFullYear();if(y<100)y+=2000;const dt=new Date(y,mo-1,d);return dt.getFullYear()===y&&dt.getMonth()===mo-1&&dt.getDate()===d?iso(dt):null}
+function setDateTxt(g,s,el){const v=parseD(el.value);if(v===null){el.classList.add('err');el.title='Use mm/dd/yy, for example 03/15/27';return}el.classList.remove('err');sset(g,s,'date',v)}
+function openPick(g,s,el){if(S.goals[g].steps[s].rule)return;const p=$('dpick'),r=el.getBoundingClientRect();p.style.left=r.left+'px';p.style.top=r.bottom+'px';p.value=S.goals[g].steps[s].date||'';p.onchange=()=>{if(p.value)sset(g,s,'date',p.value)};try{p.showPicker()}catch(e){}}
 const fmtD=s=>{const[y,m,d]=s.split('-');return m+'/'+d+'/'+y.slice(2)};
 function findStep(id){for(let g=0;g<S.goals.length;g++){const a=S.goals[g].steps;for(let s=0;s<a.length;s++)if(a[s].id===id)return{g,s,st:a[s]}}return null}
 function recalc(){const all=[];S.goals.forEach(g=>g.steps.forEach(s=>all.push(s)));
@@ -355,7 +388,7 @@ function refresh(g,s){const G=S.goals[g],p=gp(G),st=G.steps[s],set=(id,fn)=>{con
  set(`cb${g}_${s}`,e=>e.checked=st.done);set(`pc${g}_${s}`,e=>{e.value=st.pct;e.style.background=pbg(st.pct)});set(`st${g}_${s}`,e=>e.classList.toggle('d',st.done));renderPri();renderHeader()}
 function togG(g){S.goals[g].open=!S.goals[g].open;save();renderGoals()}
 function togSteps(g){S.goals[g].stepsOpen=!S.goals[g].stepsOpen;save();renderGoals()}
-function togS(g,s){const st=S.goals[g].steps[s];st.open=!st.open;save();renderGoals()}
+function togS(g,s){const st=S.goals[g].steps[s];st.open=!st.open;save();render()}
 function allG(v){S.goals.forEach(g=>{g.open=v;g.stepsOpen=v});save();renderGoals()}
 function addG(){const g=norm({goals:[{name:'New goal',open:true,stepsOpen:true}]}).goals[0];S.goals.push(g);save();render()}
 function delG(g){remember('Goal deleted.');S.goals.splice(g,1);save();render()}
@@ -370,7 +403,7 @@ function tkey(e,g,s){
   else{save();e.target.blur();renderPri()}
  }else{st.open=true;save();render();const d=$(`sd${g}_${s}`);if(d){d.focus();d.setSelectionRange(d.value.length,d.value.length)}}}
 function stepHtml(gi,s,si,last){
- const isL=si===last,id=gi+'_'+si,ind=isL?22:58;
+ const isL=si===last,id=gi+'_'+si,ind=isL?20:54;
  return `<div class="step ${s.done?'d':''}" id="st${id}" ondragstart="dstart(event,${gi},${si})" ondragover="dover(event,${gi},${si})" ondrop="ddrop(event)" ondragend="dend()"><div class="sr">
  ${isL?'':`<span class="h" title="Click and hold to drag" onmousedown="this.closest('.step').draggable=true" onmouseup="this.closest('.step').draggable=false">⋮⋮</span>`}
  <input type="checkbox" id="cb${id}" ${s.done?'checked':''} onchange="stog(${gi},${si})" aria-label="Step complete">
@@ -378,9 +411,8 @@ function stepHtml(gi,s,si,last){
  <input class="ti" id="ti${id}" type="text" value="${esc(s.title)}" placeholder="Add a step title" onchange="sset(${gi},${si},'title',this.value)" onkeydown="tkey(event,${gi},${si})" aria-label="Step title">
  <button class="tg ${s.desc?'has':''}" onclick="togS(${gi},${si})" aria-expanded="${s.open}" title="Show or hide description" aria-label="Show or hide description">${s.open?'▾':'▸'}</button>
  <span class="pw"><input type="number" id="pc${id}" min="0" max="100" value="${s.pct}" style="background:${pbg(s.pct)}" onchange="setPct(${gi},${si},this.value)" aria-label="Percent complete">%</span>
- <span class="rc" title="${s.rule?esc(ruleText(s)):''}">${refLab(s)}</span>
- <input class="dt" type="date" value="${esc(s.date)}" ${s.rule?'disabled':''} onchange="sset(${gi},${si},'date',this.value)" aria-label="Target completion date">
- <button class="ib ${s.rule?'has':''}" onclick="togR('${s.id}')" ${s.done?'disabled':''} title="Set date relative to another step" aria-label="Set date relative to another step">${LK}</button>
+ <input class="dt" type="text" maxlength="10" value="${s.date?fmtD(s.date):''}" placeholder="mm/dd/yy" ${s.rule?'readonly tabindex="-1"':''} title="${s.rule?'This date follows a rule':'Type mm/dd/yy, or double-click for a calendar'}" onchange="setDateTxt(${gi},${si},this)" onkeydown="if(event.key==='Enter')this.blur()" ondblclick="openPick(${gi},${si},this)" aria-label="Target completion date">
+ <span class="lw"><button class="ib ${s.rule?'has':''}" onclick="togR('${s.id}')" ${s.done?'disabled':''} aria-label="Set date relative to another step">${LK}</button><span class="lp">${s.rule?`<b>${refLab(s)}</b><br>${esc(ruleText(s))}`:'Set date relative to another step'}</span></span>
  ${isL?`<button class="ib" onclick="addS(${gi},${si-1})" title="Add step above" aria-label="Add step above">${PL}</button><span class="ib"></span>`:`<button class="ib" onclick="addS(${gi},${si})" title="Add step below" aria-label="Add step below">${PL}</button><button class="ib" onclick="delS(${gi},${si})" title="Delete step" aria-label="Delete step">${TR}</button>`}</div>
  ${rOpen[s.id]&&!s.done?rulePanel(gi,si,s,ind):''}
  ${s.open?`<div class="sd" style="margin-left:${ind}px"><textarea id="sd${id}" placeholder="Add details" onchange="sset(${gi},${si},'desc',this.value)" aria-label="Step description">${esc(s.desc)}</textarea></div>`:''}</div>`}
@@ -414,7 +446,7 @@ function renderPri(){
  $('bd').textContent=late;$('bd').hidden=!late;$('bd').title=late+' overdue';
  const top=$('pmode').value==='top';$('pkw').hidden=!top;const X=top?Math.max(1,+$('pk').value||1):Infinity;
  const list=rows.filter(x=>x.r<=k).sort((a,b)=>a.gi-b.gi||(a.s.date||'9999').localeCompare(b.s.date||'9999')||a.si-b.si);
- $('pri').innerHTML=list.length?list.map((x,i)=>{const on=i<X;return `<div class="pr ${on?'':'dim'}"><span class="n">${i+1}</span><div style="flex:1"><div><span class="mu">${stepLab(x.gi,x.si)}</span> <b>${esc(x.s.title)||'Untitled step'}</b></div><div class="mu">${esc(x.g.name)||'Untitled goal'} · priority ${x.gi+1}${x.s.date?` · due ${fmtD(x.s.date)}${x.s.date<today?' <span class="bad">(overdue)</span>':''}`:' · no date'} · ${x.s.pct}%</div>${x.s.desc?`<div class="mu">${esc(x.s.desc)}</div>`:''}</div>${on?`<label class="mu"><input type="checkbox" onchange="stog(${x.gi},${x.si})"> Done</label>`:''}</div>`}).join(''):'<p class="mu">Nothing left to do. Every step is complete, or there are no goals yet.</p>'}
+ $('pri').innerHTML=list.length?list.map((x,i)=>{const on=i<X;return `<div class="pr ${on?'':'dim'}"><span class="n">${i+1}</span><div style="flex:1"><div><span class="mu">${stepLab(x.gi,x.si)}</span> <b>${esc(x.s.title)||'Untitled step'}</b></div><div class="mu">${esc(x.g.name)||'Untitled goal'} · priority ${x.gi+1}${x.s.date?` · due ${fmtD(x.s.date)}${x.s.date<today?' <span class="bad">(overdue)</span>':''}`:' · no date'} · ${x.s.pct}%</div>${x.s.open&&x.s.desc?`<div class="mu">${esc(x.s.desc)}</div>`:''}</div><button class="tg ${x.s.desc?'has':''}" onclick="togS(${x.gi},${x.si})" aria-expanded="${x.s.open}" title="Show or hide details" aria-label="Show or hide details">${x.s.open?'▾':'▸'}</button>${on?`<label class="mu"><input type="checkbox" onchange="stog(${x.gi},${x.si})"> Done</label>`:''}</div>`}).join(''):'<p class="mu">Nothing left to do. Every step is complete, or there are no goals yet.</p>'}
 
 /* ---------- This week ---------- */
 function mon(d){d=new Date(d);d.setHours(0,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7));return d}
@@ -432,11 +464,10 @@ function wkStats(x){const a=iso(x),e=new Date(x);e.setDate(e.getDate()+6);const 
  if(w){tot+=w.tasks.length;done+=w.tasks.filter(t=>t.done).length}
  S.goals.forEach(g=>g.steps.forEach(s=>{if(s.date&&s.date>=a&&s.date<=b){tot++;if(s.done)done++}}));
  return{done,tot,v:tot?Math.round(100*done/tot):0}}
-function rng(x){const e=new Date(x);e.setDate(e.getDate()+6);const m=d=>d.toLocaleDateString(undefined,{month:'short'});return x.getMonth()===e.getMonth()?`${m(x)} ${x.getDate()}–${e.getDate()}`:`${m(x)} ${x.getDate()}–${m(e)} ${e.getDate()}`}
+function rng(x){const e=new Date(x);e.setDate(e.getDate()+6);return md(x)+'–'+md(e)}
 function renderWeek(){
  const w=W(),e=new Date(cur);e.setDate(e.getDate()+6);
- const f=d=>d.toLocaleDateString(undefined,{month:'short',day:'numeric'});
- $('wk').textContent=f(cur)+' to '+f(e);
+ $('wk').textContent=md(cur)+'–'+md(e);
  const p=pct(w),dn=w.tasks.filter(t=>t.done).length;
  $('wc').textContent=w.tasks.length?dn+' of '+w.tasks.length+' tasks done':'No tasks yet';$('wb').style.width=p+'%';
  let s=0,d=mon(new Date());for(let n=0;n<200;n++){const x=S.weeks[iso(d)];if(x&&x.tasks.length&&pct(x)>=70)s++;else if(n>0)break;d.setDate(d.getDate()-7)}
