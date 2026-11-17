@@ -68,13 +68,58 @@ input[type=text]{min-width:0}
 .fld{display:block;margin:8px 0}.fld input{width:100%;margin-top:2px}
 .toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:8px 12px;border-radius:8px;display:flex;gap:10px;align-items:center;box-shadow:0 2px 10px #0005}
 .toast button{background:var(--bg);color:var(--tx)}
+
+/* ---------- v6 theme ---------- */
+:root{--h1:#0c2540;--h2:#12456e;--h3:#1f78b4;--sh:0 1px 2px rgba(15,35,55,.06),0 10px 28px rgba(15,35,55,.08)}
+@media (prefers-color-scheme:dark){:root{--h1:#07121c;--h2:#0e3250;--h3:#17608f;--sh:0 1px 2px rgba(0,0,0,.3),0 10px 28px rgba(0,0,0,.35)}}
+body{background:radial-gradient(900px 400px at 10% 0,rgba(31,120,180,.07),transparent 70%),var(--bg)}
+h1,h2,.pt,.gt{font-family:'Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif}
+.pt{font-size:1.7rem;margin:6px 0 4px}
+.shell{min-height:100vh;display:flex;flex-direction:column}
+.shell>main{flex:1;width:100%;padding:18px 24px 12px}
+.card{border-radius:14px;box-shadow:var(--sh);padding:14px 16px;margin:14px 0}
+.hd{position:relative;background:linear-gradient(120deg,var(--h1),var(--h2) 55%,var(--h3));color:#fff;padding:20px 24px 44px;overflow:hidden}
+.hd::before{content:"";position:absolute;inset:0;background:radial-gradient(620px 240px at 88% -30%,rgba(255,255,255,.2),transparent 70%);pointer-events:none}
+.hdi{max-width:980px;margin:0 auto;position:relative}
+.hrow{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.hrow2{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:16px}
+.hd h1{color:#fff;font-size:2rem;letter-spacing:.03em;line-height:1}
+.tag{font-size:.76rem;opacity:.75;margin-top:5px;letter-spacing:.06em}
+.greet{font-family:'Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif;font-size:1.1rem}
+.greet small{display:block;opacity:.7;font-size:.8rem;font-family:system-ui,'Segoe UI',sans-serif}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:3px 12px;font-size:.82rem}
+.chip b{font-size:1rem}.chip.warn{background:rgba(239,107,91,.28);border-color:rgba(239,107,91,.55)}
+.wv{display:block;width:100%;height:40px}
+.hd .wv{position:absolute;left:0;bottom:-1px}
+.w1{fill:rgba(255,255,255,.1)}.w2{fill:rgba(255,255,255,.18)}.wb{fill:var(--bg)}
+.f1{fill:var(--ac);fill-opacity:.14}.f2{fill:var(--h3);fill-opacity:.5}.f3{fill:var(--h1)}
+.ft{margin-top:28px}.ft .wv{margin-bottom:-1px}
+.fti{background:var(--h1);color:#c9dced;padding:14px 24px 18px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:.85rem;letter-spacing:.05em}
+.fti .bad{color:#ff9d90}
+#nav{display:flex;gap:6px;flex-wrap:wrap}
+.nb{display:inline-flex;align-items:center;background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:8px 11px;transition:background .2s,color .2s}
+.nb svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.nb .l{max-width:0;overflow:hidden;white-space:nowrap;opacity:0;transition:max-width .28s ease,opacity .2s ease,margin-left .28s ease}
+.nb:hover .l,.nb:focus-visible .l,.nb.on .l{max-width:110px;opacity:1;margin-left:7px}
+.nb:hover{background:rgba(255,255,255,.24)}
+#nav .nb.on{background:#fff;color:var(--h2);border-color:#fff}
+.nb:focus-visible{outline:2px solid #fff;outline-offset:2px}
+main>section:not([hidden]){animation:fin .3s ease}
+@keyframes fin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.rc{width:74px;flex:none;text-align:right;font-size:.78rem;font-weight:600;color:var(--ac);white-space:nowrap;cursor:help}
+.hist div{height:150px}
 </style></head><body>
 
 <section id="first" hidden style="max-width:520px;margin:12vh auto;padding:16px"><h1>Welcome</h1><p>Choose a folder where Strata will save your data. A folder in Documents or OneDrive works well.</p><button class="p" onclick="pick()">Choose folder</button></section>
 
-<main id="main" hidden>
-<div class="row sp"><div class="brand"><svg width="34" height="34" viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="96" fill="#1b6ca8"/><rect x="96" y="288" width="72" height="128" rx="8" fill="#fff" opacity=".55"/><rect x="220" y="208" width="72" height="208" rx="8" fill="#fff" opacity=".8"/><rect x="344" y="112" width="72" height="304" rx="8" fill="#fff"/></svg><h1>Strata</h1></div>
-<nav class="row" id="nav"><button data-p="goals" onclick="show('goals')">Goals</button><button data-p="pri" onclick="show('pri')">Priorities<span class="bd" id="bd" hidden></span></button><button data-p="week" onclick="show('week')">This week</button><button data-p="tips" onclick="show('tips')">Tips</button><button data-p="set" onclick="show('set')">Settings</button><button data-p="acct" onclick="show('acct')">My Account</button></nav></div>
+<div id="main" hidden class="shell">
+<header class="hd"><div class="hdi">
+<div class="hrow"><div class="brand"><svg width="42" height="42" viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="96" fill="#fff" fill-opacity=".14"/><rect x="96" y="288" width="72" height="128" rx="8" fill="#fff" opacity=".6"/><rect x="220" y="208" width="72" height="208" rx="8" fill="#fff" opacity=".82"/><rect x="344" y="112" width="72" height="304" rx="8" fill="#fff"/></svg><div><h1>Strata</h1><div class="tag">STEP BY STEP, LAYER BY LAYER</div></div></div>
+<nav id="nav" aria-label="Pages"><button class="nb" data-p="goals" onclick="show('goals')" title="Goals" aria-label="Goals"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 22V4M4 4h13l-2 4 2 4H4"/></svg><span class="l">Goals</span></button><button class="nb" data-p="pri" onclick="show('pri')" title="Priorities" aria-label="Priorities"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span class="l">Priorities</span><span class="bd" id="bd" hidden></span></button><button class="nb" data-p="week" onclick="show('week')" title="This week" aria-label="This week"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span class="l">This week</span></button><button class="nb" data-p="tips" onclick="show('tips')" title="Tips" aria-label="Tips"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.3h6c0-1 .4-1.8 1-2.3A7 7 0 0 0 12 2z"/></svg><span class="l">Tips</span></button><button class="nb" data-p="set" onclick="show('set')" title="Settings" aria-label="Settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></svg><span class="l">Settings</span></button><button class="nb" data-p="acct" onclick="show('acct')" title="My Account" aria-label="My Account"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="l">My Account</span></button></nav></div>
+<div class="hrow2"><div class="greet" id="greet"></div><div class="chips" id="chips"></div></div></div>
+<svg class="wv" viewBox="0 0 1200 40" preserveAspectRatio="none" aria-hidden="true"><path class="w1" d="M0 14C200 34 400 0 600 16S1000 30 1200 10V40H0Z"/><path class="w2" d="M0 22C180 6 360 34 560 20S960 8 1200 24V40H0Z"/><path class="wb" d="M0 30C220 20 420 38 640 30S1000 22 1200 32V40H0Z"/></svg></header>
+<main>
 
 <section id="p-goals">
 <div class="row" style="margin:10px 0"><button class="p" onclick="addG()">Add goal</button><button onclick="allG(true)">Expand all</button><button onclick="allG(false)">Collapse all</button></div>
@@ -82,12 +127,12 @@ input[type=text]{min-width:0}
 </section>
 
 <section id="p-pri" hidden>
-<div class="card"><h2>Priorities</h2>
-<div class="row" style="margin-bottom:6px">
+<div class="card"><div class="row sp"><h2 style="margin:0">Priorities</h2>
+<div class="row">
 <label class="mu">Steps per goal <select id="topn" onchange="renderPri()"><option selected>1</option><option>2</option><option>3</option><option>5</option></select></label>
 <label class="mu">View <select id="pmode" onchange="renderPri()"><option value="all" selected>Show all</option><option value="top">Highlight top X</option></select></label>
-<label class="mu" id="pkw" hidden>X = <input type="number" id="pk" value="5" min="1" max="99" style="width:64px" onchange="renderPri()"></label></div>
-<p class="mu">The next incomplete steps from each goal. Goals are ranked by their priority (their order on the Goals page), then steps by target date. With "Highlight top X," the steps below the top X are greyed out.</p>
+<label class="mu" id="pkw" hidden>X = <input type="number" id="pk" value="5" min="1" max="99" style="width:64px" onchange="renderPri()"></label></div></div>
+<p class="mu" style="margin:8px 0">The next incomplete steps from each goal. Goals are ranked by their priority (their order on the Goals page), then steps by target date. With "Highlight top X," the steps below the top X are greyed out.</p>
 <div id="pri"></div></div>
 </section>
 
@@ -104,7 +149,7 @@ input[type=text]{min-width:0}
 <div class="mu" style="margin-top:8px">Blockers</div><textarea id="block" oninput="rv('block',this.value)"></textarea>
 <div class="mu" style="margin-top:8px">Focus for next week</div><textarea id="next" oninput="rv('next',this.value)"></textarea>
 <div class="mu" style="margin-top:8px">How did the week feel? (1–5)</div><div class="row rt" id="rate"></div></div>
-<div class="card"><h2>Last 8 weeks: share of tasks done</h2><p class="mu" style="margin:0 0 8px">Counts weekly tasks plus every goal step with a target date in that week. Completed ones count as done.</p><div class="hist" id="hist"></div></div>
+<div class="card"><h2>Last 8 weeks: share of tasks done</h2><p class="mu" style="margin:0 0 8px">Bar height shows how many tasks and steps fall in that week. A darker color means a larger share was completed. Labels show completed/total and the percentage.</p><div class="hist" id="hist"></div></div>
 </section>
 
 <section id="p-tips" hidden>
@@ -227,8 +272,9 @@ input[type=text]{min-width:0}
 <p class="mu" style="margin-top:14px">Sign-in, password management, and syncing across devices are not available yet.</p></div>
 </section>
 
-<p class="mu" style="margin-top:12px"><span id="warn" class="bad"></span></p>
 </main>
+<footer class="ft"><svg class="wv" viewBox="0 0 1200 40" preserveAspectRatio="none" aria-hidden="true"><path class="f1" d="M0 18C200 36 400 4 600 20S1000 34 1200 12V40H0Z"/><path class="f2" d="M0 26C180 10 380 36 580 24S980 10 1200 28V40H0Z"/><path class="f3" d="M0 32C220 24 440 40 660 32S1020 26 1200 34V40H0Z"/></svg>
+<div class="fti"><span>STRATA · ONE STEP AT A TIME</span><span id="warn" class="bad"></span></div></footer></div>
 <div class="toast" id="toast" hidden role="status"><span id="tmsg"></span><button onclick="undo()">Undo</button></div>
 
 <script>
@@ -253,8 +299,17 @@ function imp(el){const f=el.files[0];if(!f)return;const r=new FileReader();r.onl
 function wipe(){if(!confirm('Delete ALL goals, steps, weekly tasks, and profile information from this device? This cannot be undone.'))return;if(!confirm('Are you sure? Everything will be erased.'))return;S=seed();save();render()}
 
 function show(p){page=p;document.querySelectorAll('main>section').forEach(s=>s.hidden=s.id!=='p-'+p);document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.p===p));render()}
-function render(){if(!S)return;renderGoals();renderPri();renderWeek();renderAcct();$('s-hier').checked=S.settings.hier}
+function render(){if(!S)return;renderHeader();renderGoals();renderPri();renderWeek();renderAcct();$('s-hier').checked=S.settings.hier}
 function setOpt(k,v){S.settings[k]=v;save();render()}
+
+function renderHeader(){
+ const h=new Date().getHours(),g=h<12?'Good morning':h<18?'Good afternoon':'Good evening',nm=(S.profile.name||'').trim().split(/\s+/)[0];
+ $('greet').innerHTML=`${g}${nm?', '+esc(nm):''}<small>${new Date().toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'})}</small>`;
+ const all=[];S.goals.forEach(g=>g.steps.forEach(s=>all.push(s)));
+ const avg=all.length?Math.round(all.reduce((a,s)=>a+s.pct,0)/all.length):0,done=all.filter(s=>s.done).length;
+ const t=iso(new Date()),e=new Date(mon(new Date()));e.setDate(e.getDate()+6);const b=iso(e);
+ const due=all.filter(s=>!s.done&&s.date&&s.date>=t&&s.date<=b).length,late=all.filter(s=>!s.done&&s.date&&s.date<t).length;
+ $('chips').innerHTML=`<span class="chip"><b>${avg}%</b> overall</span><span class="chip"><b>${done}</b> of ${all.length} steps complete</span><span class="chip"><b>${due}</b> due this week</span>${late?`<span class="chip warn"><b>${late}</b> overdue</span>`:''}`}
 
 /* ---------- Undo ---------- */
 function remember(msg){snap=JSON.stringify(S.goals);$('tmsg').textContent=msg;$('toast').hidden=false;clearTimeout(tt);tt=setTimeout(()=>{$('toast').hidden=true;snap=null},8000)}
@@ -273,6 +328,7 @@ function recalc(){const all=[];S.goals.forEach(g=>g.steps.forEach(s=>all.push(s)
   if(!ch)break}}
 function loops(id,target,d){d=d||0;if(id===target||d>60)return true;const r=findStep(id);return !!(r&&r.st.rule&&loops(r.st.rule.id,target,d+1))}
 function ruleText(s){const r=s.rule,f=findStep(r.id);if(!f)return'';return `${r.days} day${r.days===1?'':'s'} ${r.dir} ${f.g+1}.${f.s+1} (${f.st.date?fmtD(f.st.date):'no date yet'})${s.date?' → '+fmtD(s.date):''}`}
+function refLab(s){const r=s.rule,f=r&&findStep(r.id);return f?`${f.g+1}.${f.s+1}${r.dir==='before'?'-':'+'}${r.days}d`:''}
 function togR(sid){rOpen[sid]=!rOpen[sid];renderGoals()}
 function applyRule(g,s){const st=S.goals[g].steps[s],id=g+'_'+s,days=Math.max(0,Math.round(+$('rd'+id).value||0)),dir=$('rr'+id).value,ref=$('rs'+id).value;
  if(!ref){alert('Choose a step to base this date on.');return}
@@ -291,12 +347,12 @@ const gp=g=>Math.round(g.steps.reduce((a,s)=>a+s.pct,0)/g.steps.length);
 const pbg=p=>`linear-gradient(90deg,var(--acf) ${p}%,var(--card) ${p}%)`;
 const stepLab=(gi,si)=>si===S.goals[gi].steps.length-1?'Complete':S.settings.hier?`${gi+1}.${si+1}`:String(si+1);
 function gset(g,f,v){S.goals[g][f]=v;save();if(f==='name'){renderPri();renderWeek()}}
-function sset(g,s,f,v){S.goals[g].steps[s][f]=v;save();if(f==='date'){renderGoals();renderPri()}else if(f==='title')renderPri()}
+function sset(g,s,f,v){S.goals[g].steps[s][f]=v;save();if(f==='date'){renderGoals();renderPri();renderHeader()}else if(f==='title')renderPri()}
 function setPct(g,s,v){v=Math.max(0,Math.min(100,Math.round(+v||0)));const st=S.goals[g].steps[s],had=!!st.rule;recalc();st.pct=v;st.done=v>=100;if(st.done)st.rule=null;save();if(had&&st.done)render();else refresh(g,s)}
 function stog(g,s){setPct(g,s,S.goals[g].steps[s].done?0:100)}
 function refresh(g,s){const G=S.goals[g],p=gp(G),st=G.steps[s],set=(id,fn)=>{const e=$(id);if(e)fn(e)};
  set('gp'+g,e=>e.textContent=p+'%');set('gb'+g,e=>e.style.width=p+'%');
- set(`cb${g}_${s}`,e=>e.checked=st.done);set(`pc${g}_${s}`,e=>{e.value=st.pct;e.style.background=pbg(st.pct)});set(`st${g}_${s}`,e=>e.classList.toggle('d',st.done));renderPri()}
+ set(`cb${g}_${s}`,e=>e.checked=st.done);set(`pc${g}_${s}`,e=>{e.value=st.pct;e.style.background=pbg(st.pct)});set(`st${g}_${s}`,e=>e.classList.toggle('d',st.done));renderPri();renderHeader()}
 function togG(g){S.goals[g].open=!S.goals[g].open;save();renderGoals()}
 function togSteps(g){S.goals[g].stepsOpen=!S.goals[g].stepsOpen;save();renderGoals()}
 function togS(g,s){const st=S.goals[g].steps[s];st.open=!st.open;save();renderGoals()}
@@ -322,10 +378,10 @@ function stepHtml(gi,s,si,last){
  <input class="ti" id="ti${id}" type="text" value="${esc(s.title)}" placeholder="Add a step title" onchange="sset(${gi},${si},'title',this.value)" onkeydown="tkey(event,${gi},${si})" aria-label="Step title">
  <button class="tg ${s.desc?'has':''}" onclick="togS(${gi},${si})" aria-expanded="${s.open}" title="Show or hide description" aria-label="Show or hide description">${s.open?'▾':'▸'}</button>
  <span class="pw"><input type="number" id="pc${id}" min="0" max="100" value="${s.pct}" style="background:${pbg(s.pct)}" onchange="setPct(${gi},${si},this.value)" aria-label="Percent complete">%</span>
+ <span class="rc" title="${s.rule?esc(ruleText(s)):''}">${refLab(s)}</span>
  <input class="dt" type="date" value="${esc(s.date)}" ${s.rule?'disabled':''} onchange="sset(${gi},${si},'date',this.value)" aria-label="Target completion date">
  <button class="ib ${s.rule?'has':''}" onclick="togR('${s.id}')" ${s.done?'disabled':''} title="Set date relative to another step" aria-label="Set date relative to another step">${LK}</button>
  ${isL?`<button class="ib" onclick="addS(${gi},${si-1})" title="Add step above" aria-label="Add step above">${PL}</button><span class="ib"></span>`:`<button class="ib" onclick="addS(${gi},${si})" title="Add step below" aria-label="Add step below">${PL}</button><button class="ib" onclick="delS(${gi},${si})" title="Delete step" aria-label="Delete step">${TR}</button>`}</div>
- ${s.rule?`<div class="rl" style="margin-left:${ind}px">${ruleText(s)}</div>`:''}
  ${rOpen[s.id]&&!s.done?rulePanel(gi,si,s,ind):''}
  ${s.open?`<div class="sd" style="margin-left:${ind}px"><textarea id="sd${id}" placeholder="Add details" onchange="sset(${gi},${si},'desc',this.value)" aria-label="Step description">${esc(s.desc)}</textarea></div>`:''}</div>`}
 function renderGoals(){
@@ -389,7 +445,9 @@ function renderWeek(){
  $('tasks').innerHTML=w.tasks.length?w.tasks.map((t,i)=>{const g=S.goals.find(g=>g.id===t.g);return `<div class="task ${t.done?'d':''}"><input type="checkbox" ${t.done?'checked':''} onchange="tog(${i})" aria-label="Mark done"><span>${esc(t.t)}</span><small class="mu">${g?esc(g.name):''}</small><button class="ib" onclick="del(${i})" title="Delete task" aria-label="Delete task">${TR}</button></div>`}).join(''):'<div class="mu">Add the 3 to 5 tasks that move your goals most this week.</div>';
  setv('wins',w.wins);setv('block',w.block);setv('next',w.next);
  $('rate').innerHTML=[1,2,3,4,5].map(n=>`<button class="${w.rating===n?'on':''}" onclick="rate(${n})">${n}</button>`).join('');
- let h='';for(let i=7;i>=0;i--){const x=new Date(cur);x.setDate(x.getDate()-7*i);const t=wkStats(x);h+=`<div><small>${t.tot?t.v+'%':''}</small><i style="height:${t.v*0.7}px" title="${t.done} of ${t.tot} done"></i><small>${rng(x)}</small></div>`}
+ const ws=[];for(let i=7;i>=0;i--){const x=new Date(cur);x.setDate(x.getDate()-7*i);ws.push({x,t:wkStats(x)})}
+ const mx=Math.max(1,...ws.map(o=>o.t.tot));let h='';
+ ws.forEach(({x,t})=>{h+=`<div><small>${t.tot?`${t.done}/${t.tot} · ${t.v}%`:''}</small><i style="height:${t.tot?Math.max(6,Math.round(80*t.tot/mx)):2}px;background:color-mix(in srgb,var(--ac) ${25+Math.round(0.75*t.v)}%,transparent)" title="${t.done} of ${t.tot} done (${t.v}%)"></i><small>${rng(x)}</small></div>`});
  $('hist').innerHTML=h;
 }
 
@@ -400,7 +458,7 @@ function renderAcct(){const p=S.profile,ini=(p.name.trim()[0]||'').toUpperCase()
  $('p-tz').placeholder=Intl.DateTimeFormat().resolvedOptions().timeZone;setv('p-tz',p.tz);
  $('p-emailerr').textContent=p.email&&!/^\S+@\S+\.\S+$/.test(p.email)?'That email address does not look right.':'';
  $('devname').textContent=device}
-function setProf(k,v){S.profile[k]=v.trim();save();renderAcct()}
+function setProf(k,v){S.profile[k]=v.trim();save();renderAcct();renderHeader()}
 function upPhoto(el){const f=el.files[0];if(!f)return;const r=new FileReader();
  r.onload=()=>{const im=new Image();im.onload=()=>{const c=document.createElement('canvas');c.width=c.height=160;const m=Math.min(im.width,im.height);c.getContext('2d').drawImage(im,(im.width-m)/2,(im.height-m)/2,m,m,0,0,160,160);S.profile.photo=c.toDataURL('image/jpeg',.85);save();renderAcct()};im.onerror=()=>alert('That image could not be read.');im.src=r.result};
  r.readAsDataURL(f);el.value=''}
