@@ -136,20 +136,73 @@ main>section:not([hidden]){animation:fin .3s ease}
 .lw:hover .lp,.lw:focus-within .lp,.wy:hover .pop,.wy:focus-within .pop{display:block}
 .wy{position:relative}.pop{right:0;top:calc(100% + 6px);width:340px;white-space:normal}
 #dpick{position:fixed;width:1px;height:1px;opacity:0;pointer-events:none;border:0;padding:0}
+
+/* ---------- v8 artistry ---------- */
+:root{--tex:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .22 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");--lines:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='900' height='420' fill='none' stroke='%231f78b4' stroke-opacity='.10'><path d='M0 50C150 30 300 70 450 50S750 30 900 50'/><path d='M0 120C150 100 330 140 450 120S780 100 900 120'/><path d='M0 190C150 175 300 205 450 190S750 175 900 190'/><path d='M0 260C150 240 300 280 450 260S750 240 900 260'/><path d='M0 330C150 315 300 345 450 330S750 315 900 330'/><path d='M0 390C150 380 300 400 450 390S750 380 900 390'/></svg>");--htex:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")}
+@media (prefers-color-scheme:dark){:root{--tex:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .16 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");--lines:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='900' height='420' fill='none' stroke='%238cc4f0' stroke-opacity='.07'><path d='M0 50C150 30 300 70 450 50S750 30 900 50'/><path d='M0 120C150 100 330 140 450 120S780 100 900 120'/><path d='M0 190C150 175 300 205 450 190S750 175 900 190'/><path d='M0 260C150 240 300 280 450 260S750 240 900 260'/><path d='M0 330C150 315 300 345 450 330S750 315 900 330'/><path d='M0 390C150 380 300 400 450 390S750 380 900 390'/></svg>")}}
+body{background:var(--lines),var(--tex),radial-gradient(900px 420px at 8% 0,rgba(31,120,180,.10),transparent 70%),radial-gradient(700px 400px at 100% 60%,rgba(123,94,167,.06),transparent 70%),var(--bg);background-repeat:repeat,repeat,no-repeat,no-repeat,repeat}
+.hd{background-size:180% 180%;animation:drift 32s ease-in-out infinite alternate;padding:12px 24px 28px}
+@keyframes drift{from{background-position:0% 50%}to{background-position:100% 50%}}
+.hd::after{content:"";position:absolute;inset:0;background-image:var(--htex);mix-blend-mode:overlay;opacity:.55;pointer-events:none}
+.hdi{z-index:3}
+.scene{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
+.ridge{position:absolute;left:0;bottom:-1px;width:100%;height:58px;z-index:2;pointer-events:none}
+.sun{animation:pulse 9s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.8}50%{opacity:1}}
+.tw{animation:tw 4.5s ease-in-out infinite}
+@keyframes tw{0%,100%{opacity:.2}50%{opacity:1}}
+.chip{backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 2px 10px rgba(0,0,0,.18)}
+.nb{backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:background .2s,color .2s,transform .2s,box-shadow .2s}
+.nb:hover{transform:translateY(-2px)}
+#nav .nb.on{box-shadow:0 0 0 3px rgba(255,255,255,.2),0 8px 20px rgba(0,0,0,.28)}
+.hd h1{text-shadow:0 2px 14px rgba(120,190,255,.45)}
+.ft{margin-top:12px;position:relative}
+.ft .wv{height:40px}
+.f1{fill:var(--ac);fill-opacity:.12}.f2{fill:var(--h3);fill-opacity:.4}.f4{fill:var(--h2)}.f3{fill:var(--h1)}
+.fti{position:relative;align-items:center;overflow:hidden}
+.fti::before{content:"";position:absolute;inset:0;background-image:var(--htex);mix-blend-mode:overlay;opacity:.5;pointer-events:none}
+.fti>*{position:relative}
+.fos{opacity:.9}
+.pt::after{content:"";display:block;height:3px;width:72px;margin-top:6px;border-radius:3px;background:linear-gradient(90deg,var(--ac),transparent)}
+.card{transition:box-shadow .25s,transform .25s}
+.gcard{--gcf:color-mix(in srgb,var(--gc) 38%,transparent);border-left:5px solid var(--gc)}
+.gcard:hover{box-shadow:var(--sh),0 0 0 1px color-mix(in srgb,var(--gc) 35%,transparent)}
+.gcard .lab{color:var(--gc)}
+.gcard .bar>i{background:linear-gradient(90deg,var(--gc),color-mix(in srgb,var(--gc) 55%,#fff));position:relative;overflow:hidden}
+.gcard .bar>i::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(255,255,255,.24) 0 7px,transparent 7px 14px);background-size:28px 28px;animation:slide 1.8s linear infinite}
+@keyframes slide{to{background-position:28px 0}}
+.g100{box-shadow:0 0 0 1px var(--gc),0 12px 34px color-mix(in srgb,var(--gc) 30%,transparent)}
+.g100 .bar>i::after{animation:none;opacity:.35}
+.tip{border-left:5px solid var(--gc,var(--ac))}.tip h2{color:var(--gc,var(--ac))}
+.fa{fill:var(--gc,var(--ac))}.sa{stroke:var(--gc,var(--ac))}
+.av{box-shadow:0 0 0 3px var(--card),0 0 0 5px var(--ac)}
+.dgrp{display:inline-flex;align-items:stretch;flex:none;border:1px solid var(--ln);border-radius:7px;background:var(--card);transition:border-color .2s,box-shadow .2s}
+.dgrp:focus-within{border-color:var(--ac);box-shadow:0 0 0 2px color-mix(in srgb,var(--ac) 30%,transparent)}
+.dgrp.has{border-color:var(--ac)}
+.dgrp .dt{border:0;background:transparent;width:62px;border-radius:6px 0 0 6px}
+.dgrp .dt:focus{outline:none}
+.dgrp .lw .ib{border:0;border-left:1px solid var(--ln);border-radius:0 6px 6px 0;background:transparent;height:100%}
+.dgrp.has .lw .ib{border-left-color:var(--ac);color:var(--ac)}
+.dt::placeholder{font-size:.64rem;font-style:italic}
+.dt:focus::placeholder{color:transparent}
+.sep{width:1px;height:26px;background:var(--ln);margin:0 4px}
+.pr .n{font-size:1.05rem}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style></head><body>
 
 <section id="first" hidden style="max-width:520px;margin:12vh auto;padding:16px"><h1>Welcome</h1><p>Choose a folder where Strata will save your data. A folder in Documents or OneDrive works well.</p><button class="p" onclick="pick()">Choose folder</button></section>
 
 <div id="main" hidden class="shell">
-<header class="hd"><div class="hdi">
+<header class="hd"><svg class="scene" viewBox="0 0 1200 160" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><radialGradient id="sunG"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".35" stop-color="#9fd0ff" stop-opacity=".22"/><stop offset="1" stop-color="#9fd0ff" stop-opacity="0"/></radialGradient></defs>
+<circle class="sun" cx="1010" cy="78" r="150" fill="url(#sunG)"/><circle cx="1010" cy="78" r="30" fill="#fff" fill-opacity=".16"/><circle cx="1010" cy="78" r="190" fill="none" stroke="#fff" stroke-opacity=".06"/><circle cx="1010" cy="78" r="250" fill="none" stroke="#fff" stroke-opacity=".04"/><circle cx="683" cy="27" r="1.0" fill="#fff" fill-opacity="0.33" class="tw" style="animation-delay:4.1s"/><circle cx="212" cy="54" r="1.1" fill="#fff" fill-opacity="0.8"/><circle cx="459" cy="12" r="0.7" fill="#fff" fill-opacity="0.53"/><circle cx="512" cy="19" r="1.1" fill="#fff" fill-opacity="0.33" class="tw" style="animation-delay:2.8s"/><circle cx="477" cy="88" r="1.2" fill="#fff" fill-opacity="0.82"/><circle cx="832" cy="14" r="1.5" fill="#fff" fill-opacity="0.33"/><circle cx="292" cy="45" r="1.0" fill="#fff" fill-opacity="0.6" class="tw" style="animation-delay:2.9s"/><circle cx="1167" cy="95" r="0.8" fill="#fff" fill-opacity="0.62"/><circle cx="404" cy="55" r="0.7" fill="#fff" fill-opacity="0.69"/><circle cx="1175" cy="15" r="1.2" fill="#fff" fill-opacity="0.57" class="tw" style="animation-delay:2.7s"/><circle cx="663" cy="67" r="1.1" fill="#fff" fill-opacity="0.55"/><circle cx="633" cy="39" r="1.3" fill="#fff" fill-opacity="0.68"/><circle cx="519" cy="18" r="1.1" fill="#fff" fill-opacity="0.59" class="tw" style="animation-delay:4.4s"/><circle cx="939" cy="44" r="1.1" fill="#fff" fill-opacity="0.34"/><circle cx="1068" cy="61" r="0.7" fill="#fff" fill-opacity="0.49"/><circle cx="1021" cy="61" r="0.6" fill="#fff" fill-opacity="0.67" class="tw" style="animation-delay:3.8s"/><circle cx="662" cy="51" r="1.2" fill="#fff" fill-opacity="0.63"/><circle cx="954" cy="16" r="1.4" fill="#fff" fill-opacity="0.82"/><circle cx="990" cy="97" r="1.2" fill="#fff" fill-opacity="0.33" class="tw" style="animation-delay:3.5s"/><circle cx="932" cy="44" r="1.2" fill="#fff" fill-opacity="0.79"/><circle cx="730" cy="10" r="1.4" fill="#fff" fill-opacity="0.5"/><circle cx="259" cy="71" r="0.7" fill="#fff" fill-opacity="0.72" class="tw" style="animation-delay:0.6s"/><circle cx="527" cy="58" r="1.0" fill="#fff" fill-opacity="0.78"/><circle cx="185" cy="29" r="1.0" fill="#fff" fill-opacity="0.6"/><circle cx="300" cy="63" r="1.4" fill="#fff" fill-opacity="0.45" class="tw" style="animation-delay:2.1s"/><circle cx="754" cy="95" r="1.4" fill="#fff" fill-opacity="0.83"/><circle cx="329" cy="18" r="0.8" fill="#fff" fill-opacity="0.43"/><circle cx="497" cy="9" r="1.0" fill="#fff" fill-opacity="0.62" class="tw" style="animation-delay:1.3s"/><circle cx="28" cy="26" r="1.0" fill="#fff" fill-opacity="0.5"/><circle cx="1179" cy="48" r="1.5" fill="#fff" fill-opacity="0.68"/><circle cx="1075" cy="87" r="1.2" fill="#fff" fill-opacity="0.71" class="tw" style="animation-delay:2.3s"/><circle cx="1165" cy="58" r="1.0" fill="#fff" fill-opacity="0.52"/><circle cx="1006" cy="89" r="1.0" fill="#fff" fill-opacity="0.4"/><circle cx="447" cy="64" r="0.7" fill="#fff" fill-opacity="0.49" class="tw" style="animation-delay:0.3s"/></svg><div class="hdi">
 <div class="hrow"><div class="brand"><svg width="42" height="42" viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="96" fill="#fff" fill-opacity=".14"/><rect x="96" y="288" width="72" height="128" rx="8" fill="#fff" opacity=".6"/><rect x="220" y="208" width="72" height="208" rx="8" fill="#fff" opacity=".82"/><rect x="344" y="112" width="72" height="304" rx="8" fill="#fff"/></svg><div><h1>Strata</h1><div class="tag">STEP BY STEP, LAYER BY LAYER</div></div></div>
 <nav id="nav" aria-label="Pages"><button class="nb" data-p="goals" onclick="show('goals')" title="Goals" aria-label="Goals"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 22V4M4 4h13l-2 4 2 4H4"/></svg><span class="l">Goals</span></button><button class="nb" data-p="pri" onclick="show('pri')" title="Priorities" aria-label="Priorities"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span class="l">Priorities</span><span class="bd" id="bd" hidden></span></button><button class="nb" data-p="week" onclick="show('week')" title="This week" aria-label="This week"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span class="l">This week</span></button><button class="nb" data-p="tips" onclick="show('tips')" title="Tips" aria-label="Tips"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.3h6c0-1 .4-1.8 1-2.3A7 7 0 0 0 12 2z"/></svg><span class="l">Tips</span></button><button class="nb" data-p="set" onclick="show('set')" title="Settings" aria-label="Settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></svg><span class="l">Settings</span></button><button class="nb" data-p="acct" onclick="show('acct')" title="My Account" aria-label="My Account"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="l">My Account</span></button></nav></div>
 <div class="hrow2"><div class="greet" id="greet"></div><div class="chips" id="chips"></div></div></div>
-<svg class="wv" viewBox="0 0 1200 40" preserveAspectRatio="none" aria-hidden="true"><path class="w1" d="M0 14C200 34 400 0 600 16S1000 30 1200 10V40H0Z"/><path class="w2" d="M0 22C180 6 360 34 560 20S960 8 1200 24V40H0Z"/><path class="wb" d="M0 30C220 20 420 38 640 30S1000 22 1200 32V40H0Z"/></svg></header>
+<svg class="ridge" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 34 L70 6 L122 36 L200 5 L250 35 L343 24 L393 38 L483 17 L524 41 L613 7 L663 40 L758 20 L800 36 L888 12 L923 35 L988 6 L1024 38 L1080 16 L1130 40 L1200 12 L1200 41 L1200 60 L0 60Z" fill="#fff" fill-opacity=".07"/><path d="M0 42 L73 20 L117 46 L199 28 L234 48 L311 19 L361 46 L417 31 L461 44 L515 32 L562 48 L647 33 L696 45 L769 29 L818 42 L896 32 L927 42 L984 27 L1033 42 L1107 24 L1151 46 L1200 18 L1200 47 L1200 60 L0 60Z" fill="#fff" fill-opacity=".12"/><path d="M0 44C180 30 360 54 560 42S940 30 1200 46V60H0Z" class="wb"/></svg></header>
 <main>
 
 <section id="p-goals">
-<div class="row tbar"><button class="p bigb" onclick="addG()">Add goal</button><button onclick="allG(true)">Expand all</button><button onclick="allG(false)">Collapse all</button></div>
+<div class="row tbar"><button class="p bigb" onclick="addG()">Add goal</button><span class="sep"></span><button onclick="allG(true)">Expand all</button><button onclick="allG(false)">Collapse all</button><button id="hdBtn" onclick="togHide()">Hide completed steps</button></div>
 <div id="goals"></div>
 </section>
 
@@ -181,62 +234,14 @@ main>section:not([hidden]){animation:fin .3s ease}
 
 <section id="p-tips" hidden>
 <h2 class="pt">Goal Completion Tips</h2>
+<div class="card tip" style="--gc:#e2566a"><div class="tt"><h2>Signal-to-noise ratio</h2>
+<p>The term comes from engineering and communications. The signal is the useful information, and the noise is everything that hides it. In goal setting, the signal is the small set of actions and measurements that move a goal forward. The noise is busywork, distractions, and numbers that look impressive but change nothing.</p>
+<p>A higher ratio means more effort goes to what matters. The ratio improves by removing low-value work, tracking only a few meaningful measures, and doing the most important work first.</p>
+<div class="ex"><b>Example:</b> A runner preparing for a race tracks weekly distance and finishing times. These are signal. The color of the shoes and the number of likes on a training photo are noise.</div>
+<p class="mu">Borrowed from signal processing and communications engineering.</p></div>
+<svg id="snr" width="160" height="160" viewBox="0 0 160 160" role="img" aria-label="A star hidden among a grid of ordinary squares"></svg></div>
 
-<div class="card tip"><div class="tt"><h2>SMART goals</h2>
-<p>SMART is a checklist for writing clear goals. A goal that meets all five criteria is easier to plan, track, and finish.</p>
-<ul><li><b>Specific:</b> The goal states exactly what will be achieved.</li>
-<li><b>Measurable:</b> Progress and completion can be judged by a number or a clear yes or no.</li>
-<li><b>Achievable:</b> The goal is challenging but realistic given the time, skills, and resources available.</li>
-<li><b>Relevant:</b> The goal supports a larger purpose that matters.</li>
-<li><b>Time-bound:</b> A target date is set, and each smaller step is finished early enough to meet it.</li></ul>
-<div class="ex"><b>Example:</b> "Get fit" becomes "Walk 30 minutes, four days a week, for eight weeks."</div>
-<p class="mu">Introduced by George T. Doran in 1981.</p></div>
-<svg width="160" height="160" viewBox="0 0 160 160" role="img" aria-label="A pie chart with five equal slices labeled S, M, A, R, and T">
-<g class="fa sc" stroke-width="2"><path d="M80 80L80 12A68 68 0 0 1 144.68 58.99Z" fill-opacity=".18"/><path d="M80 80L144.68 58.99A68 68 0 0 1 119.97 135.01Z" fill-opacity=".3"/><path d="M80 80L119.97 135.01A68 68 0 0 1 40.03 135.01Z" fill-opacity=".42"/><path d="M80 80L40.03 135.01A68 68 0 0 1 15.32 58.99Z" fill-opacity=".54"/><path d="M80 80L15.32 58.99A68 68 0 0 1 80 12Z" fill-opacity=".66"/></g>
-<g class="ft" font-size="20" font-weight="700" text-anchor="middle"><text x="103.5" y="47.6" dy=".35em">S</text><text x="118" y="92.4" dy=".35em">M</text><text x="80" y="120" dy=".35em">A</text><text x="42" y="92.4" dy=".35em">R</text><text x="56.5" y="47.6" dy=".35em">T</text></g></svg></div>
-
-<div class="card tip"><div class="tt"><h2>OKRs (Objectives and Key Results)</h2>
-<p>OKRs are a goal-setting framework that pairs an inspiring objective with a few measurable key results. Together they show where a person or team is headed and how to tell whether they arrived.</p>
-<ul><li><b>Objective:</b> A qualitative, motivating statement of what will be achieved. It answers the question "Where do we want to go?"</li>
-<li><b>Key results:</b> Typically three to five quantifiable outcomes that show whether the objective was achieved. They measure results, not tasks or activity.</li>
-<li><b>Cycle and scoring:</b> OKRs usually run in short cycles, often a quarter. Each key result is scored at the end, commonly from 0.0 to 1.0, and a score near 0.7 is often seen as strong for an ambitious target.</li></ul>
-<div class="ex"><b>Example:</b> Objective: "Open a popular neighborhood bakery." Key results: "Serve 200 customers per week" and "Reach a 4.5-star average review."</div>
-<p class="mu">Developed at Intel by Andy Grove and popularized at Google by John Doerr, who described the method in Measure What Matters (2018).</p></div>
-<svg width="160" height="160" viewBox="0 0 160 160" role="img" aria-label="An objective at the top supported by three key results shown as progress bars">
-<rect class="fa" x="30" y="8" width="100" height="34" rx="8" fill-opacity=".25"/><text class="ft" x="80" y="30" font-size="13" font-weight="700" text-anchor="middle">Objective</text>
-<line class="sm" x1="80" y1="42" x2="80" y2="58" stroke-width="2"/>
-<g class="fl"><rect x="34" y="62" width="120" height="18" rx="4"/><rect x="34" y="92" width="120" height="18" rx="4"/><rect x="34" y="122" width="120" height="18" rx="4"/></g>
-<g class="fa"><rect x="34" y="62" width="84" height="18" rx="4"/><rect x="34" y="92" width="54" height="18" rx="4"/><rect x="34" y="122" width="108" height="18" rx="4"/></g>
-<g class="ft" font-size="11" font-weight="700"><text x="3" y="75">KR1</text><text x="3" y="105">KR2</text><text x="3" y="135">KR3</text></g></svg></div>
-
-<div class="card tip"><div class="tt"><h2>Planning the steps</h2>
-<p>A large goal feels distant when the path to it is unclear. Planning the steps replaces that uncertainty with a clear sequence of actions between the starting point and the goal.</p>
-<ul><li><b>Work backward:</b> Begin with the finished goal and ask what must be true just before it, then before that, until the chain reaches today.</li>
-<li><b>Keep steps small and checkable:</b> Each step is small enough to finish and clear enough to know when it is finished.</li>
-<li><b>Detail the next several steps:</b> Plan the next three to five steps carefully and leave later steps rough until they come closer. Knowing what comes next removes hesitation.</li>
-<li><b>Revisit the plan:</b> Add, reorder, or remove steps as new information appears.</li></ul>
-<div class="ex"><b>Example:</b> A writer with a book in mind lists the steps: outline the chapters, draft chapter one, finish the first draft, revise, and submit. The detailed plan covers only the first three.</div>
-<p class="mu">Draws on work breakdown structures from project management and the "next action" habit from David Allen's Getting Things Done.</p></div>
-<svg width="160" height="160" viewBox="0 0 160 160" role="img" aria-label="Three numbered steps rising toward a finish line flag">
-<g class="fa"><rect x="8" y="118" width="34" height="32" fill-opacity=".3"/><rect x="42" y="92" width="34" height="58" fill-opacity=".5"/><rect x="76" y="66" width="34" height="84" fill-opacity=".7"/></g>
-<g class="ft" font-size="16" font-weight="700" text-anchor="middle"><text x="25" y="140">1</text><text x="59" y="140">2</text><text x="93" y="140">3</text></g>
-<line class="sm" x1="4" y1="150" x2="156" y2="150" stroke-width="2"/><line class="sm" x1="126" y1="28" x2="126" y2="150" stroke-width="3"/>
-<rect class="fl" x="126" y="28" width="28" height="14"/><g class="ft"><rect x="126" y="28" width="7" height="7"/><rect x="140" y="28" width="7" height="7"/><rect x="133" y="35" width="7" height="7"/><rect x="147" y="35" width="7" height="7"/></g></svg></div>
-
-<div class="card tip"><div class="tt"><h2>Owning the gap</h2>
-<p>Owning the gap means seeing clearly where things stand today, deciding clearly where they should be, and accepting responsibility for the distance between the two.</p>
-<ul><li><b>Current position:</b> Describe the starting point honestly, using facts rather than excuses.</li>
-<li><b>Desired position:</b> Define the target clearly enough to recognize it when it is reached.</li>
-<li><b>Ownership:</b> Accept that closing the gap is up to you. Focus on what is within your control and act on it.</li></ul>
-<div class="ex"><b>Example:</b> A student aims for an A in a course but currently averages a C+. Owning the gap means naming the C+ plainly, naming the A as the target, and choosing the study habits that will close the distance.</div>
-<p class="mu">Related to the idea of creative tension described by Peter Senge in The Fifth Discipline (1990).</p></div>
-<svg width="160" height="160" viewBox="0 0 160 160" role="img" aria-label="Two platforms at different heights with a gap between them and a dashed arrow crossing it">
-<rect class="fl" x="6" y="104" width="50" height="46"/><rect class="fa" x="104" y="64" width="50" height="86" fill-opacity=".35"/>
-<g class="ft" font-size="13" font-weight="700" text-anchor="middle"><text x="31" y="132">Now</text><text x="129" y="112">Goal</text></g>
-<circle class="fa" cx="31" cy="94" r="7"/>
-<path class="sm" d="M40 88Q80 18 120 52" fill="none" stroke-width="2.5" stroke-dasharray="5 4"/><path class="sm" d="M112 46L121 53L110 58" fill="none" stroke-width="2.5"/></svg></div>
-
-<div class="card tip"><div class="tt"><h2>Growth mindset</h2>
+<div class="card tip" style="--gc:#2fb3a3"><div class="tt"><h2>Growth mindset</h2>
 <p>A growth mindset is the belief that abilities and results can improve through effort, good strategies, and feedback. It contrasts with a fixed mindset, which treats talent as unchangeable.</p>
 <ul><li><b>Setbacks are information:</b> A failure shows what to change. It is not a verdict on ability.</li>
 <li><b>Effort builds skill:</b> Abilities grow through practice, so progress comes from steady work.</li>
@@ -250,20 +255,68 @@ main>section:not([hidden]){animation:fin .3s ease}
 <path class="sa" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" d="M133.2 31.7L146 26L144.6 39.9"/>
 <g class="fc sa" stroke-width="2.5"><circle cx="12" cy="136" r="5"/><circle cx="40" cy="96" r="5"/><circle cx="58" cy="114" r="5"/><circle cx="88" cy="66" r="5"/><circle cx="104" cy="84" r="5"/></g></svg></div>
 
-<div class="card tip"><div class="tt"><h2>Signal-to-noise ratio</h2>
-<p>The term comes from engineering and communications. The signal is the useful information, and the noise is everything that hides it. In goal setting, the signal is the small set of actions and measurements that move a goal forward. The noise is busywork, distractions, and numbers that look impressive but change nothing.</p>
-<p>A higher ratio means more effort goes to what matters. The ratio improves by removing low-value work, tracking only a few meaningful measures, and doing the most important work first.</p>
-<div class="ex"><b>Example:</b> A runner preparing for a race tracks weekly distance and finishing times. These are signal. The color of the shoes and the number of likes on a training photo are noise.</div>
-<p class="mu">Borrowed from signal processing and communications engineering.</p></div>
-<svg id="snr" width="160" height="160" viewBox="0 0 160 160" role="img" aria-label="A star hidden among a grid of ordinary squares"></svg></div>
+<div class="card tip" style="--gc:#e8a93d"><div class="tt"><h2>Owning the gap</h2>
+<p>Owning the gap means seeing clearly where things stand today, deciding clearly where they should be, and accepting responsibility for the distance between the two.</p>
+<ul><li><b>Current position:</b> Describe the starting point honestly, using facts rather than excuses.</li>
+<li><b>Desired position:</b> Define the target clearly enough to recognize it when it is reached.</li>
+<li><b>Ownership:</b> Accept that closing the gap is up to you. Focus on what is within your control and act on it.</li></ul>
+<div class="ex"><b>Example:</b> A student aims for an A in a course but currently averages a C+. Owning the gap means naming the C+ plainly, naming the A as the target, and choosing the study habits that will close the distance.</div>
+<p class="mu">Related to the idea of creative tension described by Peter Senge in The Fifth Discipline (1990).</p></div>
+<svg width="160" height="160" viewBox="0 0 160 160" role="img" aria-label="Two platforms at different heights with a gap between them and a dashed arrow crossing it">
+<rect class="fl" x="6" y="104" width="50" height="46"/><rect class="fa" x="104" y="64" width="50" height="86" fill-opacity=".35"/>
+<g class="ft" font-size="13" font-weight="700" text-anchor="middle"><text x="31" y="132">Now</text><text x="129" y="112">Goal</text></g>
+<circle class="fa" cx="31" cy="94" r="7"/>
+<path class="sm" d="M40 88Q80 18 120 52" fill="none" stroke-width="2.5" stroke-dasharray="5 4"/><path class="sm" d="M112 46L121 53L110 58" fill="none" stroke-width="2.5"/></svg></div>
+
+<div class="card tip" style="--gc:#5fb35f"><div class="tt"><h2>Planning the steps</h2>
+<p>A large goal feels distant when the path to it is unclear. Planning the steps replaces that uncertainty with a clear sequence of actions between the starting point and the goal.</p>
+<ul><li><b>Work backward:</b> Begin with the finished goal and ask what must be true just before it, then before that, until the chain reaches today.</li>
+<li><b>Keep steps small and checkable:</b> Each step is small enough to finish and clear enough to know when it is finished.</li>
+<li><b>Detail the next several steps:</b> Plan the next three to five steps carefully and leave later steps rough until they come closer. Knowing what comes next removes hesitation.</li>
+<li><b>Revisit the plan:</b> Add, reorder, or remove steps as new information appears.</li></ul>
+<div class="ex"><b>Example:</b> A writer with a book in mind lists the steps: outline the chapters, draft chapter one, finish the first draft, revise, and submit. The detailed plan covers only the first three.</div>
+<p class="mu">Draws on work breakdown structures from project management and the "next action" habit from David Allen's Getting Things Done.</p></div>
+<svg width="160" height="160" viewBox="0 0 160 160" role="img" aria-label="Three numbered steps rising toward a finish line flag">
+<g class="fa"><rect x="8" y="118" width="34" height="32" fill-opacity=".3"/><rect x="42" y="92" width="34" height="58" fill-opacity=".5"/><rect x="76" y="66" width="34" height="84" fill-opacity=".7"/></g>
+<g class="ft" font-size="16" font-weight="700" text-anchor="middle"><text x="25" y="140">1</text><text x="59" y="140">2</text><text x="93" y="140">3</text></g>
+<line class="sm" x1="4" y1="150" x2="156" y2="150" stroke-width="2"/><line class="sm" x1="126" y1="28" x2="126" y2="150" stroke-width="3"/>
+<rect class="fl" x="126" y="28" width="28" height="14"/><g class="ft"><rect x="126" y="28" width="7" height="7"/><rect x="140" y="28" width="7" height="7"/><rect x="133" y="35" width="7" height="7"/><rect x="147" y="35" width="7" height="7"/></g></svg></div>
+
+<div class="card tip" style="--gc:#9b7ad1"><div class="tt"><h2>OKRs (Objectives and Key Results)</h2>
+<p>OKRs are a goal-setting framework that pairs an inspiring objective with a few measurable key results. Together they show where a person or team is headed and how to tell whether they arrived.</p>
+<ul><li><b>Objective:</b> A qualitative, motivating statement of what will be achieved. It answers the question "Where do we want to go?"</li>
+<li><b>Key results:</b> Typically three to five quantifiable outcomes that show whether the objective was achieved. They measure results, not tasks or activity.</li>
+<li><b>Cycle and scoring:</b> OKRs usually run in short cycles, often a quarter. Each key result is scored at the end, commonly from 0.0 to 1.0, and a score near 0.7 is often seen as strong for an ambitious target.</li></ul>
+<div class="ex"><b>Example:</b> Objective: "Open a popular neighborhood bakery." Key results: "Serve 200 customers per week" and "Reach a 4.5-star average review."</div>
+<p class="mu">Developed at Intel by Andy Grove and popularized at Google by John Doerr, who described the method in Measure What Matters (2018).</p></div>
+<svg width="160" height="160" viewBox="0 0 160 160" role="img" aria-label="An objective at the top supported by three key results shown as progress bars">
+<rect class="fa" x="30" y="8" width="100" height="34" rx="8" fill-opacity=".25"/><text class="ft" x="80" y="30" font-size="13" font-weight="700" text-anchor="middle">Objective</text>
+<line class="sm" x1="80" y1="42" x2="80" y2="58" stroke-width="2"/>
+<g class="fl"><rect x="34" y="62" width="120" height="18" rx="4"/><rect x="34" y="92" width="120" height="18" rx="4"/><rect x="34" y="122" width="120" height="18" rx="4"/></g>
+<g class="fa"><rect x="34" y="62" width="84" height="18" rx="4"/><rect x="34" y="92" width="54" height="18" rx="4"/><rect x="34" y="122" width="108" height="18" rx="4"/></g>
+<g class="ft" font-size="11" font-weight="700"><text x="3" y="75">KR1</text><text x="3" y="105">KR2</text><text x="3" y="135">KR3</text></g></svg></div>
+
+<div class="card tip" style="--gc:#2f86c8"><div class="tt"><h2>SMART goals</h2>
+<p>SMART is a checklist for writing clear goals. A goal that meets all five criteria is easier to plan, track, and finish.</p>
+<ul><li><b>Specific:</b> The goal states exactly what will be achieved.</li>
+<li><b>Measurable:</b> Progress and completion can be judged by a number or a clear yes or no.</li>
+<li><b>Achievable:</b> The goal is challenging but realistic given the time, skills, and resources available.</li>
+<li><b>Relevant:</b> The goal supports a larger purpose that matters.</li>
+<li><b>Time-bound:</b> A target date is set, and each smaller step is finished early enough to meet it.</li></ul>
+<div class="ex"><b>Example:</b> "Get fit" becomes "Walk 30 minutes, four days a week, for eight weeks."</div>
+<p class="mu">Introduced by George T. Doran in 1981.</p></div>
+<svg width="160" height="160" viewBox="0 0 160 160" role="img" aria-label="A pie chart with five equal slices labeled S, M, A, R, and T">
+<g class="fa sc" stroke-width="2"><path d="M80 80L80 12A68 68 0 0 1 144.68 58.99Z" fill-opacity=".18"/><path d="M80 80L144.68 58.99A68 68 0 0 1 119.97 135.01Z" fill-opacity=".3"/><path d="M80 80L119.97 135.01A68 68 0 0 1 40.03 135.01Z" fill-opacity=".42"/><path d="M80 80L40.03 135.01A68 68 0 0 1 15.32 58.99Z" fill-opacity=".54"/><path d="M80 80L15.32 58.99A68 68 0 0 1 80 12Z" fill-opacity=".66"/></g>
+<g class="ft" font-size="20" font-weight="700" text-anchor="middle"><text x="103.5" y="47.6" dy=".35em">S</text><text x="118" y="92.4" dy=".35em">M</text><text x="80" y="120" dy=".35em">A</text><text x="42" y="92.4" dy=".35em">R</text><text x="56.5" y="47.6" dy=".35em">T</text></g></svg></div>
 
 <div class="card"><h2>Putting the principles to use</h2>
-<ul><li><b>SMART:</b> Write each step so that someone else could tell whether it is finished.</li>
-<li><b>OKRs:</b> Pair a motivating objective with a few measurable results, and judge progress by outcomes rather than activity.</li>
-<li><b>Planning the steps:</b> Name the next several steps so there is never a question about what to do next.</li>
-<li><b>Owning the gap:</b> Describe the starting point honestly and the target clearly, then act on what is within your control.</li>
+<ul><li><b>Signal to noise:</b> Regularly remove tasks and measurements that do not move the goal forward.</li>
 <li><b>Growth mindset:</b> After a setback, ask what it taught and adjust the next step.</li>
-<li><b>Signal to noise:</b> Regularly remove tasks and measurements that do not move the goal forward.</li></ul></div>
+<li><b>Owning the gap:</b> Describe the starting point honestly and the target clearly, then act on what is within your control.</li>
+<li><b>Planning the steps:</b> Name the next several steps so there is never a question about what to do next.</li>
+<li><b>OKRs:</b> Pair a motivating objective with a few measurable results, and judge progress by outcomes rather than activity.</li>
+<li><b>SMART:</b> Write each step so that someone else could tell whether it is finished.</li>
+</ul></div>
 </section>
 
 <section id="p-set" hidden>
@@ -300,8 +353,7 @@ main>section:not([hidden]){animation:fin .3s ease}
 </section>
 
 </main>
-<footer class="ft"><svg class="wv" viewBox="0 0 1200 40" preserveAspectRatio="none" aria-hidden="true"><path class="f1" d="M0 18C200 36 400 4 600 20S1000 34 1200 12V40H0Z"/><path class="f2" d="M0 26C180 10 380 36 580 24S980 10 1200 28V40H0Z"/><path class="f3" d="M0 32C220 24 440 40 660 32S1020 26 1200 34V40H0Z"/></svg>
-<div class="fti"><span>STRATA · ONE STEP AT A TIME</span><span id="warn" class="bad"></span></div></footer></div>
+<footer class="ft"><svg class="wv" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true"><path class="f1" d="M0 26C200 8 400 40 600 24S1000 6 1200 24V60H0Z"/><path class="f2" d="M0 32C180 18 380 46 600 32S1000 16 1200 34V60H0Z"/><path class="f4" d="M0 40C220 30 420 52 640 40S1020 28 1200 42V60H0Z"/><path class="f3" d="M0 48C200 40 440 58 660 48S1020 38 1200 50V60H0Z"/></svg><div class="fti"><span>STRATA · ONE STEP AT A TIME</span><svg class="fos" width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><polyline points="17.5,17.0 17.6,17.1 17.6,17.1 17.6,17.2 17.7,17.3 17.7,17.4 17.7,17.5 17.7,17.6 17.6,17.8 17.6,17.9 17.5,18.0 17.4,18.1 17.3,18.2 17.2,18.3 17.0,18.3 16.9,18.4 16.7,18.4 16.5,18.5 16.4,18.5 16.2,18.4 16.0,18.4 15.8,18.3 15.6,18.2 15.5,18.1 15.3,17.9 15.1,17.8 15.0,17.6 14.9,17.4 14.8,17.1 14.7,16.9 14.7,16.6 14.7,16.4 14.7,16.1 14.8,15.8 14.9,15.6 15.0,15.3 15.2,15.0 15.4,14.8 15.6,14.6 15.8,14.4 16.1,14.2 16.4,14.1 16.7,14.0 17.1,13.9 17.4,13.9 17.8,13.9 18.1,13.9 18.5,14.0 18.8,14.1 19.2,14.3 19.5,14.5 19.8,14.8 20.1,15.1 20.3,15.4 20.5,15.7 20.7,16.1 20.9,16.5 20.9,16.9 21.0,17.4 21.0,17.8 20.9,18.3 20.8,18.7 20.7,19.2 20.4,19.6 20.2,20.0 19.9,20.4 19.5,20.7 19.1,21.0 18.7,21.3 18.2,21.5 17.7,21.7 17.2,21.8 16.7,21.8 16.1,21.8 15.6,21.8 15.1,21.6 14.5,21.5 14.0,21.2 13.5,20.9 13.1,20.5 12.7,20.1 12.3,19.7 12.0,19.2 11.7,18.6 11.5,18.0 11.4,17.4 11.3,16.8 11.3,16.2 11.4,15.5 11.5,14.9 11.7,14.3 12.0,13.7 12.3,13.1 12.8,12.6 13.2,12.1 13.8,11.7 14.3,11.3 15.0,11.0 15.6,10.7 16.3,10.5 17.0,10.5 17.8,10.4 18.5,10.5 19.2,10.6 19.9,10.9 20.6,11.2 21.3,11.6 21.9,12.0 22.4,12.5 22.9,13.1 23.4,13.8 23.8,14.5 24.1,15.2 24.3,16.0 24.4,16.8 24.4,17.6 24.4,18.4 24.2,19.3 24.0,20.1 23.7,20.8 23.3,21.6 22.8,22.3 22.2,22.9 21.5,23.5 20.8,24.0 20.0,24.5 19.2,24.8 18.4,25.1 17.5,25.2 16.6,25.3 15.6,25.3 14.7,25.1 13.8,24.9 13.0,24.5 12.1,24.1 11.3,23.6 10.6,22.9 9.9,22.2 9.4,21.5 8.9,20.6" fill="none" stroke="#fff" stroke-opacity=".4" stroke-width="1.3" stroke-linecap="round"/></svg><span id="warn" class="bad"></span></div></footer></div>
 <input type="date" id="dpick" tabindex="-1" aria-hidden="true">
 <div class="toast" id="toast" hidden role="status"><span id="tmsg"></span><button onclick="undo()">Undo</button></div>
 
@@ -312,8 +364,9 @@ const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
 const TR='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg>';
 const PL='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>';
 const LK='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.5-1.5"/></svg>';
+const GC=['#2f86c8','#2fb3a3','#e8a93d','#9b7ad1','#e2566a','#5fb35f'];
 const mkStep=(t,d)=>({id:uid(),title:t||'',desc:'',date:d||'',pct:0,done:false,open:false,rule:null});
-function norm(d){d.weeks=d.weeks||{};d.goals=d.goals||[];d.settings=Object.assign({hier:true},d.settings||{});
+function norm(d){d.weeks=d.weeks||{};d.goals=d.goals||[];d.settings=Object.assign({hier:true,hideDone:false},d.settings||{});
  d.profile=Object.assign({name:'',email:'',phone:'',tz:'',photo:''},d.profile||{});
  d.goals.forEach(g=>{g.id=g.id||uid();g.name=g.name||'';g.desc=g.desc||'';g.open=!!g.open;if(typeof g.stepsOpen!=='boolean')g.stepsOpen=g.open;
  if(!Array.isArray(g.steps)||!g.steps.length)g.steps=[mkStep(''),mkStep(g.ms||'',g.target||'')];
@@ -350,6 +403,10 @@ const addD=(s,n)=>{const d=pd(s);d.setDate(d.getDate()+n);return iso(d)};
 const md=d=>String(d.getMonth()+1).padStart(2,'0')+'/'+String(d.getDate()).padStart(2,'0');
 function parseD(t){t=(t||'').trim();if(!t)return'';let m=t.match(/^(\d{1,2})[\/\-.](\d{1,2})(?:[\/\-.](\d{2}|\d{4}))?$/)||t.match(/^(\d{2})(\d{2})(\d{2}|\d{4})?$/);if(!m)return null;
  const mo=+m[1],d=+m[2];let y=m[3]?+m[3]:new Date().getFullYear();if(y<100)y+=2000;const dt=new Date(y,mo-1,d);return dt.getFullYear()===y&&dt.getMonth()===mo-1&&dt.getDate()===d?iso(dt):null}
+function maskD(e,el){if(e&&e.inputType==='insertFromPaste'){const m=el.value.trim().match(/^(\d{1,2})[\/\-.](\d{1,2})(?:[\/\-.](\d{2}|\d{4}))?$/);if(m){el.value=m[1].padStart(2,'0')+'/'+m[2].padStart(2,'0')+(m[3]?'/'+m[3].slice(-2):'');return}}let d=el.value.replace(/\D/g,'');if(d.length>=8)d=d.slice(0,4)+d.slice(6,8);d=d.slice(0,6);let o=d.slice(0,2);if(d.length>2)o+='/'+d.slice(2,4);if(d.length>4)o+='/'+d.slice(4);
+ const del=e&&e.inputType&&e.inputType.startsWith('delete');if(!del&&(d.length===2||d.length===4))o+='/';if(el.value!==o)el.value=o}
+function dkey(e,el){if(e.key==='Enter'){el.blur();return}
+ if(e.key==='/'||e.key==='-'||e.key==='.'){e.preventDefault();const p=el.value.split('/');if(p.length>=3)return;if(p[p.length-1].length===1)p[p.length-1]='0'+p[p.length-1];if(p[p.length-1].length===2)el.value=p.join('/')+'/'}}
 function setDateTxt(g,s,el){const v=parseD(el.value);if(v===null){el.classList.add('err');el.title='Use mm/dd/yy, for example 03/15/27';return}el.classList.remove('err');sset(g,s,'date',v)}
 function openPick(g,s,el){if(S.goals[g].steps[s].rule)return;const p=$('dpick'),r=el.getBoundingClientRect();p.style.left=r.left+'px';p.style.top=r.bottom+'px';p.value=S.goals[g].steps[s].date||'';p.onchange=()=>{if(p.value)sset(g,s,'date',p.value)};try{p.showPicker()}catch(e){}}
 const fmtD=s=>{const[y,m,d]=s.split('-');return m+'/'+d+'/'+y.slice(2)};
@@ -377,17 +434,18 @@ function rulePanel(g,s,st,ind){const id=g+'_'+s,r=st.rule;let o='';
 
 /* ---------- Goals and steps ---------- */
 const gp=g=>Math.round(g.steps.reduce((a,s)=>a+s.pct,0)/g.steps.length);
-const pbg=p=>`linear-gradient(90deg,var(--acf) ${p}%,var(--card) ${p}%)`;
+const pbg=p=>`linear-gradient(90deg,var(--gcf,var(--acf)) ${p}%,var(--card) ${p}%)`;
 const stepLab=(gi,si)=>si===S.goals[gi].steps.length-1?'Complete':S.settings.hier?`${gi+1}.${si+1}`:String(si+1);
 function gset(g,f,v){S.goals[g][f]=v;save();if(f==='name'){renderPri();renderWeek()}}
 function sset(g,s,f,v){S.goals[g].steps[s][f]=v;save();if(f==='date'){renderGoals();renderPri();renderHeader()}else if(f==='title')renderPri()}
 function setPct(g,s,v){v=Math.max(0,Math.min(100,Math.round(+v||0)));const st=S.goals[g].steps[s],had=!!st.rule;recalc();st.pct=v;st.done=v>=100;if(st.done)st.rule=null;save();if(had&&st.done)render();else refresh(g,s)}
 function stog(g,s){setPct(g,s,S.goals[g].steps[s].done?0:100)}
 function refresh(g,s){const G=S.goals[g],p=gp(G),st=G.steps[s],set=(id,fn)=>{const e=$(id);if(e)fn(e)};
- set('gp'+g,e=>e.textContent=p+'%');set('gb'+g,e=>e.style.width=p+'%');
+ set('gp'+g,e=>e.textContent=(p>=100?'✓ ':'')+p+'%');set('gb'+g,e=>e.style.width=p+'%');
  set(`cb${g}_${s}`,e=>e.checked=st.done);set(`pc${g}_${s}`,e=>{e.value=st.pct;e.style.background=pbg(st.pct)});set(`st${g}_${s}`,e=>e.classList.toggle('d',st.done));renderPri();renderHeader()}
 function togG(g){S.goals[g].open=!S.goals[g].open;save();renderGoals()}
 function togSteps(g){S.goals[g].stepsOpen=!S.goals[g].stepsOpen;save();renderGoals()}
+function togHide(){S.settings.hideDone=!S.settings.hideDone;save();renderGoals()}
 function togS(g,s){const st=S.goals[g].steps[s];st.open=!st.open;save();render()}
 function allG(v){S.goals.forEach(g=>{g.open=v;g.stepsOpen=v});save();renderGoals()}
 function addG(){const g=norm({goals:[{name:'New goal',open:true,stepsOpen:true}]}).goals[0];S.goals.push(g);save();render()}
@@ -411,22 +469,23 @@ function stepHtml(gi,s,si,last){
  <input class="ti" id="ti${id}" type="text" value="${esc(s.title)}" placeholder="Add a step title" onchange="sset(${gi},${si},'title',this.value)" onkeydown="tkey(event,${gi},${si})" aria-label="Step title">
  <button class="tg ${s.desc?'has':''}" onclick="togS(${gi},${si})" aria-expanded="${s.open}" title="Show or hide description" aria-label="Show or hide description">${s.open?'▾':'▸'}</button>
  <span class="pw"><input type="number" id="pc${id}" min="0" max="100" value="${s.pct}" style="background:${pbg(s.pct)}" onchange="setPct(${gi},${si},this.value)" aria-label="Percent complete">%</span>
- <input class="dt" type="text" maxlength="10" value="${s.date?fmtD(s.date):''}" placeholder="mm/dd/yy" ${s.rule?'readonly tabindex="-1"':''} title="${s.rule?'This date follows a rule':'Type mm/dd/yy, or double-click for a calendar'}" onchange="setDateTxt(${gi},${si},this)" onkeydown="if(event.key==='Enter')this.blur()" ondblclick="openPick(${gi},${si},this)" aria-label="Target completion date">
- <span class="lw"><button class="ib ${s.rule?'has':''}" onclick="togR('${s.id}')" ${s.done?'disabled':''} aria-label="Set date relative to another step">${LK}</button><span class="lp">${s.rule?`<b>${refLab(s)}</b><br>${esc(ruleText(s))}`:'Set date relative to another step'}</span></span>
+ <span class="dgrp ${s.rule?'has':''}"><input class="dt" type="text" value="${s.date?fmtD(s.date):''}" placeholder="mm/dd/yy" ${s.rule?'readonly tabindex="-1"':''} title="${s.rule?'This date follows a rule':'Type mm/dd/yy, or double-click for a calendar'}" onchange="setDateTxt(${gi},${si},this)" oninput="maskD(event,this)" onkeydown="dkey(event,this)" ondblclick="openPick(${gi},${si},this)" aria-label="Target completion date">
+ <span class="lw"><button class="ib ${s.rule?'has':''}" onclick="togR('${s.id}')" ${s.done?'disabled':''} aria-label="Set date relative to another step">${LK}</button><span class="lp">${s.rule?`<b>${refLab(s)}</b><br>${esc(ruleText(s))}`:'Set date relative to another step'}</span></span></span>
  ${isL?`<button class="ib" onclick="addS(${gi},${si-1})" title="Add step above" aria-label="Add step above">${PL}</button><span class="ib"></span>`:`<button class="ib" onclick="addS(${gi},${si})" title="Add step below" aria-label="Add step below">${PL}</button><button class="ib" onclick="delS(${gi},${si})" title="Delete step" aria-label="Delete step">${TR}</button>`}</div>
  ${rOpen[s.id]&&!s.done?rulePanel(gi,si,s,ind):''}
  ${s.open?`<div class="sd" style="margin-left:${ind}px"><textarea id="sd${id}" placeholder="Add details" onchange="sset(${gi},${si},'desc',this.value)" aria-label="Step description">${esc(s.desc)}</textarea></div>`:''}</div>`}
 function renderGoals(){
+ $('hdBtn').textContent=S.settings.hideDone?'Show completed steps':'Hide completed steps';
  $('goals').innerHTML=S.goals.map((g,gi)=>{const p=gp(g),n=S.goals.length;
- return `<div class="card" ondragover="cover(event,${gi})" ondrop="ddrop(event)"><div class="gh">
+ return `<div class="card gcard ${p>=100?'g100':''}" style="--gc:${GC[gi%GC.length]}" ondragover="cover(event,${gi})" ondrop="ddrop(event)"><div class="gh">
  <button class="tg" onclick="togSteps(${gi})" aria-expanded="${g.stepsOpen}" title="Show or hide steps" aria-label="Show or hide steps">${g.stepsOpen?'▾':'▸'}</button><span class="lab">${gi+1})</span>
  <input class="gt" type="text" value="${esc(g.name)}" placeholder="Goal title" onchange="gset(${gi},'name',this.value)" aria-label="Goal title"><span class="mu pn">Priority ${gi+1}</span>
  <button class="tg ${g.desc?'has':''}" onclick="togG(${gi})" aria-expanded="${g.open}" title="Show or hide description" aria-label="Show or hide description">${g.open?'▾':'▸'}</button>
- <b class="pc" id="gp${gi}">${p}%</b>
+ <b class="pc" id="gp${gi}">${p>=100?'✓ ':''}${p}%</b>
  <button class="ib" onclick="mvG(${gi},-1)" ${gi?'':'disabled'} title="Move up" aria-label="Move up">▲</button><button class="ib" onclick="mvG(${gi},1)" ${gi<n-1?'':'disabled'} title="Move down" aria-label="Move down">▼</button><button class="ib" onclick="delG(${gi})" title="Delete goal" aria-label="Delete goal">${TR}</button></div>
  <div class="bar thin"><i id="gb${gi}" style="width:${p}%"></i></div>
  ${g.open?`<textarea style="margin-top:8px" placeholder="Describe this goal" onchange="gset(${gi},'desc',this.value)" aria-label="Goal description">${esc(g.desc)}</textarea>`:''}
- ${g.stepsOpen?`<div class="stl">${g.steps.map((s,si)=>stepHtml(gi,s,si,g.steps.length-1)).join('')}</div>`:''}</div>`}).join('')||'<p class="mu">No goals yet. Add one to get started.</p>'}
+ ${g.stepsOpen?`<div class="stl">${g.steps.map((s,si)=>S.settings.hideDone&&s.done?'':stepHtml(gi,s,si,g.steps.length-1)).join('')}${S.settings.hideDone&&g.steps.some(s=>s.done)?`<div class="mu" style="margin:4px 2px">${g.steps.filter(s=>s.done).length} completed step${g.steps.filter(s=>s.done).length===1?'':'s'} hidden</div>`:''}</div>`:''}</div>`}).join('')||'<p class="mu">No goals yet. Add one to get started.</p>'}
 
 /* ---------- Dragging steps (within and across goals) ---------- */
 const clearMarks=()=>document.querySelectorAll('.dropa,.dropb,.over').forEach(e=>e.classList.remove('dropa','dropb','over'));
@@ -446,7 +505,7 @@ function renderPri(){
  $('bd').textContent=late;$('bd').hidden=!late;$('bd').title=late+' overdue';
  const top=$('pmode').value==='top';$('pkw').hidden=!top;const X=top?Math.max(1,+$('pk').value||1):Infinity;
  const list=rows.filter(x=>x.r<=k).sort((a,b)=>a.gi-b.gi||(a.s.date||'9999').localeCompare(b.s.date||'9999')||a.si-b.si);
- $('pri').innerHTML=list.length?list.map((x,i)=>{const on=i<X;return `<div class="pr ${on?'':'dim'}"><span class="n">${i+1}</span><div style="flex:1"><div><span class="mu">${stepLab(x.gi,x.si)}</span> <b>${esc(x.s.title)||'Untitled step'}</b></div><div class="mu">${esc(x.g.name)||'Untitled goal'} · priority ${x.gi+1}${x.s.date?` · due ${fmtD(x.s.date)}${x.s.date<today?' <span class="bad">(overdue)</span>':''}`:' · no date'} · ${x.s.pct}%</div>${x.s.open&&x.s.desc?`<div class="mu">${esc(x.s.desc)}</div>`:''}</div><button class="tg ${x.s.desc?'has':''}" onclick="togS(${x.gi},${x.si})" aria-expanded="${x.s.open}" title="Show or hide details" aria-label="Show or hide details">${x.s.open?'▾':'▸'}</button>${on?`<label class="mu"><input type="checkbox" onchange="stog(${x.gi},${x.si})"> Done</label>`:''}</div>`}).join(''):'<p class="mu">Nothing left to do. Every step is complete, or there are no goals yet.</p>'}
+ $('pri').innerHTML=list.length?list.map((x,i)=>{const on=i<X;return `<div class="pr ${on?'':'dim'}"><span class="n" style="color:${GC[x.gi%GC.length]}">${i+1}</span><div style="flex:1"><div><span class="mu">${stepLab(x.gi,x.si)}</span> <b>${esc(x.s.title)||'Untitled step'}</b></div><div class="mu">${esc(x.g.name)||'Untitled goal'} · priority ${x.gi+1}${x.s.date?` · due ${fmtD(x.s.date)}${x.s.date<today?' <span class="bad">(overdue)</span>':''}`:' · no date'} · ${x.s.pct}%</div>${x.s.open&&x.s.desc?`<div class="mu">${esc(x.s.desc)}</div>`:''}</div><button class="tg ${x.s.desc?'has':''}" onclick="togS(${x.gi},${x.si})" aria-expanded="${x.s.open}" title="Show or hide details" aria-label="Show or hide details">${x.s.open?'▾':'▸'}</button>${on?`<label class="mu"><input type="checkbox" onchange="stog(${x.gi},${x.si})"> Done</label>`:''}</div>`}).join(''):'<p class="mu">Nothing left to do. Every step is complete, or there are no goals yet.</p>'}
 
 /* ---------- This week ---------- */
 function mon(d){d=new Date(d);d.setHours(0,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7));return d}
