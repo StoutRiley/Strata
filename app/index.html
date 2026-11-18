@@ -1,7 +1,14 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data:">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<meta name="theme-color" content="#0c2540" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#07121c" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Strata">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.webmanifest">
 <title>Strata</title>
 <style>
 :root{--bg:#eef2f4;--card:#fbfcfc;--tx:#14202b;--mu:#5d6b78;--ac:#1b6ca8;--acf:rgba(27,108,168,.38);--ln:#d5dde3;--bad:#c0392b;color-scheme:light}
@@ -188,9 +195,57 @@ body{background:var(--lines),var(--tex),radial-gradient(900px 420px at 8% 0,rgba
 .sep{width:1px;height:26px;background:var(--ln);margin:0 4px}
 .pr .n{font-size:1.05rem}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ---------- Mobile / phone ---------- */
+html{-webkit-text-size-adjust:100%;touch-action:manipulation}
+body{padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+button,input,select,textarea{min-height:36px}
+@media (max-width:720px){
+  main{padding:10px 12px}
+  .shell>main{padding:10px 12px 80px}
+  .hd{padding:14px 14px 36px}
+  .hd h1{font-size:1.45rem}
+  .hrow{gap:10px}
+  .hrow2{margin-top:10px}
+  #nav{gap:4px}
+  .nb{padding:10px 12px;min-width:44px;min-height:44px;justify-content:center}
+  .nb .l{display:none!important;max-width:0!important;opacity:0!important;margin:0!important}
+  .nb.on .l{display:none!important}
+  .card{padding:12px;margin:10px 0;border-radius:12px}
+  .ti{min-width:0}
+  .sr{gap:4px}
+  .h{width:16px;margin-right:4px}
+  .sl{width:36px;font-size:.8rem}
+  .pw input{width:48px}
+  .dt{width:110px}
+  .rp{flex-direction:column;align-items:stretch}
+  .rp select{max-width:none;width:100%}
+  .tip{gap:12px}
+  .tt{min-width:0}
+  .pr{gap:8px}
+  .fld input{font-size:16px} /* avoid iOS zoom */
+  input,select,textarea{font-size:16px}
+  .toast{left:12px;right:12px;transform:none;bottom:calc(12px + env(safe-area-inset-bottom))}
+  .fti{padding:12px 14px 16px;font-size:.78rem}
+  #first{margin:8vh auto!important;padding:16px!important}
+  .row.sp{gap:6px}
+  .hist{gap:4px}
+  .hist small{font-size:.65rem}
+}
+@media (max-width:480px){
+  .brand svg{width:34px;height:34px}
+  .hd h1{font-size:1.25rem}
+  .chip{padding:2px 8px;font-size:.75rem}
+  .step{padding:4px 4px}
+  .dgrp button{padding:6px 8px}
+}
+/* Bottom sticky nav on very small screens when header wraps heavily */
+@media (max-width:640px){
+  .shell{padding-bottom:env(safe-area-inset-bottom)}
+}
 </style></head><body>
 
-<section id="first" hidden style="max-width:520px;margin:12vh auto;padding:16px"><h1>Welcome</h1><p>Choose a folder where Strata will save your data. A folder in Documents or OneDrive works well.</p><button class="p" onclick="pick()">Choose folder</button></section>
+<section id="first" hidden style="max-width:520px;margin:12vh auto;padding:16px"><h1>Welcome</h1><p id="first-msg">Choose a folder where Strata will save your data. A folder in Documents or OneDrive works well.</p><button class="p" id="first-btn" onclick="pick()">Choose folder</button></section>
 
 <div id="main" hidden class="shell">
 <header class="hd"><svg class="scene" viewBox="0 0 1200 160" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><radialGradient id="sunG"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".35" stop-color="#9fd0ff" stop-opacity=".22"/><stop offset="1" stop-color="#9fd0ff" stop-opacity="0"/></radialGradient></defs>
@@ -343,7 +398,7 @@ body{background:var(--lines),var(--tex),radial-gradient(900px 420px at 8% 0,rgba
 <div class="card"><h2>Account Management</h2>
 <h3 style="font-size:1rem;margin:4px 0">Data location</h3>
 <p class="mu" style="margin:2px 0 6px">Your data is saved automatically in <b id="where"></b></p>
-<button onclick="pick()">Change save folder</button>
+<button id="change-folder" onclick="pick()">Change save folder</button>
 <h3 style="font-size:1rem;margin:14px 0 4px">Backup and restore</h3>
 <div class="row"><button onclick="exp()">Export backup</button><button onclick="document.getElementById('imf').click()">Import backup</button><input type="file" id="imf" accept=".json" onchange="imp(this)" hidden></div>
 <h3 style="font-size:1rem;margin:14px 0 4px">Delete data</h3>
@@ -374,7 +429,7 @@ function norm(d){d.weeks=d.weeks||{};d.goals=d.goals||[];d.settings=Object.assig
 const seed=()=>norm({goals:[{id:'g1',name:'My first goal',open:true,stepsOpen:true}],weeks:{}});
 let S=null,page='goals',cur=mon(new Date()),drag=null,dropAt=null,snap=null,tt,rOpen={},device='';
 
-let tm;function save(){recalc();clearTimeout(tm);tm=setTimeout(async()=>{let ok=false;try{ok=await api.save(JSON.stringify(S))}catch(e){}$('warn').textContent=ok?'':'Could not save. Check that the folder still exists.'},300)}
+let tm;function save(){recalc();clearTimeout(tm);tm=setTimeout(async()=>{let ok=false;try{ok=await api.save(JSON.stringify(S))}catch(e){}$('warn').textContent=ok?'':(typeof isElectron!=='undefined'&&!isElectron?'Could not save (browser storage full or blocked).':'Could not save. Check that the folder still exists.')},300)}
 function exp(){const a=document.createElement('a');a.href='data:application/json,'+encodeURIComponent(JSON.stringify(S));a.download='strata-backup.json';a.click()}
 function imp(el){const f=el.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const n=norm(JSON.parse(r.result));if(confirm('Replace your current data with this file?')){S=n;save();render()}}catch(e){alert('That file could not be read.')}};r.readAsText(f);el.value=''}
 function wipe(){if(!confirm('Delete ALL goals, steps, weekly tasks, and profile information from this device? This cannot be undone.'))return;if(!confirm('Are you sure? Everything will be erased.'))return;S=seed();save();render()}
@@ -558,15 +613,80 @@ function rmPhoto(){S.profile.photo='';save();renderAcct()}
 (function(){let h='';for(let r=0;r<5;r++)for(let c=0;c<5;c++)if(!(r===2&&c===3))h+=`<rect class="fl" x="${10+28*c}" y="${10+28*r}" width="22" height="22" rx="3"/>`;
  h+='<polygon class="fa" points="105,64 108.2,72.6 117.4,73 110.2,78.7 112.6,87.5 105,82.5 97.4,87.5 99.8,78.7 92.6,73 101.8,72.6"/>';$('snr').innerHTML=h})();
 
-/* ---------- Storage (data file in the folder you choose) ---------- */
-async function openFolder(f){
- let t=null;try{t=await api.load()}catch(e){alert('Your data file could not be read. Close other programs using it and restart the app.');return}
- if(t){try{S=norm(JSON.parse(t))}catch(e){alert('Your data file is damaged. A backup copy (weekly-goals-data.bak.json) is in the same folder.');return}}
- else{S=S||seed();save()}
- recalc();
- try{const d=await api.device();device=d.name}catch(e){device=/Windows/.test(navigator.userAgent)?'Windows computer':'This computer'}
- $('first').hidden=true;$('main').hidden=false;$('where').textContent=f;show(page);
+/* ---------- Storage (Electron folder or browser localStorage) ---------- */
+const isElectron = !!(window.api && typeof window.api.save === 'function');
+if (!isElectron) {
+  // Phone / browser mode: persist in localStorage so the same HTML works without Electron
+  window.api = {
+    device: async () => {
+      const ua = navigator.userAgent || '';
+      const mobile = /Android|iPhone|iPad|iPod|Mobile/i.test(ua);
+      return { name: mobile ? 'Phone' : 'Web browser', platform: 'web' };
+    },
+    folder: async () => localStorage.getItem('strata-web') ? 'This browser' : null,
+    choose: async () => { localStorage.setItem('strata-web', '1'); return 'This browser'; },
+    load: async () => localStorage.getItem('strata-data'),
+    save: async (text) => {
+      try {
+        localStorage.setItem('strata-data', text);
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }
+  };
 }
-async function pick(){const f=await api.choose();if(f)openFolder(f)}
-(async()=>{const f=await api.folder();if(f)openFolder(f);else $('first').hidden=false})();
+
+async function openFolder(f){
+ let t=null;
+ try{t=await api.load()}catch(e){
+   alert(isElectron
+     ? 'Your data file could not be read. Close other programs using it and restart the app.'
+     : 'Could not read saved data in this browser.');
+   return;
+ }
+ if(t){
+   try{S=norm(JSON.parse(t))}
+   catch(e){
+     alert(isElectron
+       ? 'Your data file is damaged. A backup copy (weekly-goals-data.bak.json) is in the same folder.'
+       : 'Saved data in this browser looks damaged. Use Import backup if you have a copy.');
+     return;
+   }
+ } else { S=S||seed(); save(); }
+ recalc();
+ try{const d=await api.device();device=d.name}catch(e){
+   device=/Windows/.test(navigator.userAgent)?'Windows computer':(/Mobile/i.test(navigator.userAgent)?'Phone':'This device');
+ }
+ $('first').hidden=true;$('main').hidden=false;
+ $('where').textContent=f;
+ const ch=$('change-folder');
+ if(ch) ch.hidden=!isElectron;
+ show(page);
+}
+async function pick(){
+  if(!isElectron){
+    // Web: just start with browser storage
+    localStorage.setItem('strata-web','1');
+    openFolder('This browser');
+    return;
+  }
+  const f=await api.choose();
+  if(f) openFolder(f);
+}
+(async()=>{
+  if(!isElectron){
+    // Adapt welcome copy for phone / browser
+    const msg=$('first-msg'), btn=$('first-btn');
+    if(msg) msg.textContent='Strata will save your goals in this browser (or as an installed web app on your phone). You can export a backup anytime from My Account.';
+    if(btn) btn.textContent='Get started';
+  }
+  try{
+    const f=await api.folder();
+    if(f) openFolder(f);
+    else $('first').hidden=false;
+  }catch(e){
+    $('first').hidden=false;
+  }
+})();
 </script></body></html>
