@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data:">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
-<meta name="theme-color" content="#0c2540" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#07121c" media="(prefers-color-scheme: dark)">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Strata">
-<meta name="mobile-web-app-capable" content="yes">
-<link rel="manifest" href="manifest.webmanifest">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src 'self' data:; manifest-src 'self'; worker-src 'self'; connect-src 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0c2540">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Strata">
+<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
 <title>Strata</title>
 <style>
 :root{--bg:#eef2f4;--card:#fbfcfc;--tx:#14202b;--mu:#5d6b78;--ac:#1b6ca8;--acf:rgba(27,108,168,.38);--ln:#d5dde3;--bad:#c0392b;color-scheme:light}
@@ -196,63 +193,72 @@ body{background:var(--lines),var(--tex),radial-gradient(900px 420px at 8% 0,rgba
 .pr .n{font-size:1.05rem}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
-/* ---------- Mobile / phone ---------- */
-html{-webkit-text-size-adjust:100%;touch-action:manipulation}
-body{padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
-button,input,select,textarea{min-height:36px}
+/* ---------- v9 layout: desktop grid header + phone layout ---------- */
+.hdi{display:grid;grid-template-columns:1fr auto;column-gap:16px;row-gap:8px;align-items:center}
+.top,.menu{display:contents}
+.brand{grid-column:1;grid-row:1}
+#nav{grid-column:2;grid-row:1;justify-self:end}
+.hrow2{grid-column:1/-1;grid-row:2;margin:0}
+.hb{display:none}
+.hist .vl span{display:inline}
+body.tdrag{user-select:none;-webkit-user-select:none}
+.h{touch-action:none}
+html{-webkit-text-size-adjust:100%}
+body{padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}
+@media (pointer:coarse){input,select,textarea{font-size:16px}.ib,.tg{min-height:34px}}
 @media (max-width:720px){
-  main{padding:10px 12px}
-  .shell>main{padding:10px 12px 80px}
-  .hd{padding:14px 14px 36px}
-  .hd h1{font-size:1.45rem}
-  .hrow{gap:10px}
-  .hrow2{margin-top:10px}
-  #nav{gap:4px}
-  .nb{padding:10px 12px;min-width:44px;min-height:44px;justify-content:center}
-  .nb .l{display:none!important;max-width:0!important;opacity:0!important;margin:0!important}
-  .nb.on .l{display:none!important}
-  .card{padding:12px;margin:10px 0;border-radius:12px}
-  .ti{min-width:0}
-  .sr{gap:4px}
-  .h{width:16px;margin-right:4px}
-  .sl{width:36px;font-size:.8rem}
-  .pw input{width:48px}
-  .dt{width:110px}
-  .rp{flex-direction:column;align-items:stretch}
-  .rp select{max-width:none;width:100%}
-  .tip{gap:12px}
-  .tt{min-width:0}
-  .pr{gap:8px}
-  .fld input{font-size:16px} /* avoid iOS zoom */
-  input,select,textarea{font-size:16px}
-  .toast{left:12px;right:12px;transform:none;bottom:calc(12px + env(safe-area-inset-bottom))}
-  .fti{padding:12px 14px 16px;font-size:.78rem}
-  #first{margin:8vh auto!important;padding:16px!important}
-  .row.sp{gap:6px}
-  .hist{gap:4px}
-  .hist small{font-size:.65rem}
-}
-@media (max-width:480px){
-  .brand svg{width:34px;height:34px}
-  .hd h1{font-size:1.25rem}
-  .chip{padding:2px 8px;font-size:.75rem}
-  .step{padding:4px 4px}
-  .dgrp button{padding:6px 8px}
-}
-/* Bottom sticky nav on very small screens when header wraps heavily */
-@media (max-width:640px){
-  .shell{padding-bottom:env(safe-area-inset-bottom)}
+ .hd{position:sticky;top:0;z-index:50;padding:calc(6px + env(safe-area-inset-top)) 12px 14px;overflow:visible;animation:none}
+ .hdi{display:block}
+ .top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+ .brand svg{width:30px;height:30px}.hd h1{font-size:1.25rem}.brand{gap:8px}
+ .tag{font-size:.56rem;margin-top:2px;letter-spacing:.05em}
+ .hb{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;padding:0;border-radius:12px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);color:#fff}
+ .hb svg{width:22px;height:22px;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;fill:none}
+ .hb .x{display:none}.hd.open .hb .x{display:block}.hd.open .hb .b{display:none}
+ .menu{display:none;position:absolute;left:0;right:0;top:100%;z-index:60;padding:10px 12px 14px;background:linear-gradient(160deg,var(--h1),var(--h2));border-radius:0 0 16px 16px;box-shadow:0 18px 30px rgba(0,0,0,.35)}
+ .hd.open .menu{display:block}
+ #nav{flex-direction:column;align-items:stretch;gap:6px;justify-self:stretch}
+ .nb{justify-content:flex-start;padding:11px 14px;border-radius:12px;font-size:1rem}
+ .nb .l{max-width:none;opacity:1;margin-left:10px}
+ .hrow2{margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.18)}
+ .ridge{height:14px}
+ .shell>main{padding:6px 10px 20px}
+ .tbar{flex-wrap:nowrap;overflow-x:auto;gap:6px;margin:2px 0 4px;padding:2px 0;-webkit-overflow-scrolling:touch}
+ .tbar button{flex:none;white-space:nowrap;font-size:.85rem;padding:6px 10px}.tbar .bigb{font-size:.95rem;padding:7px 14px}.tbar .sep{display:none}
+ .card{padding:10px;margin:6px 0;border-radius:12px}
+ .gcard{padding:8px 8px 8px 8px}
+ .sc{overflow-x:auto;-webkit-overflow-scrolling:touch}
+ .sc>*{min-width:540px}
+ .sc>.bar,.sc>textarea,.sc .note{position:sticky;left:0;width:calc(100vw - 48px);min-width:0}
+ .gh{flex-wrap:nowrap}
+ .gt{flex:1 0 150px;min-width:150px}.pn{display:none}.gh>*{flex-shrink:0}.gh>.gt{flex-shrink:1}
+ .step{min-width:540px}
+ .sr{flex-wrap:nowrap}
+ .sr>*{flex-shrink:0}.sr>.ti{flex:1 1 auto;min-width:170px;flex-shrink:1}
+ .h{width:18px;margin-right:6px}
+ .dt{width:80px}
+ .lp{display:none!important}
+ .sd,.rp{position:sticky;left:0;max-width:calc(100vw - 110px)}
+ .sd textarea{width:100%}
+ .rp{flex-wrap:wrap}
+ .pt{font-size:1.25rem;margin:2px 0 0}.pt::after{margin-top:3px;width:48px}
+ h2{font-size:1rem}
+ .tip{flex-direction:column;align-items:flex-start;gap:8px}.tip svg{order:-1;width:104px;height:104px}.tt{min-width:0;width:100%}
+ .pr{gap:8px}
+ .hist{gap:3px}.hist div{height:196px}
+ .hist .vl span{display:block;text-align:center}.hist .vl .s{display:none}.hist small{font-size:.64rem}
+ .hist .rg{writing-mode:vertical-rl;transform:rotate(180deg);height:64px;font-size:.62rem}
+ .ft{margin-top:6px}.ft .wv{height:22px}.fti{padding:8px 12px 10px;font-size:.7rem}
+ .toast{left:12px;right:12px;transform:none;bottom:calc(12px + env(safe-area-inset-bottom))}
 }
 </style></head><body>
 
-<section id="first" hidden style="max-width:520px;margin:12vh auto;padding:16px"><h1>Welcome</h1><p id="first-msg">Choose a folder where Strata will save your data. A folder in Documents or OneDrive works well.</p><button class="p" id="first-btn" onclick="pick()">Choose folder</button></section>
+<section id="first" hidden style="max-width:520px;margin:12vh auto;padding:16px"><h1>Welcome</h1><p>Choose a folder where Strata will save your data. A folder in Documents or OneDrive works well.</p><button class="p" onclick="pick()">Choose folder</button></section>
 
 <div id="main" hidden class="shell">
 <header class="hd"><svg class="scene" viewBox="0 0 1200 160" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><radialGradient id="sunG"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".35" stop-color="#9fd0ff" stop-opacity=".22"/><stop offset="1" stop-color="#9fd0ff" stop-opacity="0"/></radialGradient></defs>
-<circle class="sun" cx="1010" cy="78" r="150" fill="url(#sunG)"/><circle cx="1010" cy="78" r="30" fill="#fff" fill-opacity=".16"/><circle cx="1010" cy="78" r="190" fill="none" stroke="#fff" stroke-opacity=".06"/><circle cx="1010" cy="78" r="250" fill="none" stroke="#fff" stroke-opacity=".04"/><circle cx="683" cy="27" r="1.0" fill="#fff" fill-opacity="0.33" class="tw" style="animation-delay:4.1s"/><circle cx="212" cy="54" r="1.1" fill="#fff" fill-opacity="0.8"/><circle cx="459" cy="12" r="0.7" fill="#fff" fill-opacity="0.53"/><circle cx="512" cy="19" r="1.1" fill="#fff" fill-opacity="0.33" class="tw" style="animation-delay:2.8s"/><circle cx="477" cy="88" r="1.2" fill="#fff" fill-opacity="0.82"/><circle cx="832" cy="14" r="1.5" fill="#fff" fill-opacity="0.33"/><circle cx="292" cy="45" r="1.0" fill="#fff" fill-opacity="0.6" class="tw" style="animation-delay:2.9s"/><circle cx="1167" cy="95" r="0.8" fill="#fff" fill-opacity="0.62"/><circle cx="404" cy="55" r="0.7" fill="#fff" fill-opacity="0.69"/><circle cx="1175" cy="15" r="1.2" fill="#fff" fill-opacity="0.57" class="tw" style="animation-delay:2.7s"/><circle cx="663" cy="67" r="1.1" fill="#fff" fill-opacity="0.55"/><circle cx="633" cy="39" r="1.3" fill="#fff" fill-opacity="0.68"/><circle cx="519" cy="18" r="1.1" fill="#fff" fill-opacity="0.59" class="tw" style="animation-delay:4.4s"/><circle cx="939" cy="44" r="1.1" fill="#fff" fill-opacity="0.34"/><circle cx="1068" cy="61" r="0.7" fill="#fff" fill-opacity="0.49"/><circle cx="1021" cy="61" r="0.6" fill="#fff" fill-opacity="0.67" class="tw" style="animation-delay:3.8s"/><circle cx="662" cy="51" r="1.2" fill="#fff" fill-opacity="0.63"/><circle cx="954" cy="16" r="1.4" fill="#fff" fill-opacity="0.82"/><circle cx="990" cy="97" r="1.2" fill="#fff" fill-opacity="0.33" class="tw" style="animation-delay:3.5s"/><circle cx="932" cy="44" r="1.2" fill="#fff" fill-opacity="0.79"/><circle cx="730" cy="10" r="1.4" fill="#fff" fill-opacity="0.5"/><circle cx="259" cy="71" r="0.7" fill="#fff" fill-opacity="0.72" class="tw" style="animation-delay:0.6s"/><circle cx="527" cy="58" r="1.0" fill="#fff" fill-opacity="0.78"/><circle cx="185" cy="29" r="1.0" fill="#fff" fill-opacity="0.6"/><circle cx="300" cy="63" r="1.4" fill="#fff" fill-opacity="0.45" class="tw" style="animation-delay:2.1s"/><circle cx="754" cy="95" r="1.4" fill="#fff" fill-opacity="0.83"/><circle cx="329" cy="18" r="0.8" fill="#fff" fill-opacity="0.43"/><circle cx="497" cy="9" r="1.0" fill="#fff" fill-opacity="0.62" class="tw" style="animation-delay:1.3s"/><circle cx="28" cy="26" r="1.0" fill="#fff" fill-opacity="0.5"/><circle cx="1179" cy="48" r="1.5" fill="#fff" fill-opacity="0.68"/><circle cx="1075" cy="87" r="1.2" fill="#fff" fill-opacity="0.71" class="tw" style="animation-delay:2.3s"/><circle cx="1165" cy="58" r="1.0" fill="#fff" fill-opacity="0.52"/><circle cx="1006" cy="89" r="1.0" fill="#fff" fill-opacity="0.4"/><circle cx="447" cy="64" r="0.7" fill="#fff" fill-opacity="0.49" class="tw" style="animation-delay:0.3s"/></svg><div class="hdi">
-<div class="hrow"><div class="brand"><svg width="42" height="42" viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="96" fill="#fff" fill-opacity=".14"/><rect x="96" y="288" width="72" height="128" rx="8" fill="#fff" opacity=".6"/><rect x="220" y="208" width="72" height="208" rx="8" fill="#fff" opacity=".82"/><rect x="344" y="112" width="72" height="304" rx="8" fill="#fff"/></svg><div><h1>Strata</h1><div class="tag">STEP BY STEP, LAYER BY LAYER</div></div></div>
-<nav id="nav" aria-label="Pages"><button class="nb" data-p="goals" onclick="show('goals')" title="Goals" aria-label="Goals"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 22V4M4 4h13l-2 4 2 4H4"/></svg><span class="l">Goals</span></button><button class="nb" data-p="pri" onclick="show('pri')" title="Priorities" aria-label="Priorities"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span class="l">Priorities</span><span class="bd" id="bd" hidden></span></button><button class="nb" data-p="week" onclick="show('week')" title="This week" aria-label="This week"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span class="l">This week</span></button><button class="nb" data-p="tips" onclick="show('tips')" title="Tips" aria-label="Tips"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.3h6c0-1 .4-1.8 1-2.3A7 7 0 0 0 12 2z"/></svg><span class="l">Tips</span></button><button class="nb" data-p="set" onclick="show('set')" title="Settings" aria-label="Settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></svg><span class="l">Settings</span></button><button class="nb" data-p="acct" onclick="show('acct')" title="My Account" aria-label="My Account"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="l">My Account</span></button></nav></div>
-<div class="hrow2"><div class="greet" id="greet"></div><div class="chips" id="chips"></div></div></div>
+<circle class="sun" cx="1010" cy="78" r="150" fill="url(#sunG)"/><circle cx="1010" cy="78" r="30" fill="#fff" fill-opacity=".16"/><circle cx="1010" cy="78" r="190" fill="none" stroke="#fff" stroke-opacity=".06"/><circle cx="1010" cy="78" r="250" fill="none" stroke="#fff" stroke-opacity=".04"/><circle cx="683" cy="27" r="1.0" fill="#fff" fill-opacity="0.33" class="tw" style="animation-delay:4.1s"/><circle cx="212" cy="54" r="1.1" fill="#fff" fill-opacity="0.8"/><circle cx="459" cy="12" r="0.7" fill="#fff" fill-opacity="0.53"/><circle cx="512" cy="19" r="1.1" fill="#fff" fill-opacity="0.33" class="tw" style="animation-delay:2.8s"/><circle cx="477" cy="88" r="1.2" fill="#fff" fill-opacity="0.82"/><circle cx="832" cy="14" r="1.5" fill="#fff" fill-opacity="0.33"/><circle cx="292" cy="45" r="1.0" fill="#fff" fill-opacity="0.6" class="tw" style="animation-delay:2.9s"/><circle cx="1167" cy="95" r="0.8" fill="#fff" fill-opacity="0.62"/><circle cx="404" cy="55" r="0.7" fill="#fff" fill-opacity="0.69"/><circle cx="1175" cy="15" r="1.2" fill="#fff" fill-opacity="0.57" class="tw" style="animation-delay:2.7s"/><circle cx="663" cy="67" r="1.1" fill="#fff" fill-opacity="0.55"/><circle cx="633" cy="39" r="1.3" fill="#fff" fill-opacity="0.68"/><circle cx="519" cy="18" r="1.1" fill="#fff" fill-opacity="0.59" class="tw" style="animation-delay:4.4s"/><circle cx="939" cy="44" r="1.1" fill="#fff" fill-opacity="0.34"/><circle cx="1068" cy="61" r="0.7" fill="#fff" fill-opacity="0.49"/><circle cx="1021" cy="61" r="0.6" fill="#fff" fill-opacity="0.67" class="tw" style="animation-delay:3.8s"/><circle cx="662" cy="51" r="1.2" fill="#fff" fill-opacity="0.63"/><circle cx="954" cy="16" r="1.4" fill="#fff" fill-opacity="0.82"/><circle cx="990" cy="97" r="1.2" fill="#fff" fill-opacity="0.33" class="tw" style="animation-delay:3.5s"/><circle cx="932" cy="44" r="1.2" fill="#fff" fill-opacity="0.79"/><circle cx="730" cy="10" r="1.4" fill="#fff" fill-opacity="0.5"/><circle cx="259" cy="71" r="0.7" fill="#fff" fill-opacity="0.72" class="tw" style="animation-delay:0.6s"/><circle cx="527" cy="58" r="1.0" fill="#fff" fill-opacity="0.78"/><circle cx="185" cy="29" r="1.0" fill="#fff" fill-opacity="0.6"/><circle cx="300" cy="63" r="1.4" fill="#fff" fill-opacity="0.45" class="tw" style="animation-delay:2.1s"/><circle cx="754" cy="95" r="1.4" fill="#fff" fill-opacity="0.83"/><circle cx="329" cy="18" r="0.8" fill="#fff" fill-opacity="0.43"/><circle cx="497" cy="9" r="1.0" fill="#fff" fill-opacity="0.62" class="tw" style="animation-delay:1.3s"/><circle cx="28" cy="26" r="1.0" fill="#fff" fill-opacity="0.5"/><circle cx="1179" cy="48" r="1.5" fill="#fff" fill-opacity="0.68"/><circle cx="1075" cy="87" r="1.2" fill="#fff" fill-opacity="0.71" class="tw" style="animation-delay:2.3s"/><circle cx="1165" cy="58" r="1.0" fill="#fff" fill-opacity="0.52"/><circle cx="1006" cy="89" r="1.0" fill="#fff" fill-opacity="0.4"/><circle cx="447" cy="64" r="0.7" fill="#fff" fill-opacity="0.49" class="tw" style="animation-delay:0.3s"/></svg><div class="hdi"><div class="top"><div class="brand"><svg width="42" height="42" viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="96" fill="#fff" fill-opacity=".14"/><rect x="96" y="288" width="72" height="128" rx="8" fill="#fff" opacity=".6"/><rect x="220" y="208" width="72" height="208" rx="8" fill="#fff" opacity=".82"/><rect x="344" y="112" width="72" height="304" rx="8" fill="#fff"/></svg><div><h1>Strata</h1><div class="tag">STEP BY STEP, LAYER BY LAYER</div></div></div><button class="hb" id="hb" onclick="togMenu()" aria-expanded="false" aria-controls="menu" aria-label="Menu"><svg class="b" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="x" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+<div class="menu" id="menu"><nav id="nav" aria-label="Pages"><button class="nb" data-p="goals" onclick="show('goals')" title="Goals" aria-label="Goals"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 22V4M4 4h13l-2 4 2 4H4"/></svg><span class="l">Goals</span></button><button class="nb" data-p="pri" onclick="show('pri')" title="Priorities" aria-label="Priorities"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span class="l">Priorities</span><span class="bd" id="bd" hidden></span></button><button class="nb" data-p="week" onclick="show('week')" title="This week" aria-label="This week"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span class="l">This week</span></button><button class="nb" data-p="tips" onclick="show('tips')" title="Tips" aria-label="Tips"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.3h6c0-1 .4-1.8 1-2.3A7 7 0 0 0 12 2z"/></svg><span class="l">Tips</span></button><button class="nb" data-p="set" onclick="show('set')" title="Settings" aria-label="Settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></svg><span class="l">Settings</span></button><button class="nb" data-p="acct" onclick="show('acct')" title="My Account" aria-label="My Account"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="l">My Account</span></button></nav><div class="hrow2"><div class="greet" id="greet"></div><div class="chips" id="chips"></div></div></div></div>
 <svg class="ridge" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 34 L70 6 L122 36 L200 5 L250 35 L343 24 L393 38 L483 17 L524 41 L613 7 L663 40 L758 20 L800 36 L888 12 L923 35 L988 6 L1024 38 L1080 16 L1130 40 L1200 12 L1200 41 L1200 60 L0 60Z" fill="#fff" fill-opacity=".07"/><path d="M0 42 L73 20 L117 46 L199 28 L234 48 L311 19 L361 46 L417 31 L461 44 L515 32 L562 48 L647 33 L696 45 L769 29 L818 42 L896 32 L927 42 L984 27 L1033 42 L1107 24 L1151 46 L1200 18 L1200 47 L1200 60 L0 60Z" fill="#fff" fill-opacity=".12"/><path d="M0 44C180 30 360 54 560 42S940 30 1200 46V60H0Z" class="wb"/></svg></header>
 <main>
 
@@ -398,7 +404,7 @@ button,input,select,textarea{min-height:36px}
 <div class="card"><h2>Account Management</h2>
 <h3 style="font-size:1rem;margin:4px 0">Data location</h3>
 <p class="mu" style="margin:2px 0 6px">Your data is saved automatically in <b id="where"></b></p>
-<button id="change-folder" onclick="pick()">Change save folder</button>
+<button id="change-folder" onclick="pick()">Change save folder</button><p class="mu" id="web-note" hidden style="margin-top:8px">On a phone or in a browser, your data is saved in this browser only. Use Export backup below to keep a copy or move it to another device.</p>
 <h3 style="font-size:1rem;margin:14px 0 4px">Backup and restore</h3>
 <div class="row"><button onclick="exp()">Export backup</button><button onclick="document.getElementById('imf').click()">Import backup</button><input type="file" id="imf" accept=".json" onchange="imp(this)" hidden></div>
 <h3 style="font-size:1rem;margin:14px 0 4px">Delete data</h3>
@@ -429,12 +435,16 @@ function norm(d){d.weeks=d.weeks||{};d.goals=d.goals||[];d.settings=Object.assig
 const seed=()=>norm({goals:[{id:'g1',name:'My first goal',open:true,stepsOpen:true}],weeks:{}});
 let S=null,page='goals',cur=mon(new Date()),drag=null,dropAt=null,snap=null,tt,rOpen={},device='';
 
-let tm;function save(){recalc();clearTimeout(tm);tm=setTimeout(async()=>{let ok=false;try{ok=await api.save(JSON.stringify(S))}catch(e){}$('warn').textContent=ok?'':(typeof isElectron!=='undefined'&&!isElectron?'Could not save (browser storage full or blocked).':'Could not save. Check that the folder still exists.')},300)}
+let tm;function save(){recalc();clearTimeout(tm);tm=setTimeout(async()=>{let ok=false;try{ok=await api.save(JSON.stringify(S))}catch(e){}$('warn').textContent=ok?'':'Could not save. Check that the folder still exists.'},300)}
 function exp(){const a=document.createElement('a');a.href='data:application/json,'+encodeURIComponent(JSON.stringify(S));a.download='strata-backup.json';a.click()}
 function imp(el){const f=el.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const n=norm(JSON.parse(r.result));if(confirm('Replace your current data with this file?')){S=n;save();render()}}catch(e){alert('That file could not be read.')}};r.readAsText(f);el.value=''}
 function wipe(){if(!confirm('Delete ALL goals, steps, weekly tasks, and profile information from this device? This cannot be undone.'))return;if(!confirm('Are you sure? Everything will be erased.'))return;S=seed();save();render()}
 
-function show(p){page=p;document.querySelectorAll('main>section').forEach(s=>s.hidden=s.id!=='p-'+p);document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.p===p));render()}
+function togMenu(){const h=document.querySelector('.hd'),o=!h.classList.contains('open');h.classList.toggle('open',o);$('hb').setAttribute('aria-expanded',String(o))}
+function closeMenu(){const h=document.querySelector('.hd');if(h&&h.classList.contains('open')){h.classList.remove('open');$('hb').setAttribute('aria-expanded','false')}}
+document.addEventListener('click',e=>{const h=document.querySelector('.hd');if(h&&h.classList.contains('open')&&!h.contains(e.target))closeMenu()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu()});
+function show(p){closeMenu();page=p;document.querySelectorAll('main>section').forEach(s=>s.hidden=s.id!=='p-'+p);document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.p===p));render()}
 function render(){if(!S)return;renderHeader();renderGoals();renderPri();renderWeek();renderAcct();$('s-hier').checked=S.settings.hier}
 function setOpt(k,v){S.settings[k]=v;save();render()}
 
@@ -518,7 +528,7 @@ function tkey(e,g,s){
 function stepHtml(gi,s,si,last){
  const isL=si===last,id=gi+'_'+si,ind=isL?20:54;
  return `<div class="step ${s.done?'d':''}" id="st${id}" ondragstart="dstart(event,${gi},${si})" ondragover="dover(event,${gi},${si})" ondrop="ddrop(event)" ondragend="dend()"><div class="sr">
- ${isL?'':`<span class="h" title="Click and hold to drag" onmousedown="this.closest('.step').draggable=true" onmouseup="this.closest('.step').draggable=false">⋮⋮</span>`}
+ ${isL?'':`<span class="h" title="Click and hold to drag" onmousedown="this.closest('.step').draggable=true" onmouseup="this.closest('.step').draggable=false" ontouchstart="tstart(event,${gi},${si})">⋮⋮</span>`}
  <input type="checkbox" id="cb${id}" ${s.done?'checked':''} onchange="stog(${gi},${si})" aria-label="Step complete">
  <span class="sl ${isL?'c':''}">${stepLab(gi,si)}</span>
  <input class="ti" id="ti${id}" type="text" value="${esc(s.title)}" placeholder="Add a step title" onchange="sset(${gi},${si},'title',this.value)" onkeydown="tkey(event,${gi},${si})" aria-label="Step title">
@@ -532,7 +542,7 @@ function stepHtml(gi,s,si,last){
 function renderGoals(){
  $('hdBtn').textContent=S.settings.hideDone?'Show completed steps':'Hide completed steps';
  $('goals').innerHTML=S.goals.map((g,gi)=>{const p=gp(g),n=S.goals.length;
- return `<div class="card gcard ${p>=100?'g100':''}" style="--gc:${GC[gi%GC.length]}" ondragover="cover(event,${gi})" ondrop="ddrop(event)"><div class="gh">
+ return `<div class="card gcard ${p>=100?'g100':''}" style="--gc:${GC[gi%GC.length]}" ondragover="cover(event,${gi})" ondrop="ddrop(event)" data-g="${gi}"><div class="sc"><div class="gh">
  <button class="tg" onclick="togSteps(${gi})" aria-expanded="${g.stepsOpen}" title="Show or hide steps" aria-label="Show or hide steps">${g.stepsOpen?'▾':'▸'}</button><span class="lab">${gi+1})</span>
  <input class="gt" type="text" value="${esc(g.name)}" placeholder="Goal title" onchange="gset(${gi},'name',this.value)" aria-label="Goal title"><span class="mu pn">Priority ${gi+1}</span>
  <button class="tg ${g.desc?'has':''}" onclick="togG(${gi})" aria-expanded="${g.open}" title="Show or hide description" aria-label="Show or hide description">${g.open?'▾':'▸'}</button>
@@ -540,7 +550,7 @@ function renderGoals(){
  <button class="ib" onclick="mvG(${gi},-1)" ${gi?'':'disabled'} title="Move up" aria-label="Move up">▲</button><button class="ib" onclick="mvG(${gi},1)" ${gi<n-1?'':'disabled'} title="Move down" aria-label="Move down">▼</button><button class="ib" onclick="delG(${gi})" title="Delete goal" aria-label="Delete goal">${TR}</button></div>
  <div class="bar thin"><i id="gb${gi}" style="width:${p}%"></i></div>
  ${g.open?`<textarea style="margin-top:8px" placeholder="Describe this goal" onchange="gset(${gi},'desc',this.value)" aria-label="Goal description">${esc(g.desc)}</textarea>`:''}
- ${g.stepsOpen?`<div class="stl">${g.steps.map((s,si)=>S.settings.hideDone&&s.done?'':stepHtml(gi,s,si,g.steps.length-1)).join('')}${S.settings.hideDone&&g.steps.some(s=>s.done)?`<div class="mu" style="margin:4px 2px">${g.steps.filter(s=>s.done).length} completed step${g.steps.filter(s=>s.done).length===1?'':'s'} hidden</div>`:''}</div>`:''}</div>`}).join('')||'<p class="mu">No goals yet. Add one to get started.</p>'}
+ ${g.stepsOpen?`<div class="stl">${g.steps.map((s,si)=>S.settings.hideDone&&s.done?'':stepHtml(gi,s,si,g.steps.length-1)).join('')}${S.settings.hideDone&&g.steps.some(s=>s.done)?`<div class="mu note" style="margin:4px 2px">${g.steps.filter(s=>s.done).length} completed step${g.steps.filter(s=>s.done).length===1?'':'s'} hidden</div>`:''}</div>`:''}</div></div>`}).join('')||'<p class="mu">No goals yet. Add one to get started.</p>'}
 
 /* ---------- Dragging steps (within and across goals) ---------- */
 const clearMarks=()=>document.querySelectorAll('.dropa,.dropb,.over').forEach(e=>e.classList.remove('dropa','dropb','over'));
@@ -551,6 +561,15 @@ function dover(e,g,s){if(!drag)return;e.preventDefault();e.stopPropagation();
 function cover(e,g){if(!drag||S.goals[g].stepsOpen)return;e.preventDefault();clearMarks();e.currentTarget.classList.add('over');dropAt={g,i:S.goals[g].steps.length-1}}
 function moveStep(f,t){const src=S.goals[f.g].steps,[m]=src.splice(f.s,1),dst=S.goals[t.g].steps;let i=t.i;if(f.g===t.g&&f.s<i)i--;i=Math.max(0,Math.min(i,dst.length-1));dst.splice(i,0,m);save()}
 function ddrop(e){e.preventDefault();e.stopPropagation();if(drag&&dropAt)moveStep(drag,dropAt);drag=null;dropAt=null;render()}
+let tdrag=false;
+function tstart(e,g,s){if(e.touches.length!==1)return;tdrag=true;drag={g,s};dropAt=null;document.body.classList.add('tdrag')}
+function tmove(e){if(!tdrag)return;e.preventDefault();const t=e.touches[0];if(t.clientY<90)window.scrollBy(0,-14);else if(t.clientY>innerHeight-90)window.scrollBy(0,14);
+ const el=document.elementFromPoint(t.clientX,t.clientY),row=el&&el.closest('.step'),card=el&&el.closest('.gcard');clearMarks();dropAt=null;
+ const m=row&&row.id.match(/^st(\d+)_(\d+)$/);
+ if(m){const g=+m[1],s=+m[2],last=S.goals[g].steps.length-1,r=row.getBoundingClientRect();let after=t.clientY>r.top+r.height/2;if(s===last)after=false;row.classList.add(after?'dropb':'dropa');dropAt={g,i:after?s+1:s}}
+ else if(card&&card.dataset.g!==undefined){const g=+card.dataset.g;if(!S.goals[g].stepsOpen){card.classList.add('over');dropAt={g,i:S.goals[g].steps.length-1}}}}
+function tend(){if(!tdrag)return;tdrag=false;if(drag&&dropAt)moveStep(drag,dropAt);drag=null;dropAt=null;document.body.classList.remove('tdrag');clearMarks();render()}
+document.addEventListener('touchmove',tmove,{passive:false});document.addEventListener('touchend',tend);document.addEventListener('touchcancel',tend);
 function dend(){clearMarks();drag=null;dropAt=null;render()}
 
 /* ---------- Priorities ---------- */
@@ -592,7 +611,7 @@ function renderWeek(){
  $('rate').innerHTML=[1,2,3,4,5].map(n=>`<button class="${w.rating===n?'on':''}" onclick="rate(${n})">${n}</button>`).join('');
  const ws=[];for(let i=7;i>=0;i--){const x=new Date(cur);x.setDate(x.getDate()-7*i);ws.push({x,t:wkStats(x)})}
  const mx=Math.max(1,...ws.map(o=>o.t.tot));let h='';
- ws.forEach(({x,t})=>{h+=`<div><small>${t.tot?`${t.done}/${t.tot} · ${t.v}%`:''}</small><i style="height:${t.tot?Math.max(6,Math.round(80*t.tot/mx)):2}px;background:color-mix(in srgb,var(--ac) ${25+Math.round(0.75*t.v)}%,transparent)" title="${t.done} of ${t.tot} done (${t.v}%)"></i><small>${rng(x)}</small></div>`});
+ ws.forEach(({x,t})=>{h+=`<div><small class="vl">${t.tot?`<span>${t.done}/${t.tot}</span><span class="s"> · </span><span>${t.v}%</span>`:''}</small><i style="height:${t.tot?Math.max(6,Math.round(80*t.tot/mx)):2}px;background:color-mix(in srgb,var(--ac) ${25+Math.round(0.75*t.v)}%,transparent)" title="${t.done} of ${t.tot} done (${t.v}%)"></i><small class="rg">${rng(x)}</small></div>`});
  $('hist').innerHTML=h;
 }
 
@@ -613,80 +632,20 @@ function rmPhoto(){S.profile.photo='';save();renderAcct()}
 (function(){let h='';for(let r=0;r<5;r++)for(let c=0;c<5;c++)if(!(r===2&&c===3))h+=`<rect class="fl" x="${10+28*c}" y="${10+28*r}" width="22" height="22" rx="3"/>`;
  h+='<polygon class="fa" points="105,64 108.2,72.6 117.4,73 110.2,78.7 112.6,87.5 105,82.5 97.4,87.5 99.8,78.7 92.6,73 101.8,72.6"/>';$('snr').innerHTML=h})();
 
-/* ---------- Storage (Electron folder or browser localStorage) ---------- */
-const isElectron = !!(window.api && typeof window.api.save === 'function');
-if (!isElectron) {
-  // Phone / browser mode: persist in localStorage so the same HTML works without Electron
-  window.api = {
-    device: async () => {
-      const ua = navigator.userAgent || '';
-      const mobile = /Android|iPhone|iPad|iPod|Mobile/i.test(ua);
-      return { name: mobile ? 'Phone' : 'Web browser', platform: 'web' };
-    },
-    folder: async () => localStorage.getItem('strata-web') ? 'This browser' : null,
-    choose: async () => { localStorage.setItem('strata-web', '1'); return 'This browser'; },
-    load: async () => localStorage.getItem('strata-data'),
-    save: async (text) => {
-      try {
-        localStorage.setItem('strata-data', text);
-        return true;
-      } catch (e) {
-        return false;
-      }
-    }
-  };
-}
-
+/* ---------- Storage (Windows: data file in a folder; phone or browser: this browser) ---------- */
+const isElectron=!!(window.api&&typeof window.api.save==='function');
+if(!isElectron){window.api={device:async()=>({name:/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)?'Phone':'Web browser'}),folder:async()=>'This browser',choose:async()=>'This browser',
+ load:async()=>localStorage.getItem('strata-data'),save:async t=>{try{localStorage.setItem('strata-data',t);return true}catch(e){return false}}};
+ try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}}
 async function openFolder(f){
- let t=null;
- try{t=await api.load()}catch(e){
-   alert(isElectron
-     ? 'Your data file could not be read. Close other programs using it and restart the app.'
-     : 'Could not read saved data in this browser.');
-   return;
- }
- if(t){
-   try{S=norm(JSON.parse(t))}
-   catch(e){
-     alert(isElectron
-       ? 'Your data file is damaged. A backup copy (weekly-goals-data.bak.json) is in the same folder.'
-       : 'Saved data in this browser looks damaged. Use Import backup if you have a copy.');
-     return;
-   }
- } else { S=S||seed(); save(); }
+ let t=null;try{t=await api.load()}catch(e){alert(isElectron?'Your data file could not be read. Close other programs using it and restart the app.':'Saved data could not be read in this browser.');return}
+ if(t){try{S=norm(JSON.parse(t))}catch(e){alert(isElectron?'Your data file is damaged. A backup copy (weekly-goals-data.bak.json) is in the same folder.':'Saved data in this browser looks damaged. Use Import backup if you have a copy.');return}}
+ else{S=S||seed();save()}
  recalc();
- try{const d=await api.device();device=d.name}catch(e){
-   device=/Windows/.test(navigator.userAgent)?'Windows computer':(/Mobile/i.test(navigator.userAgent)?'Phone':'This device');
- }
- $('first').hidden=true;$('main').hidden=false;
- $('where').textContent=f;
- const ch=$('change-folder');
- if(ch) ch.hidden=!isElectron;
- show(page);
+ try{const d=await api.device();device=d.name}catch(e){device=/Windows/.test(navigator.userAgent)?'Windows computer':'This device'}
+ $('first').hidden=true;$('main').hidden=false;$('where').textContent=f;$('change-folder').hidden=!isElectron;$('web-note').hidden=isElectron;show(page);
 }
-async function pick(){
-  if(!isElectron){
-    // Web: just start with browser storage
-    localStorage.setItem('strata-web','1');
-    openFolder('This browser');
-    return;
-  }
-  const f=await api.choose();
-  if(f) openFolder(f);
-}
-(async()=>{
-  if(!isElectron){
-    // Adapt welcome copy for phone / browser
-    const msg=$('first-msg'), btn=$('first-btn');
-    if(msg) msg.textContent='Strata will save your goals in this browser (or as an installed web app on your phone). You can export a backup anytime from My Account.';
-    if(btn) btn.textContent='Get started';
-  }
-  try{
-    const f=await api.folder();
-    if(f) openFolder(f);
-    else $('first').hidden=false;
-  }catch(e){
-    $('first').hidden=false;
-  }
-})();
+async function pick(){const f=await api.choose();if(f)openFolder(f)}
+(async()=>{try{const f=await api.folder();if(f)openFolder(f);else $('first').hidden=false}catch(e){$('first').hidden=false}})();
+if('serviceWorker' in navigator&&/^https:|^http:\/\/localhost/.test(location.href))navigator.serviceWorker.register('sw.js').catch(()=>{});
 </script></body></html>
