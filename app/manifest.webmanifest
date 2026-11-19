@@ -1,18 +1,1 @@
-{
-  "name": "Strata",
-  "short_name": "Strata",
-  "description": "Weekly goals and steps, layer by layer",
-  "start_url": "./index.html",
-  "display": "standalone",
-  "orientation": "any",
-  "background_color": "#eef2f4",
-  "theme_color": "#0c2540",
-  "icons": [
-    {
-      "src": "icon.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
-  ]
-}
+{"name":"Strata","short_name":"Strata","description":"Goals and steps, layer by layer","start_url":"./","scope":"./","display":"standalone","orientation":"any","background_color":"#eef2f4","theme_color":"#0c2540","icons":[{"src":"icon-192.png","sizes":"192x192","type":"image/png","purpose":"any"},{"src":"icon-512.png","sizes":"512x512","type":"image/png","purpose":"any"},{"src":"icon-512.png","sizes":"512x512","type":"image/png","purpose":"maskable"}]}
